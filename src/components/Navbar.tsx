@@ -164,15 +164,19 @@ const Navbar: React.FC = () => {
         <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
           <div className="flex justify-between h-14 sm:h-16 items-center gap-2 sm:gap-4">
             {/* Logo */}
-            <div className="flex items-center flex-shrink-0">
+            <div className="flex items-center flex-shrink-0 -ml-2 sm:-ml-3">
               <Link to="/" className="flex items-center group">
-                <img 
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVkuVOTVubZ2tPnUYTjz6GeReN63BQvdb15w&s" 
-                  alt="Logo Explorando La Convención" 
-                  className={`h-10 w-10 sm:h-12 sm:w-12 object-contain transition-all duration-200 group-hover:scale-110 ${
-                    scrolled ? 'brightness-100' : 'brightness-0 invert'
-                  }`}
-                />
+                <div className={`${
+                  scrolled 
+                    ? 'bg-white dark:bg-slate-900 rounded-lg px-2 py-1 shadow-sm' 
+                    : 'bg-transparent'
+                } transition-all duration-300`}>
+                  <img 
+                    src="/images/logo navbar.png" 
+                    alt="Logo Explorando La Convención" 
+                    className="h-8 w-auto sm:h-10 lg:h-12 object-contain transition-all duration-200 group-hover:scale-105"
+                  />
+                </div>
               </Link>
             </div>
             
@@ -200,35 +204,36 @@ const Navbar: React.FC = () => {
                   <div className="relative" ref={userMenuRef}>
                     <button
                       onClick={() => setShowUserMenu(!showUserMenu)}
-                      className="flex items-center gap-2 px-3 py-2 bg-slate-100 dark:bg-slate-700 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors"
+                      className="w-10 h-10 rounded-full overflow-hidden border-2 border-slate-300 dark:border-slate-600 hover:border-emerald-500 dark:hover:border-emerald-400 transition-colors"
                     >
                       {user.picture ? (
                         <img 
                           src={user.picture} 
                           alt={user.name}
-                          className="w-8 h-8 rounded-full object-cover"
+                          className="w-full h-full object-cover"
                           referrerPolicy="no-referrer"
                         />
                       ) : (
-                        <div className="w-8 h-8 rounded-full bg-[#1B5E20] dark:bg-[#4CAF50] flex items-center justify-center">
+                        <div className="w-full h-full bg-[#1B5E20] dark:bg-[#4CAF50] flex items-center justify-center">
                           <span className="text-white font-bold text-sm">
                             {user.name.split(' ')[0].charAt(0)}
                           </span>
                         </div>
                       )}
-                      <span className="text-sm font-medium text-slate-800 dark:text-white max-w-[150px] truncate">
-                        {user.name.split(' ')[0]}
-                      </span>
                     </button>
 
                     {/* Menú desplegable */}
                     {showUserMenu && (
                       <div className="absolute right-0 mt-2 w-64 bg-white dark:bg-slate-800 rounded-lg shadow-2xl border border-gray-200 dark:border-slate-700 py-2 z-50">
                         {/* Mi perfil */}
-                        <button className="w-full px-4 py-3 flex items-center gap-3 hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors">
+                        <Link 
+                          to="/profile"
+                          onClick={() => setShowUserMenu(false)}
+                          className="w-full px-4 py-3 flex items-center gap-3 hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors"
+                        >
                           <UserCircle className="w-5 h-5 text-gray-600 dark:text-gray-400" />
                           <span className="text-sm text-gray-800 dark:text-white font-medium">Mi perfil</span>
-                        </button>
+                        </Link>
 
                         {/* Notificaciones */}
                         <button className="w-full px-4 py-3 flex items-center gap-3 hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors">
@@ -363,16 +368,14 @@ const Navbar: React.FC = () => {
           {/* Menú flotante */}
           <div className="absolute top-20 right-4 left-4 sm:left-auto sm:w-80 bg-white dark:bg-slate-800 rounded-lg shadow-2xl border border-gray-200 dark:border-slate-700 p-2">
             {/* Perfil */}
-            <button 
-              onClick={() => {
-                setShowUserMenu(false);
-                // TODO: Navigate to profile page
-              }}
+            <Link 
+              to="/profile"
+              onClick={() => setShowUserMenu(false)}
               className="w-full flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-700 text-slate-700 dark:text-gray-200 transition-colors duration-200"
             >
               <UserCircle className="w-5 h-5" />
               <span className="text-sm font-medium">Mi perfil</span>
-            </button>
+            </Link>
             
             {/* Notificaciones */}
             <button 

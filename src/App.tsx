@@ -10,26 +10,35 @@ import Tips from './pages/Tips';
 import Contact from './pages/Contact';
 import Blog from './pages/Blog';
 import Gastronomia from './pages/Gastronomia';
+import Profile from './pages/Profile';
 
 function App() {
   return (
     <Router>
-      <div className="min-h-screen flex flex-col">
-        <Navbar />
-        <main className="flex-1">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/destinations" element={<Destinations />} />
-            <Route path="/gallery" element={<Gallery />} />
-            <Route path="/tips" element={<Tips />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/gastronomia" element={<Gastronomia />} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
+      <Routes>
+        {/* Ruta de perfil sin Navbar y Footer */}
+        <Route path="/profile" element={<Profile />} />
+        
+        {/* Rutas con Navbar y Footer */}
+        <Route path="*" element={
+          <div className="min-h-screen flex flex-col">
+            <Navbar />
+            <main className="flex-1">
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/destinations" element={<Destinations />} />
+                <Route path="/gallery" element={<Gallery />} />
+                <Route path="/tips" element={<Tips />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/blog" element={<Blog />} />
+                <Route path="/gastronomia" element={<Gastronomia />} />
+              </Routes>
+            </main>
+            <Footer />
+          </div>
+        } />
+      </Routes>
     </Router>
   );
 }

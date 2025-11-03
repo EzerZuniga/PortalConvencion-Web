@@ -46,10 +46,10 @@ const Gallery: React.FC = () => {
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold text-[#212121] dark:text-white mb-4">
+            <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#212121] dark:text-white mb-4 tracking-tight">
               Galería de Fotos
             </h1>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+            <p className="text-base md:text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto font-light leading-relaxed">
               Un vistazo visual a los destinos más increíbles de La Convención.
             </p>
           </div>

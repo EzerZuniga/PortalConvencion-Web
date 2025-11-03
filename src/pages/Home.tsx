@@ -99,15 +99,15 @@ const Home: React.FC = () => {
         <div className="relative z-20 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
           <div className="text-center space-y-6 sm:space-y-8">
             {/* Main Title */}
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight px-4">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight px-4 tracking-tight">
               Descubre la magia de
-              <span className="block bg-gradient-to-r from-[#FDD835] via-[#4CAF50] to-[#FDD835] bg-clip-text text-transparent mt-2 sm:mt-3 drop-shadow-lg">
+              <span className="block bg-gradient-to-r from-[#FDD835] via-[#4CAF50] to-[#FDD835] bg-clip-text text-transparent mt-2 drop-shadow-lg">
                 La Convención
               </span>
             </h1>
             
             {/* Subtitle */}
-            <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/95 max-w-3xl mx-auto leading-relaxed px-4 drop-shadow-md">
+            <p className="text-base sm:text-lg md:text-xl text-white/95 max-w-3xl mx-auto leading-relaxed px-4 drop-shadow-md font-light">
               Explora destinos increíbles, conoce nuestra rica cultura y vive experiencias inolvidables en el corazón de Cusco
             </p>
             
@@ -138,12 +138,12 @@ const Home: React.FC = () => {
       <section className="py-16 sm:py-20 lg:py-24 bg-[#F5F5F5] dark:bg-slate-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header Section */}
-          <div className="text-center max-w-4xl mx-auto mb-12 sm:mb-16">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#212121] dark:text-white mb-6">
+          <div className="text-center max-w-4xl mx-auto mb-12">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#212121] dark:text-white mb-4 tracking-tight">
               ATENCIÓN AL VISITANTE
             </h2>
-            <div className="w-24 h-1 bg-[#4CAF50] mx-auto mb-6"></div>
-            <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+            <div className="w-20 h-1 bg-[#4CAF50] mx-auto mb-4"></div>
+            <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 leading-relaxed font-light">
               Información y servicios disponibles para hacer de tu visita una experiencia inolvidable
             </p>
           </div>
@@ -157,10 +157,10 @@ const Home: React.FC = () => {
                 <div className="absolute inset-0 bg-gradient-to-br from-[#1B5E20] via-[#4CAF50] to-[#1B5E20] transform scale-0 group-hover:scale-100 transition-transform duration-700 ease-out origin-center"></div>
                 
                 <div className="relative z-10 flex flex-col items-center text-center flex-1">
-                  <div className="w-20 h-20 sm:w-24 sm:h-24 bg-white dark:bg-slate-700 group-hover:bg-white rounded-2xl flex items-center justify-center mb-4 sm:mb-6 transition-all duration-500 shadow-lg border-4 border-[#212121] dark:border-white group-hover:border-[#1B5E20]">
-                    <MapPin className="w-10 h-10 sm:w-12 sm:h-12 text-[#212121] dark:text-white group-hover:text-[#1B5E20]" strokeWidth={3} />
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 bg-white dark:bg-slate-700 group-hover:bg-white rounded-2xl flex items-center justify-center mb-4 sm:mb-5 transition-all duration-500 shadow-lg border-3 border-[#212121] dark:border-white group-hover:border-[#1B5E20]">
+                    <MapPin className="w-8 h-8 sm:w-10 sm:h-10 text-[#212121] dark:text-white group-hover:text-[#1B5E20]" strokeWidth={2.5} />
                   </div>
-                  <h3 className="text-base sm:text-lg font-bold text-[#1B5E20] dark:text-white group-hover:text-white mb-2 sm:mb-3 transition-colors duration-500 uppercase tracking-wide">
+                  <h3 className="text-sm sm:text-base font-bold text-[#1B5E20] dark:text-white group-hover:text-white mb-2 sm:mb-3 transition-colors duration-500 uppercase tracking-wide">
                     Destinos Naturales
                   </h3>
                   <p className="text-xs sm:text-sm text-[#212121] dark:text-gray-300 group-hover:text-white/95 leading-relaxed transition-colors duration-500">
@@ -177,10 +177,10 @@ const Home: React.FC = () => {
                 <div className="absolute inset-0 bg-gradient-to-br from-[#FDD835] via-[#FBC02D] to-[#FDD835] transform scale-0 group-hover:scale-100 transition-transform duration-700 ease-out origin-center"></div>
                 
                 <div className="relative z-10 flex flex-col items-center text-center flex-1">
-                  <div className="w-20 h-20 sm:w-24 sm:h-24 bg-white dark:bg-slate-700 group-hover:bg-white rounded-2xl flex items-center justify-center mb-4 sm:mb-6 transition-all duration-500 shadow-lg border-4 border-[#212121] dark:border-white group-hover:border-[#212121]">
-                    <Utensils className="w-10 h-10 sm:w-12 sm:h-12 text-[#212121] dark:text-white group-hover:text-[#212121]" strokeWidth={3} />
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 bg-white dark:bg-slate-700 group-hover:bg-white rounded-2xl flex items-center justify-center mb-4 sm:mb-5 transition-all duration-500 shadow-lg border-3 border-[#212121] dark:border-white group-hover:border-[#212121]">
+                    <Utensils className="w-8 h-8 sm:w-10 sm:h-10 text-[#212121] dark:text-white group-hover:text-[#212121]" strokeWidth={2.5} />
                   </div>
-                  <h3 className="text-base sm:text-lg font-bold text-[#1B5E20] dark:text-white group-hover:text-[#1B5E20] mb-2 sm:mb-3 transition-colors duration-500 uppercase tracking-wide">
+                  <h3 className="text-sm sm:text-base font-bold text-[#1B5E20] dark:text-white group-hover:text-[#1B5E20] mb-2 sm:mb-3 transition-colors duration-500 uppercase tracking-wide">
                     Gastronomía Regional
                   </h3>
                   <p className="text-xs sm:text-sm text-[#212121] dark:text-gray-300 group-hover:text-[#1B5E20]/95 leading-relaxed transition-colors duration-500">
@@ -197,10 +197,10 @@ const Home: React.FC = () => {
                 <div className="absolute inset-0 bg-gradient-to-br from-[#C62828] via-[#E53935] to-[#C62828] transform scale-0 group-hover:scale-100 transition-transform duration-700 ease-out origin-center"></div>
                 
                 <div className="relative z-10 flex flex-col items-center text-center flex-1">
-                  <div className="w-20 h-20 sm:w-24 sm:h-24 bg-white dark:bg-slate-700 group-hover:bg-white rounded-2xl flex items-center justify-center mb-4 sm:mb-6 transition-all duration-500 shadow-lg border-4 border-[#212121] dark:border-white group-hover:border-[#C62828]">
-                    <Heart className="w-10 h-10 sm:w-12 sm:h-12 text-[#212121] dark:text-white group-hover:text-[#C62828]" strokeWidth={3} />
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 bg-white dark:bg-slate-700 group-hover:bg-white rounded-2xl flex items-center justify-center mb-4 sm:mb-5 transition-all duration-500 shadow-lg border-3 border-[#212121] dark:border-white group-hover:border-[#C62828]">
+                    <Heart className="w-8 h-8 sm:w-10 sm:h-10 text-[#212121] dark:text-white group-hover:text-[#C62828]" strokeWidth={2.5} />
                   </div>
-                  <h3 className="text-base sm:text-lg font-bold text-[#1B5E20] dark:text-white group-hover:text-white mb-2 sm:mb-3 transition-colors duration-500 uppercase tracking-wide">
+                  <h3 className="text-sm sm:text-base font-bold text-[#1B5E20] dark:text-white group-hover:text-white mb-2 sm:mb-3 transition-colors duration-500 uppercase tracking-wide">
                     Cultura Andina
                   </h3>
                   <p className="text-xs sm:text-sm text-[#212121] dark:text-gray-300 group-hover:text-white/95 leading-relaxed transition-colors duration-500">
@@ -217,10 +217,10 @@ const Home: React.FC = () => {
                 <div className="absolute inset-0 bg-gradient-to-br from-[#4CAF50] via-[#66BB6A] to-[#4CAF50] transform scale-0 group-hover:scale-100 transition-transform duration-700 ease-out origin-center"></div>
                 
                 <div className="relative z-10 flex flex-col items-center text-center flex-1">
-                  <div className="w-20 h-20 sm:w-24 sm:h-24 bg-white dark:bg-slate-700 group-hover:bg-white rounded-2xl flex items-center justify-center mb-4 sm:mb-6 transition-all duration-500 shadow-lg border-4 border-[#212121] dark:border-white group-hover:border-[#4CAF50]">
-                    <Compass className="w-10 h-10 sm:w-12 sm:h-12 text-[#212121] dark:text-white group-hover:text-[#4CAF50]" strokeWidth={3} />
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 bg-white dark:bg-slate-700 group-hover:bg-white rounded-2xl flex items-center justify-center mb-4 sm:mb-5 transition-all duration-500 shadow-lg border-3 border-[#212121] dark:border-white group-hover:border-[#4CAF50]">
+                    <Compass className="w-8 h-8 sm:w-10 sm:h-10 text-[#212121] dark:text-white group-hover:text-[#4CAF50]" strokeWidth={2.5} />
                   </div>
-                  <h3 className="text-base sm:text-lg font-bold text-[#1B5E20] dark:text-white group-hover:text-white mb-2 sm:mb-3 transition-colors duration-500 uppercase tracking-wide">
+                  <h3 className="text-sm sm:text-base font-bold text-[#1B5E20] dark:text-white group-hover:text-white mb-2 sm:mb-3 transition-colors duration-500 uppercase tracking-wide">
                     Guías y Consejos
                   </h3>
                   <p className="text-xs sm:text-sm text-[#212121] dark:text-gray-300 group-hover:text-white/95 leading-relaxed transition-colors duration-500">
@@ -236,12 +236,12 @@ const Home: React.FC = () => {
       {/* Estadísticas y Datos - Diseño Alternado Horizontal */}
       <section className="py-16 sm:py-20 lg:py-24 bg-gradient-to-b from-white to-[#F5F5F5] dark:from-slate-950 dark:to-slate-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-4xl mx-auto mb-12 sm:mb-16">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#212121] dark:text-white mb-6 uppercase tracking-wide">
+          <div className="text-center max-w-4xl mx-auto mb-12">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#212121] dark:text-white mb-4 tracking-tight">
               LA CONVENCIÓN EN CIFRAS
             </h2>
-            <div className="w-24 h-1 bg-[#4CAF50] mx-auto mb-6"></div>
-            <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+            <div className="w-20 h-1 bg-[#4CAF50] mx-auto mb-4"></div>
+            <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 leading-relaxed font-light">
               Datos destacados que reflejan la riqueza y diversidad de nuestra provincia
             </p>
           </div>
@@ -263,15 +263,15 @@ const Home: React.FC = () => {
                 {/* Contenido */}
                 <div className="p-6 sm:p-8 flex flex-col justify-center">
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="w-12 h-12 sm:w-14 sm:h-14 bg-white dark:bg-slate-700 border-4 border-[#212121] dark:border-white rounded-lg flex items-center justify-center flex-shrink-0">
-                      <MapPin strokeWidth={3} className="w-6 h-6 sm:w-7 sm:h-7 text-[#212121] dark:text-white" />
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white dark:bg-slate-700 border-3 border-[#212121] dark:border-white rounded-lg flex items-center justify-center flex-shrink-0">
+                      <MapPin strokeWidth={2.5} className="w-5 h-5 sm:w-6 sm:h-6 text-[#212121] dark:text-white" />
                     </div>
-                    <div className="text-4xl sm:text-5xl lg:text-6xl font-bold text-[#212121] dark:text-white tracking-tight">
+                    <div className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#212121] dark:text-white tracking-tight">
                       {counter1.count}+
                     </div>
                   </div>
                   
-                  <h3 className="text-xl sm:text-2xl font-bold text-[#212121] dark:text-white mb-3 uppercase tracking-wide">
+                  <h3 className="text-lg sm:text-xl font-bold text-[#212121] dark:text-white mb-3 uppercase tracking-wide">
                     Distritos
                   </h3>
                   
@@ -288,15 +288,15 @@ const Home: React.FC = () => {
                 {/* Contenido - Orden invertido en desktop */}
                 <div className="p-6 sm:p-8 flex flex-col justify-center order-2 md:order-1">
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="w-12 h-12 sm:w-14 sm:h-14 bg-white dark:bg-slate-700 border-4 border-[#212121] dark:border-white rounded-lg flex items-center justify-center flex-shrink-0">
-                      <Camera strokeWidth={3} className="w-6 h-6 sm:w-7 sm:h-7 text-[#212121] dark:text-white" />
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white dark:bg-slate-700 border-3 border-[#212121] dark:border-white rounded-lg flex items-center justify-center flex-shrink-0">
+                      <Camera strokeWidth={2.5} className="w-5 h-5 sm:w-6 sm:h-6 text-[#212121] dark:text-white" />
                     </div>
-                    <div className="text-4xl sm:text-5xl lg:text-6xl font-bold text-[#212121] dark:text-white tracking-tight">
+                    <div className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#212121] dark:text-white tracking-tight">
                       {counter2.count}+
                     </div>
                   </div>
                   
-                  <h3 className="text-xl sm:text-2xl font-bold text-[#212121] dark:text-white mb-3 uppercase tracking-wide">
+                  <h3 className="text-lg sm:text-xl font-bold text-[#212121] dark:text-white mb-3 uppercase tracking-wide">
                     Atractivos Turísticos
                   </h3>
                   
@@ -333,15 +333,15 @@ const Home: React.FC = () => {
                 {/* Contenido */}
                 <div className="p-6 sm:p-8 flex flex-col justify-center">
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="w-12 h-12 sm:w-14 sm:h-14 bg-white dark:bg-slate-700 border-4 border-[#212121] dark:border-white rounded-lg flex items-center justify-center flex-shrink-0">
-                      <Utensils strokeWidth={3} className="w-6 h-6 sm:w-7 sm:h-7 text-[#212121] dark:text-white" />
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white dark:bg-slate-700 border-3 border-[#212121] dark:border-white rounded-lg flex items-center justify-center flex-shrink-0">
+                      <Utensils strokeWidth={2.5} className="w-5 h-5 sm:w-6 sm:h-6 text-[#212121] dark:text-white" />
                     </div>
-                    <div className="text-4xl sm:text-5xl lg:text-6xl font-bold text-[#212121] dark:text-white tracking-tight">
+                    <div className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#212121] dark:text-white tracking-tight">
                       {counter3.count}+
                     </div>
                   </div>
                   
-                  <h3 className="text-xl sm:text-2xl font-bold text-[#212121] dark:text-white mb-3 uppercase tracking-wide">
+                  <h3 className="text-lg sm:text-xl font-bold text-[#212121] dark:text-white mb-3 uppercase tracking-wide">
                     Platos Típicos
                   </h3>
                   
@@ -358,15 +358,15 @@ const Home: React.FC = () => {
                 {/* Contenido - Orden invertido en desktop */}
                 <div className="p-6 sm:p-8 flex flex-col justify-center order-2 md:order-1">
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="w-12 h-12 sm:w-14 sm:h-14 bg-white dark:bg-slate-700 border-4 border-[#212121] dark:border-white rounded-lg flex items-center justify-center flex-shrink-0">
-                      <Calendar strokeWidth={3} className="w-6 h-6 sm:w-7 sm:h-7 text-[#212121] dark:text-white" />
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white dark:bg-slate-700 border-3 border-[#212121] dark:border-white rounded-lg flex items-center justify-center flex-shrink-0">
+                      <Calendar strokeWidth={2.5} className="w-5 h-5 sm:w-6 sm:h-6 text-[#212121] dark:text-white" />
                     </div>
-                    <div className="text-4xl sm:text-5xl lg:text-6xl font-bold text-[#212121] dark:text-white tracking-tight">
+                    <div className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#212121] dark:text-white tracking-tight">
                       {counter4.count}
                     </div>
                   </div>
                   
-                  <h3 className="text-xl sm:text-2xl font-bold text-[#212121] dark:text-white mb-3 uppercase tracking-wide">
+                  <h3 className="text-lg sm:text-xl font-bold text-[#212121] dark:text-white mb-3 uppercase tracking-wide">
                     Días de Aventura
                   </h3>
                   
@@ -407,17 +407,17 @@ const Home: React.FC = () => {
                   <div className="w-full">
                     <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-5">
                       {/* Ícono */}
-                      <div className="w-14 h-14 sm:w-16 sm:h-16 bg-white dark:bg-slate-800 border-4 border-[#212121] dark:border-white rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
-                        <Sparkles strokeWidth={3} className="w-7 h-7 sm:w-8 sm:h-8 text-[#212121] dark:text-white" />
+                      <div className="w-12 h-12 sm:w-14 sm:h-14 bg-white dark:bg-slate-800 border-3 border-[#212121] dark:border-white rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
+                        <Sparkles strokeWidth={2.5} className="w-6 h-6 sm:w-7 sm:h-7 text-[#212121] dark:text-white" />
                       </div>
                       
                       {/* Texto */}
                       <div className="text-white text-center sm:text-left space-y-2 flex-1">
-                        <h3 className="text-xl sm:text-2xl font-bold leading-tight">
+                        <h3 className="text-lg sm:text-xl font-bold leading-tight">
                           La provincia más verde de Cusco
                         </h3>
                         <p className="text-sm sm:text-base leading-relaxed">
-                          Hogar de más de <span className="font-bold text-[#FDD835] text-lg sm:text-xl">{counter5.count}+</span> especies de aves y una biodiversidad incomparable que la convierte en un paraíso natural.
+                          Hogar de más de <span className="font-bold text-[#FDD835] text-base sm:text-lg">{counter5.count}+</span> especies de aves y una biodiversidad incomparable que la convierte en un paraíso natural.
                         </p>
                       </div>
                     </div>
@@ -432,21 +432,21 @@ const Home: React.FC = () => {
       {/* Trámites y Servicios - Colores Oficiales */}
       <section className="py-16 sm:py-20 lg:py-24 bg-gradient-to-b from-[#F5F5F5] to-white dark:from-slate-900 dark:to-slate-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-4xl mx-auto mb-12 sm:mb-16">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#212121] dark:text-white mb-6 uppercase tracking-wide">
+          <div className="text-center max-w-4xl mx-auto mb-12">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#212121] dark:text-white mb-4 tracking-tight">
               ATENCIÓN AL VISITANTE
             </h2>
-            <div className="w-24 h-1 bg-[#4CAF50] mx-auto mb-6"></div>
-            <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
-              Información y servicios disponibles para hacer de tu visita una experiencia inolvidable
+            <div className="w-20 h-1 bg-[#4CAF50] mx-auto mb-4"></div>
+            <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 leading-relaxed font-light">
+              Todo lo que necesitas saber para disfrutar tu visita
             </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <Link to="/destinations" className="group bg-white dark:bg-slate-800 border-2 border-[#E8F5E9] dark:border-slate-700 hover:border-[#4CAF50] dark:hover:border-emerald-500 rounded-xl p-6 transition-all duration-300 hover:shadow-xl">
               <div className="flex items-start gap-4">
-                <div className="w-16 h-16 bg-white dark:bg-slate-700 rounded-2xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 border-3 border-[#212121] dark:border-white group-hover:border-[#4CAF50] transition-all duration-300 shadow-md">
-                  <MapPin className="w-8 h-8 text-[#212121] dark:text-white group-hover:text-[#4CAF50]" strokeWidth={3} />
+                <div className="w-14 h-14 bg-white dark:bg-slate-700 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 border-3 border-[#212121] dark:border-white group-hover:border-[#4CAF50] transition-all duration-300 shadow-md">
+                  <MapPin className="w-7 h-7 text-[#212121] dark:text-white group-hover:text-[#4CAF50]" strokeWidth={2.5} />
                 </div>
                 <div className="flex-1">
                   <h3 className="text-lg font-bold text-[#212121] dark:text-white mb-2 uppercase tracking-wide">
@@ -461,8 +461,8 @@ const Home: React.FC = () => {
 
             <Link to="/gastronomia" className="group bg-white dark:bg-slate-800 border-2 border-[#FFF9C4] dark:border-slate-700 hover:border-[#FDD835] dark:hover:border-orange-500 rounded-xl p-6 transition-all duration-300 hover:shadow-xl">
               <div className="flex items-start gap-4">
-                <div className="w-16 h-16 bg-white dark:bg-slate-700 rounded-2xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 border-3 border-[#212121] dark:border-white group-hover:border-[#FDD835] transition-all duration-300 shadow-md">
-                  <Utensils className="w-8 h-8 text-[#212121] dark:text-white group-hover:text-[#FDD835]" strokeWidth={3} />
+                <div className="w-14 h-14 bg-white dark:bg-slate-700 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 border-3 border-[#212121] dark:border-white group-hover:border-[#FDD835] transition-all duration-300 shadow-md">
+                  <Utensils className="w-7 h-7 text-[#212121] dark:text-white group-hover:text-[#FDD835]" strokeWidth={2.5} />
                 </div>
                 <div className="flex-1">
                   <h3 className="text-lg font-bold text-[#212121] dark:text-white mb-2 uppercase tracking-wide">
@@ -477,8 +477,8 @@ const Home: React.FC = () => {
 
             <Link to="/gallery" className="group bg-white dark:bg-slate-800 border-2 border-[#E8F5E9] dark:border-slate-700 hover:border-[#4CAF50] dark:hover:border-blue-500 rounded-xl p-6 transition-all duration-300 hover:shadow-xl">
               <div className="flex items-start gap-4">
-                <div className="w-16 h-16 bg-white dark:bg-slate-700 rounded-2xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 border-3 border-[#212121] dark:border-white group-hover:border-[#1B5E20] transition-all duration-300 shadow-md">
-                  <Camera className="w-8 h-8 text-[#212121] dark:text-white group-hover:text-[#1B5E20]" strokeWidth={3} />
+                <div className="w-14 h-14 bg-white dark:bg-slate-700 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 border-3 border-[#212121] dark:border-white group-hover:border-[#1B5E20] transition-all duration-300 shadow-md">
+                  <Camera className="w-7 h-7 text-[#212121] dark:text-white group-hover:text-[#1B5E20]" strokeWidth={2.5} />
                 </div>
                 <div className="flex-1">
                   <h3 className="text-lg font-bold text-[#212121] dark:text-white mb-2 uppercase tracking-wide">
@@ -493,8 +493,8 @@ const Home: React.FC = () => {
 
             <Link to="/tips" className="group bg-white dark:bg-slate-800 border-2 border-[#E8F5E9] dark:border-slate-700 hover:border-[#1B5E20] dark:hover:border-purple-500 rounded-xl p-6 transition-all duration-300 hover:shadow-xl">
               <div className="flex items-start gap-4">
-                <div className="w-16 h-16 bg-white dark:bg-slate-700 rounded-2xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 border-3 border-[#212121] dark:border-white group-hover:border-[#1B5E20] transition-all duration-300 shadow-md">
-                  <Compass className="w-8 h-8 text-[#212121] dark:text-white group-hover:text-[#1B5E20]" strokeWidth={3} />
+                <div className="w-14 h-14 bg-white dark:bg-slate-700 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 border-3 border-[#212121] dark:border-white group-hover:border-[#1B5E20] transition-all duration-300 shadow-md">
+                  <Compass className="w-7 h-7 text-[#212121] dark:text-white group-hover:text-[#1B5E20]" strokeWidth={2.5} />
                 </div>
                 <div className="flex-1">
                   <h3 className="text-lg font-bold text-[#212121] dark:text-white mb-2 uppercase tracking-wide">
@@ -509,8 +509,8 @@ const Home: React.FC = () => {
 
             <Link to="/about" className="group bg-white dark:bg-slate-800 border-2 border-[#FFEBEE] dark:border-slate-700 hover:border-[#C62828] dark:hover:border-pink-500 rounded-xl p-6 transition-all duration-300 hover:shadow-xl">
               <div className="flex items-start gap-4">
-                <div className="w-16 h-16 bg-white dark:bg-slate-700 rounded-2xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 border-3 border-[#212121] dark:border-white group-hover:border-[#C62828] transition-all duration-300 shadow-md">
-                  <Heart className="w-8 h-8 text-[#212121] dark:text-white group-hover:text-[#C62828]" strokeWidth={3} />
+                <div className="w-14 h-14 bg-white dark:bg-slate-700 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 border-3 border-[#212121] dark:border-white group-hover:border-[#C62828] transition-all duration-300 shadow-md">
+                  <Heart className="w-7 h-7 text-[#212121] dark:text-white group-hover:text-[#C62828]" strokeWidth={2.5} />
                 </div>
                 <div className="flex-1">
                   <h3 className="text-lg font-bold text-[#212121] dark:text-white mb-2 uppercase tracking-wide">
@@ -525,8 +525,8 @@ const Home: React.FC = () => {
 
             <Link to="/blog" className="group bg-white dark:bg-slate-800 border-2 border-[#E8F5E9] dark:border-slate-700 hover:border-[#4CAF50] dark:hover:border-teal-500 rounded-xl p-6 transition-all duration-300 hover:shadow-xl">
               <div className="flex items-start gap-4">
-                <div className="w-16 h-16 bg-white dark:bg-slate-700 rounded-2xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 border-3 border-[#212121] dark:border-white group-hover:border-[#4CAF50] transition-all duration-300 shadow-md">
-                  <TrendingUp className="w-8 h-8 text-[#212121] dark:text-white group-hover:text-[#4CAF50]" strokeWidth={3} />
+                <div className="w-14 h-14 bg-white dark:bg-slate-700 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 border-3 border-[#212121] dark:border-white group-hover:border-[#4CAF50] transition-all duration-300 shadow-md">
+                  <TrendingUp className="w-7 h-7 text-[#212121] dark:text-white group-hover:text-[#4CAF50]" strokeWidth={2.5} />
                 </div>
                 <div className="flex-1">
                   <h3 className="text-lg font-bold text-[#212121] dark:text-white mb-2 uppercase tracking-wide">
@@ -545,8 +545,8 @@ const Home: React.FC = () => {
       {/* Blog y Contenido Destacado */}
       <section className="py-16 sm:py-20 lg:py-24 bg-white dark:bg-slate-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-4xl mx-auto mb-12 sm:mb-16">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#212121] dark:text-white mb-6 uppercase tracking-wide">
+          <div className="text-center max-w-4xl mx-auto mb-12">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#212121] dark:text-white mb-4 tracking-tight">
               ÚLTIMAS PUBLICACIONES
             </h2>
             <div className="w-24 h-1 bg-[#4CAF50] mx-auto mb-6"></div>
@@ -577,42 +577,42 @@ const Home: React.FC = () => {
       {/* Recomendaciones para Viajeros */}
       <section className="py-16 sm:py-20 lg:py-24 bg-gradient-to-br from-[#1B5E20] via-[#2E7D32] to-[#4CAF50] dark:from-emerald-800 dark:via-emerald-700 dark:to-teal-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-4xl mx-auto mb-12 sm:mb-16">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6 uppercase tracking-wide">
+          <div className="text-center max-w-4xl mx-auto mb-12">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6 uppercase tracking-tight">
               PREPARA TU VIAJE
             </h2>
             <div className="w-24 h-1 bg-white/80 mx-auto mb-6"></div>
-            <p className="text-base sm:text-lg text-white/95 leading-relaxed">
+            <p className="text-base sm:text-lg text-white/95 leading-relaxed font-light">
               Consejos esenciales para una experiencia segura e inolvidable
             </p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
             <div className="bg-white/95 dark:bg-slate-800/95 backdrop-blur-sm rounded-xl p-6 sm:p-8 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
-              <div className="w-14 h-14 sm:w-16 sm:h-16 bg-white dark:bg-slate-700 rounded-2xl flex items-center justify-center mb-5 sm:mb-6 border-4 border-[#212121] dark:border-white shadow-lg">
-                <CheckCircle className="w-7 h-7 sm:w-8 sm:h-8 text-[#212121] dark:text-white" strokeWidth={3} />
+              <div className="w-14 h-14 bg-white dark:bg-slate-700 rounded-xl flex items-center justify-center mb-5 border-3 border-[#212121] dark:border-white shadow-lg">
+                <CheckCircle className="w-7 h-7 text-[#212121] dark:text-white" strokeWidth={2.5} />
               </div>
-              <h3 className="text-xl sm:text-2xl font-bold text-[#212121] dark:text-white mb-3 sm:mb-4 uppercase tracking-wide">Planifica</h3>
+              <h3 className="text-xl font-bold text-[#212121] dark:text-white mb-4 uppercase tracking-wide">Planifica</h3>
               <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed">
                 Investiga destinos, verifica el clima y reserva con anticipación para una mejor experiencia.
               </p>
             </div>
 
             <div className="bg-white/95 dark:bg-slate-800/95 backdrop-blur-sm rounded-xl p-6 sm:p-8 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
-              <div className="w-14 h-14 sm:w-16 sm:h-16 bg-white dark:bg-slate-700 rounded-2xl flex items-center justify-center mb-5 sm:mb-6 border-4 border-[#212121] dark:border-white shadow-lg">
-                <Compass className="w-7 h-7 sm:w-8 sm:h-8 text-[#212121] dark:text-white" strokeWidth={3} />
+              <div className="w-14 h-14 bg-white dark:bg-slate-700 rounded-xl flex items-center justify-center mb-5 border-3 border-[#212121] dark:border-white shadow-lg">
+                <Compass className="w-7 h-7 text-[#212121] dark:text-white" strokeWidth={2.5} />
               </div>
-              <h3 className="text-xl sm:text-2xl font-bold text-[#212121] dark:text-white mb-3 sm:mb-4 uppercase tracking-wide">Explora</h3>
+              <h3 className="text-xl font-bold text-[#212121] dark:text-white mb-4 uppercase tracking-wide">Explora</h3>
               <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed">
                 Descubre cascadas, bosques tropicales y paisajes únicos con guías locales certificados.
               </p>
             </div>
 
             <div className="bg-white/95 dark:bg-slate-800/95 backdrop-blur-sm rounded-xl p-6 sm:p-8 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
-              <div className="w-14 h-14 sm:w-16 sm:h-16 bg-white dark:bg-slate-700 rounded-2xl flex items-center justify-center mb-5 sm:mb-6 border-4 border-[#212121] dark:border-white shadow-lg">
-                <Heart className="w-7 h-7 sm:w-8 sm:h-8 text-[#212121] dark:text-white" strokeWidth={3} />
+              <div className="w-14 h-14 bg-white dark:bg-slate-700 rounded-xl flex items-center justify-center mb-5 border-3 border-[#212121] dark:border-white shadow-lg">
+                <Heart className="w-7 h-7 text-[#212121] dark:text-white" strokeWidth={2.5} />
               </div>
-              <h3 className="text-xl sm:text-2xl font-bold text-[#212121] dark:text-white mb-3 sm:mb-4 uppercase tracking-wide">Disfruta</h3>
+              <h3 className="text-xl font-bold text-[#212121] dark:text-white mb-4 uppercase tracking-wide">Disfruta</h3>
               <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed">
                 Vive la cultura, gastronomía y hospitalidad única de La Convención.
               </p>
@@ -635,12 +635,12 @@ const Home: React.FC = () => {
       {/* Ubicación y Contacto - Estilo Institucional */}
       <section className="py-16 sm:py-20 lg:py-24 bg-[#F5F5F5] dark:bg-slate-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-4xl mx-auto mb-12 sm:mb-16">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#212121] dark:text-white mb-6 uppercase tracking-wide">
+          <div className="text-center max-w-4xl mx-auto mb-12">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#212121] dark:text-white mb-6 uppercase tracking-tight">
               ENCUÉNTRANOS
             </h2>
             <div className="w-24 h-1 bg-[#4CAF50] mx-auto mb-6"></div>
-            <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+            <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 leading-relaxed font-light">
               Capital de la Provincia de La Convención
             </p>
           </div>
@@ -667,8 +667,8 @@ const Home: React.FC = () => {
             <div className="order-1 lg:order-2 space-y-6">
               <div className="bg-white dark:bg-slate-900 border-2 border-[#E8F5E9] dark:border-slate-800 rounded-xl p-6 group hover:border-[#1B5E20] transition-all duration-300">
                 <div className="flex items-start gap-4">
-                  <div className="w-14 h-14 bg-white dark:bg-slate-700 rounded-2xl flex items-center justify-center flex-shrink-0 border-4 border-[#212121] dark:border-white group-hover:border-[#1B5E20] transition-all duration-300 shadow-md">
-                    <MapPin className="w-7 h-7 text-[#212121] dark:text-white group-hover:text-[#1B5E20]" strokeWidth={3} />
+                  <div className="w-14 h-14 bg-white dark:bg-slate-700 rounded-xl flex items-center justify-center flex-shrink-0 border-3 border-[#212121] dark:border-white group-hover:border-[#1B5E20] transition-all duration-300 shadow-md">
+                    <MapPin className="w-7 h-7 text-[#212121] dark:text-white group-hover:text-[#1B5E20]" strokeWidth={2.5} />
                   </div>
                   <div className="flex-1">
                     <h3 className="text-lg font-bold text-[#212121] dark:text-white mb-2 uppercase tracking-wide">Ubicación</h3>
@@ -681,8 +681,8 @@ const Home: React.FC = () => {
 
               <div className="bg-white dark:bg-slate-900 border-2 border-[#E8F5E9] dark:border-slate-800 rounded-xl p-6 group hover:border-[#4CAF50] transition-all duration-300">
                 <div className="flex items-start gap-4">
-                  <div className="w-14 h-14 bg-white dark:bg-slate-700 rounded-2xl flex items-center justify-center flex-shrink-0 border-4 border-[#212121] dark:border-white group-hover:border-[#4CAF50] transition-all duration-300 shadow-md">
-                    <Compass className="w-7 h-7 text-[#212121] dark:text-white group-hover:text-[#4CAF50]" strokeWidth={3} />
+                  <div className="w-14 h-14 bg-white dark:bg-slate-700 rounded-xl flex items-center justify-center flex-shrink-0 border-3 border-[#212121] dark:border-white group-hover:border-[#4CAF50] transition-all duration-300 shadow-md">
+                    <Compass className="w-7 h-7 text-[#212121] dark:text-white group-hover:text-[#4CAF50]" strokeWidth={2.5} />
                   </div>
                   <div className="flex-1">
                     <h3 className="text-lg font-bold text-[#212121] dark:text-white mb-2 uppercase tracking-wide">Acceso</h3>
@@ -695,8 +695,8 @@ const Home: React.FC = () => {
 
               <div className="bg-white dark:bg-slate-900 border-2 border-[#FFF9C4] dark:border-slate-800 rounded-xl p-6 group hover:border-[#FDD835] transition-all duration-300">
                 <div className="flex items-start gap-4">
-                  <div className="w-14 h-14 bg-white dark:bg-slate-700 rounded-2xl flex items-center justify-center flex-shrink-0 border-4 border-[#212121] dark:border-white group-hover:border-[#FDD835] transition-all duration-300 shadow-md">
-                    <CheckCircle className="w-7 h-7 text-[#212121] dark:text-white group-hover:text-[#FDD835]" strokeWidth={3} />
+                  <div className="w-14 h-14 bg-white dark:bg-slate-700 rounded-xl flex items-center justify-center flex-shrink-0 border-3 border-[#212121] dark:border-white group-hover:border-[#FDD835] transition-all duration-300 shadow-md">
+                    <CheckCircle className="w-7 h-7 text-[#212121] dark:text-white group-hover:text-[#FDD835]" strokeWidth={2.5} />
                   </div>
                   <div className="flex-1">
                     <h3 className="text-lg font-bold text-[#212121] dark:text-white mb-2 uppercase tracking-wide">Altitud</h3>

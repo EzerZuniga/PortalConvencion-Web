@@ -33,10 +33,10 @@ const Contact: React.FC = () => {
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold text-[#212121] dark:text-white mb-4">
+            <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#212121] dark:text-white mb-4 tracking-tight">
               Contáctanos
             </h1>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+            <p className="text-base md:text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto font-light leading-relaxed">
               ¿Tienes preguntas, sugerencias o quieres colaborar con nosotros? 
               Estamos aquí para ayudarte.
             </p>
@@ -46,7 +46,7 @@ const Contact: React.FC = () => {
             {/* Contact Information */}
             <div className="lg:col-span-1">
               <div className="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-8 border-l-4 border-[#1B5E20]">
-                <h2 className="text-2xl font-bold text-[#212121] dark:text-white mb-6">
+                <h2 className="text-2xl md:text-3xl font-bold text-[#212121] dark:text-white mb-6 tracking-tight">
                   Información de Contacto
                 </h2>
                 

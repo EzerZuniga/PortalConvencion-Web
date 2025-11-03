@@ -109,8 +109,8 @@ const Gastronomia: React.FC = () => {
           <div className="inline-flex items-center justify-center w-20 h-20 bg-white rounded-full border-4 border-white mx-auto mb-4">
             <Utensils className="w-10 h-10 text-[#212121]" strokeWidth={3} />
           </div>
-          <h1 className="text-5xl md:text-6xl font-bold mb-4 drop-shadow-lg">Gastronomía</h1>
-          <p className="text-xl md:text-2xl max-w-3xl mx-auto px-4">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 drop-shadow-lg tracking-tight">Gastronomía</h1>
+          <p className="text-lg md:text-xl max-w-3xl mx-auto px-4 font-light">
             Sabores auténticos de La Convención
           </p>
         </div>
@@ -119,13 +119,13 @@ const Gastronomia: React.FC = () => {
       {/* Introducción */}
       <section className="section-padding bg-white dark:bg-slate-800">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl font-bold text-[#212121] dark:text-white mb-6">Un Viaje de Sabores</h2>
-          <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+          <h2 className="text-2xl md:text-3xl font-bold text-[#212121] dark:text-white mb-6 tracking-tight">Un Viaje de Sabores</h2>
+          <p className="text-base md:text-lg text-gray-600 dark:text-gray-300 leading-relaxed mb-6 font-light">
             La gastronomía de La Convención es un reflejo de su diversidad geográfica y cultural. 
             Desde las alturas andinas hasta la selva tropical, cada plato cuenta una historia de 
             tradición, innovación y respeto por los ingredientes locales.
           </p>
-          <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+          <p className="text-base md:text-lg text-gray-600 dark:text-gray-300 leading-relaxed font-light">
             Nuestro café de altura y cacao fino son reconocidos internacionalmente, mientras que 
             nuestros platos tradicionales mantienen vivas las recetas ancestrales de nuestros pueblos.
           </p>
@@ -139,8 +139,8 @@ const Gastronomia: React.FC = () => {
             <div className="inline-flex items-center justify-center w-14 h-14 bg-white dark:bg-slate-700 rounded-full border-4 border-[#212121] dark:border-white mx-auto mb-4">
               <Pizza className="w-7 h-7 text-[#212121] dark:text-white" strokeWidth={3} />
             </div>
-            <h2 className="text-4xl font-bold text-[#212121] dark:text-white mb-4">Platos Típicos</h2>
-            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+            <h2 className="text-2xl md:text-3xl font-bold text-[#212121] dark:text-white mb-4 tracking-tight">Platos Típicos</h2>
+            <p className="text-base md:text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto font-light leading-relaxed">
               Descubre los sabores que hacen única a nuestra región
             </p>
           </div>
