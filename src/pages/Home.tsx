@@ -3,6 +3,7 @@ import { MapPin, Camera, Compass, TrendingUp, Utensils, Heart, CheckCircle, Cale
 import { Link } from 'react-router-dom';
 import PostCard from '../components/PostCard';
 import { posts } from '../data/posts';
+import { SEO } from '../components/SEO';
 
 // Hook personalizado para animación de contadores
 const useCounterAnimation = (end: number, duration: number = 2000, start: number = 0) => {
@@ -76,6 +77,12 @@ const Home: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-slate-950">
+      <SEO 
+        title="Explorando la Convención - Blog de Viajes y Turismo en Perú | Guías Completas"
+        description="Descubre los mejores destinos turísticos de La Convención, Cusco y Perú. Guías de viaje, consejos prácticos, gastronomía y experiencias únicas de aventura."
+        keywords="La Convención, turismo Cusco, viajes Perú, destinos turísticos, blog de viajes, guías de viaje, aventuras, gastronomía peruana"
+        url="https://explorando-la-convencion-web-eta.vercel.app/"
+      />
       {/* Hero Section - Colores Oficiales La Convención */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         {/* Background Image sin overlay verde */}

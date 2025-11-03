@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Calendar, User, Tag, Search } from 'lucide-react';
+import { SEO } from '../components/SEO';
 
 interface BlogPost {
   id: number;
@@ -90,6 +91,13 @@ const Blog: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-slate-900">
+      <SEO 
+        title="Blog de Viajes - Explorando la Convención | Artículos y Consejos de Turismo"
+        description="Lee nuestros últimos artículos sobre viajes, destinos turísticos de La Convención y Cusco, consejos prácticos y experiencias de viaje en Perú."
+        keywords="blog de viajes, artículos de turismo, consejos de viaje, destinos Perú, La Convención, blog turismo"
+        url="https://tu-dominio.com/blog"
+        type="blog"
+      />
       {/* Hero Section */}
       <section className="relative h-96 flex items-center justify-center text-white">
         <img 
