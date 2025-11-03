@@ -10,16 +10,16 @@ const Destinations: React.FC = () => {
     : posts.filter(post => post.category === selectedCategory);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-slate-900">
       <div className="section-padding">
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">
+            <h1 className="text-4xl font-bold text-[#212121] dark:text-white mb-4">
               Todos los Destinos
             </h1>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Explora nuestra colección completa de artículos sobre viajes, destinos y experiencias alrededor del mundo.
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+              Explora nuestra colección completa de artículos sobre viajes, destinos y experiencias en La Convención.
             </p>
           </div>
 
@@ -31,8 +31,8 @@ const Destinations: React.FC = () => {
                 onClick={() => setSelectedCategory(category)}
                 className={`px-6 py-3 rounded-full font-medium transition-colors duration-200 ${
                   selectedCategory === category
-                    ? 'bg-primary-600 text-white'
-                    : 'bg-white text-gray-700 hover:bg-gray-100'
+                    ? 'bg-[#1B5E20] dark:bg-[#4CAF50] text-white'
+                    : 'bg-white dark:bg-slate-800 text-[#212121] dark:text-white hover:bg-gray-100 dark:hover:bg-slate-700'
                 }`}
               >
                 {category}
@@ -49,7 +49,7 @@ const Destinations: React.FC = () => {
 
           {filteredPosts.length === 0 && (
             <div className="text-center py-12">
-              <p className="text-gray-500 text-lg">
+              <p className="text-gray-600 dark:text-gray-300 text-lg">
                 No hay artículos en esta categoría.
               </p>
             </div>

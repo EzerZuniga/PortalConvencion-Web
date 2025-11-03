@@ -89,7 +89,7 @@ const Blog: React.FC = () => {
   });
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-slate-900">
       {/* Hero Section */}
       <section className="relative h-96 flex items-center justify-center text-white">
         <img 
@@ -107,18 +107,18 @@ const Blog: React.FC = () => {
       </section>
 
       {/* Buscador y Filtros */}
-      <section className="section-padding bg-white border-b">
+      <section className="section-padding bg-white dark:bg-slate-800 border-b border-gray-200 dark:border-slate-700">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row gap-6 items-center justify-between">
             {/* Buscador */}
             <div className="relative w-full md:w-96">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500 w-5 h-5" />
               <input
                 type="text"
                 placeholder="Buscar artículos..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="w-full pl-10 pr-4 py-3 border-2 border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-[#212121] dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-[#4CAF50]"
               />
             </div>
             
@@ -130,8 +130,8 @@ const Blog: React.FC = () => {
                   onClick={() => setSelectedCategory(category)}
                   className={`px-4 py-2 rounded-lg font-medium transition-colors duration-200 ${
                     selectedCategory === category
-                      ? 'bg-emerald-600 text-white'
-                      : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                      ? 'bg-[#1B5E20] dark:bg-[#4CAF50] text-white'
+                      : 'bg-gray-200 dark:bg-slate-700 text-[#212121] dark:text-white hover:bg-gray-300 dark:hover:bg-slate-600'
                   }`}
                 >
                   {category}
@@ -147,30 +147,30 @@ const Blog: React.FC = () => {
         <div className="max-w-7xl mx-auto">
           {filteredPosts.length === 0 ? (
             <div className="text-center py-16">
-              <p className="text-xl text-gray-600">No se encontraron artículos que coincidan con tu búsqueda.</p>
+              <p className="text-xl text-gray-600 dark:text-gray-300">No se encontraron artículos que coincidan con tu búsqueda.</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {filteredPosts.map(post => (
-                <article key={post.id} className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                <article key={post.id} className="bg-white dark:bg-slate-800 rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 border-t-4 border-[#1B5E20]">
                   <div className="relative h-48">
                     <img 
                       src={post.image} 
                       alt={post.title} 
                       className="w-full h-full object-cover"
                     />
-                    <span className="absolute top-4 left-4 bg-emerald-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                    <span className="absolute top-4 left-4 bg-[#212121] dark:bg-white text-white dark:text-[#212121] px-3 py-1 rounded-full text-sm font-semibold">
                       {post.category}
                     </span>
                   </div>
                   <div className="p-6">
-                    <h3 className="text-xl font-bold text-gray-900 mb-3 hover:text-emerald-600 transition-colors cursor-pointer">
+                    <h3 className="text-xl font-bold text-[#212121] dark:text-white mb-3 hover:text-[#1B5E20] dark:hover:text-[#4CAF50] transition-colors cursor-pointer">
                       {post.title}
                     </h3>
-                    <p className="text-gray-600 mb-4 line-clamp-3">
+                    <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
                       {post.excerpt}
                     </p>
-                    <div className="flex items-center justify-between text-sm text-gray-500 border-t pt-4">
+                    <div className="flex items-center justify-between text-sm text-gray-600 dark:text-gray-300 border-t border-gray-200 dark:border-slate-700 pt-4">
                       <div className="flex items-center gap-4">
                         <span className="flex items-center gap-1">
                           <User className="w-4 h-4" />
@@ -181,7 +181,7 @@ const Blog: React.FC = () => {
                           {post.date}
                         </span>
                       </div>
-                      <span className="text-emerald-600 font-medium">{post.readTime}</span>
+                      <span className="text-[#212121] dark:text-white font-medium">{post.readTime}</span>
                     </div>
                   </div>
                 </article>
@@ -192,7 +192,7 @@ const Blog: React.FC = () => {
       </section>
 
       {/* Newsletter */}
-      <section className="section-padding bg-emerald-600 text-white">
+      <section className="section-padding bg-gradient-to-r from-[#1B5E20] to-[#4CAF50] text-white">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Suscríbete a Nuestro Newsletter</h2>
           <p className="text-lg mb-8">Recibe las últimas noticias, consejos y artículos directamente en tu correo</p>
@@ -200,11 +200,11 @@ const Blog: React.FC = () => {
             <input
               type="email"
               placeholder="Tu correo electrónico"
-              className="flex-1 px-6 py-3 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-white"
+              className="flex-1 px-6 py-3 rounded-lg text-[#212121] focus:outline-none focus:ring-2 focus:ring-white"
             />
             <button
               type="submit"
-              className="bg-white text-emerald-600 font-bold px-8 py-3 rounded-lg hover:bg-gray-100 transition-colors duration-200"
+              className="bg-white text-[#1B5E20] font-bold px-8 py-3 rounded-lg hover:bg-gray-100 transition-colors duration-200"
             >
               Suscribirme
             </button>

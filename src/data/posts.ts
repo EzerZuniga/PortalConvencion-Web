@@ -45,7 +45,8 @@ export const posts: Post[] = [
     category: "Gastronomía",
     author: "Ana Martínez",
     date: "2024-01-10",
-    readTime: "4 min"
+    readTime: "4 min",
+    featured: true
   },
   {
     id: 4,

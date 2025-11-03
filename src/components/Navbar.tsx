@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { User, Menu, X, MapPin, Clock, Mail } from 'lucide-react';
+import { User, Menu, X, MapPin, Clock, Mail, LogOut, Bell, UserCircle } from 'lucide-react';
 import { FaFacebookF, FaInstagram, FaYoutube } from 'react-icons/fa';
 import ThemeToggle from './ThemeToggle';
+import LoginModal from './LoginModal';
 
 type NavItem = {
   name: string;
@@ -23,8 +24,46 @@ const navigation: NavItem[] = [
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showUserMenu, setShowUserMenu] = useState(false);
+  const [user, setUser] = useState<{ email: string; name: string; picture?: string } | null>(null);
   const location = useLocation();
   const isActive = (path: string) => location.pathname === path;
+
+  // Verificar si hay sesión guardada
+  useEffect(() => {
+    const savedUser = localStorage.getItem('currentUser');
+    if (savedUser) {
+      setUser(JSON.parse(savedUser));
+    }
+  }, []);
+
+  const handleLogin = (email: string, name: string, picture?: string) => {
+    const userData = { email, name, picture };
+    setUser(userData);
+    localStorage.setItem('currentUser', JSON.stringify(userData));
+  };
+
+  const handleLogout = () => {
+    setUser(null);
+    localStorage.removeItem('currentUser');
+    setShowUserMenu(false);
+  };
+
+  // Ref para el menú de usuario
+  const userMenuRef = useRef<HTMLDivElement>(null);
+
+  // Cerrar menú al hacer clic fuera
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {
+        setShowUserMenu(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,9 +77,12 @@ const Navbar: React.FC = () => {
     <header className="w-full fixed top-0 z-50 transition-all duration-300">
       {/* Top bar profesional - desaparece al hacer scroll */}
       <div 
-        className={`w-full bg-white dark:bg-slate-800 border-b border-gray-200 dark:border-slate-700 transition-all duration-300 overflow-hidden ${
-          scrolled ? 'h-0 opacity-0' : 'h-auto py-2.5 opacity-100'
+        className={`w-full bg-white dark:bg-slate-800 transition-all duration-300 overflow-hidden ${
+          scrolled 
+            ? 'h-0 opacity-0 border-b-0' 
+            : 'h-auto py-2.5 opacity-100 border-b border-gray-200 dark:border-slate-700'
         }`}
+        style={{ display: scrolled ? 'none' : 'block' }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-4">
@@ -50,7 +92,7 @@ const Navbar: React.FC = () => {
               <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">
                 <MapPin size={14} className="flex-shrink-0" />
                 <span className="hidden sm:inline">La Convención, Cusco</span>
-                <span className="sm:hidden">Cusco</span>
+                <span className="sm:hidden">Quillabamba</span>
               </div>
               
               <div className="hidden md:flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">
@@ -153,41 +195,113 @@ const Navbar: React.FC = () => {
               
               {/* Controles de usuario - Desktop */}
               <div className="flex items-center gap-3 ml-4">
-                <ThemeToggle scrolled={scrolled} />
-                <button 
-                  className={`p-2 rounded-full transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 ${
-                    scrolled 
-                      ? 'bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-800 dark:text-white' 
-                      : 'bg-slate-700 hover:bg-slate-600 text-white'
-                  }`} 
-                  aria-label="Iniciar sesión"
-                  title="Iniciar sesión"
-                >
-                  <User className="w-5 h-5" />
-                </button>
+                <ThemeToggle scrolled={true} />
+                {user ? (
+                  <div className="relative" ref={userMenuRef}>
+                    <button
+                      onClick={() => setShowUserMenu(!showUserMenu)}
+                      className="flex items-center gap-2 px-3 py-2 bg-slate-100 dark:bg-slate-700 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors"
+                    >
+                      {user.picture ? (
+                        <img 
+                          src={user.picture} 
+                          alt={user.name}
+                          className="w-8 h-8 rounded-full object-cover"
+                          referrerPolicy="no-referrer"
+                        />
+                      ) : (
+                        <div className="w-8 h-8 rounded-full bg-[#1B5E20] dark:bg-[#4CAF50] flex items-center justify-center">
+                          <span className="text-white font-bold text-sm">
+                            {user.name.split(' ')[0].charAt(0)}
+                          </span>
+                        </div>
+                      )}
+                      <span className="text-sm font-medium text-slate-800 dark:text-white max-w-[150px] truncate">
+                        {user.name.split(' ')[0]}
+                      </span>
+                    </button>
+
+                    {/* Menú desplegable */}
+                    {showUserMenu && (
+                      <div className="absolute right-0 mt-2 w-64 bg-white dark:bg-slate-800 rounded-lg shadow-2xl border border-gray-200 dark:border-slate-700 py-2 z-50">
+                        {/* Mi perfil */}
+                        <button className="w-full px-4 py-3 flex items-center gap-3 hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors">
+                          <UserCircle className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+                          <span className="text-sm text-gray-800 dark:text-white font-medium">Mi perfil</span>
+                        </button>
+
+                        {/* Notificaciones */}
+                        <button className="w-full px-4 py-3 flex items-center gap-3 hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors">
+                          <Bell className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+                          <span className="text-sm text-gray-800 dark:text-white font-medium">Mis notificaciones</span>
+                        </button>
+
+                        {/* Divisor */}
+                        <div className="border-t border-gray-200 dark:border-slate-700 my-2"></div>
+
+                        {/* Cerrar sesión */}
+                        <button 
+                          onClick={handleLogout}
+                          className="w-full px-4 py-3 flex items-center gap-3 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+                        >
+                          <LogOut className="w-5 h-5 text-red-600 dark:text-red-400" />
+                          <span className="text-sm text-red-600 dark:text-red-400 font-medium">Cerrar sesión</span>
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <button 
+                    onClick={() => setShowLoginModal(true)}
+                    className="p-2 rounded-full transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-800 dark:text-white" 
+                    aria-label="Iniciar sesión"
+                    title="Iniciar sesión"
+                  >
+                    <User className="w-5 h-5" />
+                  </button>
+                )}
               </div>
             </div>
             
             {/* Controles móvil */}
             <div className="lg:hidden flex items-center gap-2">
-              <ThemeToggle scrolled={scrolled} />
-              <button 
-                className={`p-2 rounded-full transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 ${
-                  scrolled 
-                    ? 'bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-800 dark:text-white' 
-                    : 'bg-slate-700 hover:bg-slate-600 text-white'
-                }`} 
-                aria-label="Iniciar sesión"
-                title="Iniciar sesión"
-              >
-                <User className="w-5 h-5" />
-              </button>
+              <ThemeToggle scrolled={true} />
+              {user ? (
+                <button
+                  onClick={() => setShowUserMenu(!showUserMenu)}
+                  className="w-8 h-8 rounded-full overflow-hidden border-2 border-[#1B5E20] dark:border-[#4CAF50]"
+                >
+                  {user.picture ? (
+                    <img 
+                      src={user.picture} 
+                      alt={user.name}
+                      className="w-full h-full object-cover"
+                      referrerPolicy="no-referrer"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-[#1B5E20] dark:bg-[#4CAF50] flex items-center justify-center">
+                      <span className="text-white font-bold text-sm">
+                        {user.name.split(' ')[0].charAt(0)}
+                      </span>
+                    </div>
+                  )}
+                </button>
+              ) : (
+                <button 
+                  onClick={() => setShowLoginModal(true)}
+                  className="p-2 rounded-full transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-800 dark:text-white" 
+                  aria-label="Iniciar sesión"
+                  title="Iniciar sesión"
+                >
+                  <User className="w-5 h-5" />
+                </button>
+              )}
               <button
                 onClick={() => setIsOpen(!isOpen)}
                 className={`inline-flex items-center justify-center p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-400 transition-all duration-200 ${
                   scrolled 
                     ? 'text-slate-800 dark:text-gray-200 hover:bg-slate-200 dark:hover:bg-slate-700' 
-                    : 'text-white hover:bg-slate-700'
+                    : 'bg-white/20 dark:bg-white/10 hover:bg-white/30 dark:hover:bg-white/20 backdrop-blur-sm text-white'
                 }`}
                 aria-label={isOpen ? 'Cerrar menú' : 'Abrir menú'}
                 aria-expanded={isOpen}
@@ -202,33 +316,100 @@ const Navbar: React.FC = () => {
           </div>
         </div>
         
-        {/* Menú móvil */}
-        {isOpen && (
-          <div className={`lg:hidden shadow-lg ${
+        {/* Menú móvil desplegable */}
+        <div 
+          className={`lg:hidden transition-all duration-300 ease-in-out overflow-hidden ${
+            isOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'
+          }`}
+        >
+          <div className={`${
             scrolled 
-              ? 'bg-white dark:bg-slate-900 border-t border-gray-200 dark:border-slate-700' 
-              : 'bg-slate-700 dark:bg-slate-800 border-t border-slate-600 dark:border-slate-700'
-          }`}>
-            <div className="px-2 pt-2 pb-3 space-y-1">
-              {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  to={item.href}
-                  className={`block px-4 py-3 text-base font-medium transition-colors duration-200 ${
-                    scrolled
-                      ? 'text-slate-700 dark:text-gray-200 hover:text-emerald-600 dark:hover:text-emerald-400'
-                      : 'text-white hover:text-emerald-300'
-                  }`}
-                  aria-current={isActive(item.href) ? 'page' : undefined}
-                  onClick={() => setIsOpen(false)}
-                >
-                  {item.name}
-                </Link>
-              ))}
-            </div>
+              ? 'bg-white dark:bg-slate-900 shadow-md border-t border-gray-200 dark:border-slate-700' 
+              : 'bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-t border-gray-200 dark:border-slate-700'
+          } transition-all duration-300`}>
+            <nav className="px-2 py-3" aria-label="Menú de navegación móvil">
+              <ul className="space-y-1">
+                {navigation.map((item) => (
+                  <li key={item.name}>
+                    <Link
+                      to={item.href}
+                      className={`block px-4 py-3 rounded-lg text-base font-medium transition-all duration-200 ${
+                        isActive(item.href)
+                          ? 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400'
+                          : 'text-slate-700 dark:text-gray-200 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-emerald-600 dark:hover:text-emerald-400'
+                      }`}
+                      onClick={() => setIsOpen(false)}
+                      aria-current={isActive(item.href) ? 'page' : undefined}
+                    >
+                      {item.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
           </div>
-        )}
+        </div>
       </nav>
+      
+      {/* Menú de usuario móvil flotante */}
+      {showUserMenu && user && (
+        <div className="fixed inset-0 z-50 lg:hidden">
+          {/* Overlay para cerrar */}
+          <div 
+            className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+            onClick={() => setShowUserMenu(false)}
+          />
+          
+          {/* Menú flotante */}
+          <div className="absolute top-20 right-4 left-4 sm:left-auto sm:w-80 bg-white dark:bg-slate-800 rounded-lg shadow-2xl border border-gray-200 dark:border-slate-700 p-2">
+            {/* Perfil */}
+            <button 
+              onClick={() => {
+                setShowUserMenu(false);
+                // TODO: Navigate to profile page
+              }}
+              className="w-full flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-700 text-slate-700 dark:text-gray-200 transition-colors duration-200"
+            >
+              <UserCircle className="w-5 h-5" />
+              <span className="text-sm font-medium">Mi perfil</span>
+            </button>
+            
+            {/* Notificaciones */}
+            <button 
+              onClick={() => {
+                setShowUserMenu(false);
+                // TODO: Navigate to notifications page
+              }}
+              className="w-full flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-700 text-slate-700 dark:text-gray-200 transition-colors duration-200"
+            >
+              <Bell className="w-5 h-5" />
+              <span className="text-sm font-medium">Mis notificaciones</span>
+            </button>
+            
+            {/* Divider */}
+            <div className="border-t border-gray-200 dark:border-slate-700 my-2"></div>
+            
+            {/* Cerrar sesión */}
+            <button 
+              onClick={() => {
+                setShowUserMenu(false);
+                handleLogout();
+              }}
+              className="w-full flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20 text-red-600 dark:text-red-400 transition-colors duration-200"
+            >
+              <LogOut className="w-5 h-5" />
+              <span className="text-sm font-medium">Cerrar sesión</span>
+            </button>
+          </div>
+        </div>
+      )}
+      
+      {/* Login Modal */}
+      <LoginModal 
+        isOpen={showLoginModal} 
+        onClose={() => setShowLoginModal(false)}
+        onLogin={handleLogin}
+      />
     </header>
   );
 };
