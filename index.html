@@ -2,7 +2,15 @@
 <html lang="es-PE">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    
+    <!-- Favicons y App Icons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     <!-- Título y Descripción Principal -->
@@ -31,6 +39,18 @@
     <meta property="og:locale" content="es_PE">
     <meta property="og:site_name" content="Explorando la Convención">
     
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@explorandoconvencion">
+    <meta name="twitter:title" content="Explorando la Convención - Blog de Viajes y Turismo en Perú">
+    <meta name="twitter:description" content="Descubre los mejores destinos turísticos, consejos de viaje, gastronomía peruana y guías completas para tus aventuras.">
+    <meta name="twitter:image" content="https://explorando-la-convencion-web-eta.vercel.app/og-image.jpg">
+    
+    <!-- Publisher Information -->
+    <meta name="application-name" content="Explorando la Convención">
+    <meta name="apple-mobile-web-app-title" content="Explorando la Convención">
+    <meta name="msapplication-tooltip" content="Blog de Viajes y Turismo en Perú">
+    
     <!-- Información Geográfica -->
     <meta name="geo.region" content="PE">
     <meta name="geo.placename" content="Perú">
@@ -52,14 +72,22 @@
       "@context": "https://schema.org",
       "@type": "WebSite",
       "name": "Explorando la Convención",
+      "alternateName": "Blog de Viajes La Convención",
       "url": "https://explorando-la-convencion-web-eta.vercel.app/",
-      "description": "Blog de viajes y turismo con guías, consejos y experiencias de viaje en Perú y el mundo",
+      "description": "Blog especializado en turismo, viajes y gastronomía de La Convención, Cusco, Perú. Guías completas para explorar destinos únicos.",
       "publisher": {
         "@type": "Organization",
         "name": "Explorando la Convención",
+        "url": "https://explorando-la-convencion-web-eta.vercel.app/",
         "logo": {
           "@type": "ImageObject",
-          "url": "https://explorando-la-convencion-web-eta.vercel.app/logo.png"
+          "url": "https://explorando-la-convencion-web-eta.vercel.app/favicon.svg",
+          "width": 64,
+          "height": 64
+        },
+        "founder": {
+          "@type": "Person",
+          "name": "Ezer B. Zuniga Chura"
         }
       },
       "potentialAction": {
@@ -67,7 +95,22 @@
         "target": "https://explorando-la-convencion-web-eta.vercel.app/search?q={search_term_string}",
         "query-input": "required name=search_term_string"
       },
-      "inLanguage": "es-PE"
+      "about": {
+        "@type": "Place",
+        "name": "La Convención",
+        "containedInPlace": {
+          "@type": "AdministrativeArea",
+          "name": "Cusco, Perú"
+        }
+      },
+      "keywords": ["turismo Perú", "La Convención", "Cusco", "viajes", "gastronomía peruana", "turismo rural"],
+      "inLanguage": "es-PE",
+      "copyrightYear": 2024,
+      "genre": ["Travel", "Tourism", "Food"],
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "travelers"
+      }
     }
     </script>
   </head>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OG Image Generator - Explorando la Convención</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        .og-image {
+            width: 1200px;
+            height: 630px;
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 50%, #10b981 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .mountains {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(to top, rgba(16, 185, 129, 0.8), transparent);
+            clip-path: polygon(0 100%, 15% 60%, 30% 80%, 45% 40%, 60% 70%, 75% 30%, 90% 60%, 100% 100%);
+        }
+        
+        .content {
+            text-align: center;
+            color: white;
+            z-index: 2;
+            padding: 40px;
+        }
+        
+        .title {
+            font-size: 72px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .subtitle {
+            font-size: 36px;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+        
+        .description {
+            font-size: 24px;
+            opacity: 0.8;
+            max-width: 800px;
+            line-height: 1.4;
+        }
+        
+        .icon {
+            position: absolute;
+            top: 50px;
+            right: 80px;
+            width: 120px;
+            height: 120px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+        
+        .airplane {
+            position: absolute;
+            top: 100px;
+            left: 100px;
+            color: white;
+            font-size: 40px;
+            opacity: 0.6;
+            transform: rotate(-15deg);
+        }
+        
+        .sun {
+            position: absolute;
+            top: 80px;
+            right: 200px;
+            width: 80px;
+            height: 80px;
+            background: #fbbf24;
+            border-radius: 50%;
+            box-shadow: 0 0 30px rgba(251, 191, 36, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="og-image">
+        <div class="mountains"></div>
+        <div class="airplane">✈️</div>
+        <div class="sun"></div>
+        <div class="icon">🏔️</div>
+        
+        <div class="content">
+            <h1 class="title">Explorando la Convención</h1>
+            <h2 class="subtitle">Blog de Viajes y Turismo</h2>
+            <p class="description">
+                Descubre los mejores destinos de La Convención, Cusco<br>
+                Guías completas • Consejos de viaje • Gastronomía peruana
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Este archivo sirve para capturar una imagen 1200x630 para Open Graph
+        // Puedes usar herramientas como html2canvas o tomar una captura de pantalla
+        console.log("Imagen OG para: Explorando la Convención");
+        console.log("Dimensiones: 1200x630px");
+        console.log("Para capturar: Usar herramientas de screenshot o html2canvas");
+    </script>
+</body>
+</html>

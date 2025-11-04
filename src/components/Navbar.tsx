@@ -164,21 +164,27 @@ const Navbar: React.FC = () => {
         <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
           <div className="flex justify-between h-14 sm:h-16 items-center gap-2 sm:gap-4">
             {/* Logo */}
-            <div className="flex items-center flex-shrink-0 -ml-2 sm:-ml-3">
-              <Link to="/" className="flex items-center group">
-                <div className={`${
-                  scrolled 
-                    ? 'bg-white dark:bg-slate-900 rounded-lg px-2 py-1 shadow-sm' 
-                    : 'bg-transparent'
-                } transition-all duration-300`}>
-                  <img 
-                    src="/images/logo navbar.png" 
-                    alt="Logo Explorando La Convención" 
-                    className="h-8 w-auto sm:h-10 lg:h-12 object-contain transition-all duration-200 group-hover:scale-105"
-                  />
-                </div>
-              </Link>
-            </div>
+            <Link 
+              to="/" 
+              className="flex items-center flex-shrink-0 group relative z-10"
+              aria-label="Ir al inicio - Explorando La Convención"
+            >
+              <div className="relative flex items-center">
+                <img 
+                  src="/images/logo navbar.png" 
+                  alt="Explorando La Convención - Turismo en Quillabamba" 
+                  className={`${
+                    scrolled 
+                      ? 'h-10 sm:h-12 lg:h-14' 
+                      : 'h-9 sm:h-11 lg:h-12'
+                  } w-auto object-contain transition-all duration-300 group-hover:scale-105 group-hover:brightness-110`}
+                  onError={(e) => {
+                    e.currentTarget.onerror = null;
+                    e.currentTarget.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjYwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iNjAiIGZpbGw9IiMxMEI5ODEiLz48dGV4dCB4PSIxMDAiIHk9IjM1IiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5FeHBsb3JhbmRvPC90ZXh0Pjwvc3ZnPg==';
+                  }}
+                />
+              </div>
+            </Link>
             
             {/* Menú principal desktop */}
             <div className="hidden lg:flex items-center space-x-4">
