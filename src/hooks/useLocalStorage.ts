@@ -1,0 +1,54 @@
+import { useState, useEffect } from 'react';
+
+export function useLocalStorage<T>(key: string, initialValue: T): [T, (value: T | ((prev: T) => T)) => void] {
+  const [storedValue, setStoredValue] = useState<T>(() => {
+    try {
+      const item = window.localStorage.getItem(key);
+      return item ? (JSON.parse(item) as T) : initialValue;
+    } catch {
+      return initialValue;
+    }
+  });
+
+  const setValue = (value: T | ((prev: T) => T)) => {
+    const valueToStore = value instanceof Function ? value(storedValue) : value;
+    setStoredValue(valueToStore);
+    window.localStorage.setItem(key, JSON.stringify(valueToStore));
+  };
+
+  return [storedValue, setValue];
+}
+
+export function useTheme() {
+  const [darkMode, setDarkMode] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    const stored = localStorage.getItem('theme');
+    const prefersDark = stored
+      ? stored === 'dark'
+      : window.matchMedia('(prefers-color-scheme: dark)').matches;
+    setDarkMode(prefersDark);
+    document.documentElement.classList.toggle('dark', prefersDark);
+
+    if (!stored) {
+      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      const handleChange = (e: MediaQueryListEvent) => {
+        setDarkMode(e.matches);
+        document.documentElement.classList.toggle('dark', e.matches);
+      };
+      mediaQuery.addEventListener('change', handleChange);
+      return () => mediaQuery.removeEventListener('change', handleChange);
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    const newDarkMode = !darkMode;
+    setDarkMode(newDarkMode);
+    document.documentElement.classList.toggle('dark', newDarkMode);
+    localStorage.setItem('theme', newDarkMode ? 'dark' : 'light');
+  };
+
+  return { darkMode, mounted, toggleTheme };
+}

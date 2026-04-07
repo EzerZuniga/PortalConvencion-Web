@@ -1,15 +1,4 @@
-export interface Post {
-  id: number;
-  title: string;
-  excerpt: string;
-  content: string;
-  image: string;
-  category: string;
-  author: string;
-  date: string;
-  readTime: string;
-  featured?: boolean;
-}
+import type { Post } from '@/types';
 
 export const posts: Post[] = [
   {

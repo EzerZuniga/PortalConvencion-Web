@@ -1,0 +1,10 @@
+export { default as Home } from './Home';
+export { default as About } from './About';
+export { default as Blog } from './Blog';
+export { default as Contact } from './Contact';
+export { default as Destinations } from './Destinations';
+export { default as Gallery } from './Gallery';
+export { default as Gastronomia } from './Gastronomia';
+export { default as Tips } from './Tips';
+export { default as Profile } from './Profile';
+export { default as NotFound } from './NotFound';
