@@ -115,7 +115,7 @@ const Navbar: React.FC = () => {
             {/* Logo */}
             <Link to="/" className="flex items-center flex-shrink-0 group relative z-10" aria-label="Ir al inicio - Explorando La Convención">
               <img
-                src="/images/logo navbar.png"
+                src="/images/logos.png"
                 alt="Explorando La Convención - Turismo en Quillabamba"
                 className={`${scrolled ? 'h-10 sm:h-12 lg:h-14' : 'h-9 sm:h-11 lg:h-12'} w-auto object-contain transition-all duration-300 group-hover:scale-105 group-hover:brightness-110`}
                 onError={(e) => {

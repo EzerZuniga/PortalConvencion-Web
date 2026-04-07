@@ -2,8 +2,9 @@ export interface TeamMember {
   name: string;
   role: string;
   description: string;
-  image: string;
-  borderColor: string;
+  initials: string;
+  color: string;
+  skills: string[];
 }
 
 export interface ValueItem {
@@ -12,49 +13,102 @@ export interface ValueItem {
   description: string;
 }
 
+export interface StatItem {
+  value: number;
+  suffix: string;
+  label: string;
+}
+
+export const stats: StatItem[] = [
+  { value: 3,  suffix: '+',  label: 'Años compartiendo nuestra cultura' },
+  { value: 50, suffix: '+',  label: 'Destinos documentados' },
+  { value: 30, suffix: 'K+', label: 'Visitantes al mes' },
+  { value: 5,  suffix: '',   label: 'Personas en el equipo' },
+];
+
 export const teamMembers: TeamMember[] = [
   {
-    name: 'María Rodríguez',
-    role: 'Fundadora y Directora',
-    description: 'Apasionada por el turismo sostenible y la cultura local',
-    image: '/images/autores/maria-rodriguez.jpg',
-    borderColor: '#1B5E20',
+    name: 'Ezer Benito Zúñiga Chura',
+    role: 'Fundador & Desarrollador Web',
+    description:
+      'Estudiante de Ingeniería Informática y apasionado por la tecnología aplicada al turismo local. Creó esta plataforma para mostrar al mundo la riqueza cultural y natural de La Convención a través de soluciones digitales innovadoras. Quillabambino de nacimiento y corazón.',
+    initials: 'EZ',
+    color: '#1B5E20',
+    skills: ['Desarrollo Web', 'Diseño UI/UX', 'SEO', 'Soluciones Digitales'],
   },
   {
-    name: 'Carlos Mendoza',
-    role: 'Guía y Fotógrafo',
-    description: 'Experto en rutas de trekking y fotografía de naturaleza',
-    image: '/images/autores/carlos-mendoza.jpg',
-    borderColor: '#4CAF50',
+    name: 'Keyla Milagros Mendoza Marín',
+    role: 'Directora de Contenido',
+    description:
+      'Estudiante de Administración y Negocios Internacionales. Lidera la gestión estratégica y creación de guías que dan vida al portal, aplicando su visión empresarial para posicionar nuestra cultura en el mercado global. Orgullosamente quillabambina.',
+    initials: 'KM',
+    color: '#2E7D32',
+    skills: ['Gestión Estratégica', 'Redacción', 'Negocios Internacionales'],
   },
   {
-    name: 'Ana Silva',
-    role: 'Editora de Contenido',
-    description: 'Especialista en cultura y gastronomía regional',
-    image: '/images/autores/ana-silva.jpg',
-    borderColor: '#FDD835',
+    name: 'Diego Toribio Torres Quispe',
+    role: 'Fotógrafo & Videógrafo',
+    description:
+      'Estudiante de Arquitectura con un ojo artístico único. Captura la esencia de La Convención a través de imágenes que resaltan la armonía entre el paisaje natural y la identidad urbana de nuestra región. Quillabambino de raíces y pasión.',
+    initials: 'DT',
+    color: '#C62828',
+    skills: ['Fotografía', 'Edición de Video', 'Arquitectura'],
+  },
+  {
+    name: 'Lucía Quena Quispe Valer',
+    role: 'Guía Turística Local',
+    description:
+      'Estudiante de Derecho y guía oficial certificada. Combina su formación legal con su amor por la tierra para promover un turismo responsable, seguro y profundamente respetuoso con nuestro patrimonio. Natural de Quillabamba.',
+    initials: 'LQ',
+    color: '#E65100',
+    skills: ['Guiado Turístico', 'Derecho', 'Turismo Responsable'],
+  },
+  {
+    name: 'Rodrigo Augusto Apaza Villavicencio',
+    role: 'Gestor de Redes Sociales',
+    description:
+      'Estudiante de Ingeniería de Sistemas. Se encarga de la conectividad y el crecimiento digital del proyecto, optimizando nuestras plataformas para que la voz de La Convención llegue a cada rincón del mundo. Quillabambino digital.',
+    initials: 'RA',
+    color: '#1565C0',
+    skills: ['Ingeniería de Sistemas', 'Redes Sociales', 'Optimización Digital'],
   },
 ];
 
 export const values: ValueItem[] = [
   {
-    icon: 'MapPin',
-    title: 'Autenticidad',
-    description: 'Información real y verificada de primera mano',
+    icon: 'Leaf',
+    title: 'Sostenibilidad',
+    description:
+      'Promovemos un turismo responsable que respeta y preserva el ecosistema único de la selva alta de La Convención.',
   },
   {
     icon: 'Users',
     title: 'Comunidad',
-    description: 'Compromiso con el desarrollo local',
+    description:
+      'Trabajamos junto a la comunidad local para que el desarrollo turístico beneficie directamente a las familias quillabambinas.',
   },
   {
     icon: 'Heart',
     title: 'Pasión',
-    description: 'Amor por nuestra tierra y cultura',
+    description:
+      'Cada artículo, fotografía y guía refleja el profundo amor que sentimos por nuestra tierra, cultura y tradiciones.',
   },
   {
-    icon: 'Target',
-    title: 'Sostenibilidad',
-    description: 'Turismo responsable y ecológico',
+    icon: 'MapPin',
+    title: 'Autenticidad',
+    description:
+      'Todo nuestro contenido es generado por locales, garantizando información real, verificada y de primera mano.',
+  },
+  {
+    icon: 'Star',
+    title: 'Identidad Cultural',
+    description:
+      'Somos guardianes del patrimonio histórico, gastronómico y cultural de La Convención para las generaciones futuras.',
+  },
+  {
+    icon: 'Lightbulb',
+    title: 'Innovación',
+    description:
+      'Usamos tecnología moderna para hacer que la experiencia de descubrir La Convención sea accesible y enriquecedora.',
   },
 ];
