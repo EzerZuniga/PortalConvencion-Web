@@ -18,7 +18,8 @@ export default defineConfig({
         },
       },
     },
-    target: 'es2020',
+    // react-snap usa un Chromium antiguo para prerender, por eso necesitamos sintaxis transpileada.
+    target: 'es2017',
     minify: 'esbuild',
   },
 })

@@ -1,9 +1,10 @@
-export interface TeamMember {
+﻿export interface TeamMember {
   name: string;
   role: string;
   description: string;
   initials: string;
   color: string;
+  image: string;
   skills: string[];
 }
 
@@ -33,7 +34,8 @@ export const teamMembers: TeamMember[] = [
     description:
       'Estudiante de Ingeniería Informática y apasionado por la tecnología aplicada al turismo local. Creó esta plataforma para mostrar al mundo la riqueza cultural y natural de La Convención a través de soluciones digitales innovadoras. Quillabambino de nacimiento y corazón.',
     initials: 'EZ',
-    color: '#1B5E20',
+    color: '#1A2F28',
+    image: '/images/destinos/andes-trekking.jpg',
     skills: ['Desarrollo Web', 'Diseño UI/UX', 'SEO', 'Soluciones Digitales'],
   },
   {
@@ -42,7 +44,8 @@ export const teamMembers: TeamMember[] = [
     description:
       'Estudiante de Administración y Negocios Internacionales. Lidera la gestión estratégica y creación de guías que dan vida al portal, aplicando su visión empresarial para posicionar nuestra cultura en el mercado global. Orgullosamente quillabambina.',
     initials: 'KM',
-    color: '#2E7D32',
+    color: '#007D4F',
+    image: '/images/destinos/pueblo-magico.jpg',
     skills: ['Gestión Estratégica', 'Redacción', 'Negocios Internacionales'],
   },
   {
@@ -51,7 +54,8 @@ export const teamMembers: TeamMember[] = [
     description:
       'Estudiante de Arquitectura con un ojo artístico único. Captura la esencia de La Convención a través de imágenes que resaltan la armonía entre el paisaje natural y la identidad urbana de nuestra región. Quillabambino de raíces y pasión.',
     initials: 'DT',
-    color: '#C62828',
+    color: '#00A86B',
+    image: '/images/galeria/fotografia.jpg',
     skills: ['Fotografía', 'Edición de Video', 'Arquitectura'],
   },
   {
@@ -60,7 +64,8 @@ export const teamMembers: TeamMember[] = [
     description:
       'Estudiante de Derecho y guía oficial certificada. Combina su formación legal con su amor por la tierra para promover un turismo responsable, seguro y profundamente respetuoso con nuestro patrimonio. Natural de Quillabamba.',
     initials: 'LQ',
-    color: '#E65100',
+    color: '#33C68A',
+    image: '/images/galeria/comida-asiatica.jpg',
     skills: ['Guiado Turístico', 'Derecho', 'Turismo Responsable'],
   },
   {
@@ -69,7 +74,8 @@ export const teamMembers: TeamMember[] = [
     description:
       'Estudiante de Ingeniería de Sistemas. Se encarga de la conectividad y el crecimiento digital del proyecto, optimizando nuestras plataformas para que la voz de La Convención llegue a cada rincón del mundo. Quillabambino digital.',
     initials: 'RA',
-    color: '#1565C0',
+    color: '#35594D',
+    image: '/images/viajes/tren-europa.jpg',
     skills: ['Ingeniería de Sistemas', 'Redes Sociales', 'Optimización Digital'],
   },
 ];
@@ -112,3 +118,5 @@ export const values: ValueItem[] = [
       'Usamos tecnología moderna para hacer que la experiencia de descubrir La Convención sea accesible y enriquecedora.',
   },
 ];
+
+

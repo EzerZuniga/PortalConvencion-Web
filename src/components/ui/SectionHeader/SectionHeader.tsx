@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 
 interface SectionHeaderProps {
   title: string;
@@ -10,17 +10,20 @@ interface SectionHeaderProps {
 const SectionHeader: React.FC<SectionHeaderProps> = ({
   title,
   subtitle,
-  accentColor = '#4CAF50',
+  accentColor = '#1A2F28',
   className = '',
 }) => {
   return (
-    <div className={`text-center max-w-4xl mx-auto mb-12 ${className}`}>
-      <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#212121] dark:text-white mb-4 tracking-tight">
+    <div className={`text-center max-w-4xl mx-auto mb-12 animate-reveal-up ${className}`}>
+      <h2 className="wp-title text-ink-900 dark:text-white mb-4">
         {title}
       </h2>
-      <div className="w-20 h-1 mx-auto mb-4" style={{ backgroundColor: accentColor }} />
+      <div
+        className="w-20 h-1 mx-auto mb-4 rounded-full"
+        style={{ background: `linear-gradient(to right, ${accentColor}, #33C68A)` }}
+      />
       {subtitle && (
-        <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 leading-relaxed font-light">
+        <p className="wp-lead max-w-3xl mx-auto">
           {subtitle}
         </p>
       )}
@@ -29,3 +32,5 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
 };
 
 export default SectionHeader;
+
+

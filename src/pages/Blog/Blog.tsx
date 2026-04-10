@@ -3,10 +3,43 @@ import { Calendar, User, Search } from 'lucide-react';
 import SEOHead from '@/components/features/seo';
 import { SITE_CONFIG } from '@/config/site';
 import { blogPosts, blogCategories } from '@/data/gastronomia';
+import { SectionHeader } from '@/components/ui';
+
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const Blog: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState("Todos");
   const [searchTerm, setSearchTerm] = useState("");
+  const [newsletterEmail, setNewsletterEmail] = useState('');
+  const [newsletterStatus, setNewsletterStatus] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  const [isSubmittingNewsletter, setIsSubmittingNewsletter] = useState(false);
+
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const normalizedEmail = newsletterEmail.trim();
+    if (!EMAIL_REGEX.test(normalizedEmail)) {
+      setNewsletterStatus({
+        type: 'error',
+        text: 'Ingresa un correo válido para suscribirte.',
+      });
+      return;
+    }
+
+    try {
+      setIsSubmittingNewsletter(true);
+      setNewsletterStatus(null);
+      await new Promise((resolve) => setTimeout(resolve, 700));
+
+      setNewsletterEmail('');
+      setNewsletterStatus({
+        type: 'success',
+        text: '¡Listo! Te suscribiste al newsletter.',
+      });
+    } finally {
+      setIsSubmittingNewsletter(false);
+    }
+  };
 
   const filteredPosts = blogPosts.filter(post => {
     const matchesCategory = selectedCategory === "Todos" || post.category === selectedCategory;
@@ -16,7 +49,7 @@ const Blog: React.FC = () => {
   });
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-slate-900">
+    <div className="wp-shell">
       <SEOHead 
         title="Blog de Viajes - Explorando la Convención | Artículos y Consejos de Turismo"
         description="Lee nuestros últimos artículos sobre viajes, destinos turísticos de La Convención y Cusco, consejos prácticos y experiencias de viaje en Perú."
@@ -25,34 +58,36 @@ const Blog: React.FC = () => {
         type="blog"
       />
       {/* Hero Section */}
-      <section className="relative h-96 flex items-center justify-center text-white">
+      <section className="relative h-96 flex items-center justify-center text-white overflow-hidden">
         <img 
           src="/images/destinos/andes-trekking.jpg" 
           alt="Blog" 
           className="absolute inset-0 w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-black bg-opacity-50"></div>
-        <div className="relative z-10 text-center">
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 drop-shadow-lg tracking-tight">Blog</h1>
-          <p className="text-lg md:text-xl max-w-3xl mx-auto px-4 font-light">
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70"></div>
+        <div className="relative z-10 text-center animate-reveal-up">
+          <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold mb-4 drop-shadow-lg tracking-tight">Blog</h1>
+          <p className="text-lg md:text-xl max-w-3xl mx-auto px-4 font-light text-white/90">
             Historias, consejos y descubrimientos de La Convención
           </p>
         </div>
       </section>
 
       {/* Buscador y Filtros */}
-      <section className="section-padding bg-white dark:bg-slate-800 border-b border-gray-200 dark:border-slate-700">
-        <div className="max-w-7xl mx-auto">
+      <section className="wp-section bg-white/80 dark:bg-primary-900/80 backdrop-blur-sm border-b border-[var(--color-border)] dark:border-primary-700">
+        <div className="wp-container">
           <div className="flex flex-col md:flex-row gap-6 items-center justify-between">
             {/* Buscador */}
             <div className="relative w-full md:w-96">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500 w-5 h-5" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-ink-400 dark:text-slate-500 w-5 h-5" />
               <input
                 type="text"
                 placeholder="Buscar artículos..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 border-2 border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-[#212121] dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-[#4CAF50]"
+                aria-label="Buscar artículos en el blog"
+                autoComplete="off"
+                className="wp-input pl-10"
               />
             </div>
             
@@ -61,11 +96,12 @@ const Blog: React.FC = () => {
               {blogCategories.map(category => (
                 <button
                   key={category}
+                  type="button"
                   onClick={() => setSelectedCategory(category)}
-                  className={`px-4 py-2 rounded-lg font-medium transition-colors duration-200 ${
+                  className={`wp-btn px-4 py-2 text-sm ${
                     selectedCategory === category
-                      ? 'bg-[#1B5E20] dark:bg-[#4CAF50] text-white'
-                      : 'bg-gray-200 dark:bg-slate-700 text-[#212121] dark:text-white hover:bg-gray-300 dark:hover:bg-slate-600'
+                      ? 'bg-accent-600 text-white dark:bg-accent-500'
+                      : 'bg-earth-100 dark:bg-primary-800 text-ink-900 dark:text-white hover:bg-earth-200 dark:hover:bg-primary-700'
                   }`}
                 >
                   {category}
@@ -77,34 +113,41 @@ const Blog: React.FC = () => {
       </section>
 
       {/* Posts del Blog */}
-      <section className="section-padding">
-        <div className="max-w-7xl mx-auto">
+      <section className="wp-section">
+        <div className="wp-container">
+          <SectionHeader
+            title="Publicaciones"
+            subtitle="Artículos recientes sobre cultura, viajes y experiencias auténticas en La Convención."
+            className="mb-10"
+          />
           {filteredPosts.length === 0 ? (
             <div className="text-center py-16">
-              <p className="text-xl text-gray-600 dark:text-gray-300">No se encontraron artículos que coincidan con tu búsqueda.</p>
+              <p className="text-xl text-ink-600 dark:text-slate-300">No se encontraron artículos que coincidan con tu búsqueda.</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {filteredPosts.map(post => (
-                <article key={post.id} className="bg-white dark:bg-slate-800 rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 border-t-4 border-[#1B5E20]">
+                <article key={post.id} className="wp-card wp-card-interactive overflow-hidden border-t-4 border-accent-700">
                   <div className="relative h-48">
                     <img 
                       src={post.image} 
                       alt={post.title} 
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-full object-cover"
                     />
-                    <span className="absolute top-4 left-4 bg-[#212121] dark:bg-white text-white dark:text-[#212121] px-3 py-1 rounded-full text-sm font-semibold">
+                    <span className="absolute top-4 left-4 bg-ink-900 dark:bg-white text-white dark:text-ink-900 px-3 py-1 rounded-full text-sm font-semibold">
                       {post.category}
                     </span>
                   </div>
                   <div className="p-6">
-                    <h3 className="text-xl font-bold text-[#212121] dark:text-white mb-3 hover:text-[#1B5E20] dark:hover:text-[#4CAF50] transition-colors cursor-pointer">
+                    <h3 className="font-heading text-2xl font-bold text-ink-900 dark:text-white mb-3 hover:text-accent-700 dark:hover:text-accent-300 transition-colors cursor-pointer">
                       {post.title}
                     </h3>
-                    <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
+                    <p className="text-ink-600 dark:text-slate-300 mb-4 line-clamp-3">
                       {post.excerpt}
                     </p>
-                    <div className="flex items-center justify-between text-sm text-gray-600 dark:text-gray-300 border-t border-gray-200 dark:border-slate-700 pt-4">
+                    <div className="flex items-center justify-between text-sm text-ink-600 dark:text-slate-300 border-t border-earth-200 dark:border-primary-700 pt-4">
                       <div className="flex items-center gap-4">
                         <span className="flex items-center gap-1">
                           <User className="w-4 h-4" />
@@ -115,7 +158,7 @@ const Blog: React.FC = () => {
                           {post.date}
                         </span>
                       </div>
-                      <span className="text-[#212121] dark:text-white font-medium">{post.readTime}</span>
+                      <span className="text-ink-900 dark:text-white font-medium">{post.readTime}</span>
                     </div>
                   </div>
                 </article>
@@ -126,23 +169,46 @@ const Blog: React.FC = () => {
       </section>
 
       {/* Newsletter */}
-      <section className="section-padding bg-gradient-to-r from-[#1B5E20] to-[#4CAF50] text-white">
+      <section className="wp-section bg-gradient-to-r from-primary-900 via-primary-800 to-accent-700 text-white">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Suscríbete a Nuestro Newsletter</h2>
-          <p className="text-lg mb-8">Recibe las últimas noticias, consejos y artículos directamente en tu correo</p>
-          <form className="flex flex-col md:flex-row gap-4 max-w-xl mx-auto">
+          <h2 className="font-heading text-3xl md:text-4xl font-bold mb-4">Suscríbete a Nuestro Newsletter</h2>
+          <p className="text-lg mb-8 text-white/90">Recibe las últimas noticias, consejos y artículos directamente en tu correo</p>
+          <form onSubmit={handleNewsletterSubmit} className="flex flex-col md:flex-row gap-4 max-w-xl mx-auto">
             <input
               type="email"
               placeholder="Tu correo electrónico"
-              className="flex-1 px-6 py-3 rounded-lg text-[#212121] focus:outline-none focus:ring-2 focus:ring-white"
+              value={newsletterEmail}
+              onChange={(e) => {
+                setNewsletterEmail(e.target.value);
+                if (newsletterStatus) setNewsletterStatus(null);
+              }}
+              autoComplete="email"
+              required
+              className="wp-input flex-1 border-white/20 focus:ring-white/50"
             />
             <button
               type="submit"
-              className="bg-white text-[#1B5E20] font-bold px-8 py-3 rounded-lg hover:bg-gray-100 transition-colors duration-200"
+              className="wp-btn-light"
+              disabled={isSubmittingNewsletter}
+              aria-busy={isSubmittingNewsletter}
             >
-              Suscribirme
+              {isSubmittingNewsletter ? 'Suscribiendo...' : 'Suscribirme'}
             </button>
           </form>
+          <div className="min-h-[1.75rem] mt-3" aria-live="polite">
+            {newsletterStatus && (
+              <p
+                className={`text-sm ${
+                  newsletterStatus.type === 'success'
+                    ? 'text-accent-200'
+                    : 'text-red-200'
+                }`}
+                role={newsletterStatus.type === 'error' ? 'alert' : undefined}
+              >
+                {newsletterStatus.text}
+              </p>
+            )}
+          </div>
         </div>
       </section>
     </div>
@@ -150,3 +216,4 @@ const Blog: React.FC = () => {
 };
 
 export default Blog;
+

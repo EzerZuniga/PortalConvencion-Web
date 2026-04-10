@@ -2,41 +2,38 @@ import React from 'react';
 import SEOHead from '@/components/features/seo';
 import { SITE_CONFIG } from '@/config/site';
 import { travelTips, TIP_ICONS } from '@/data/tips';
+import { SectionHeader } from '@/components/ui';
 
 const Tips: React.FC = () => {
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-slate-900">
+    <div className="wp-shell">
       <SEOHead 
         title="Consejos de Viaje - Guía Práctica para Viajeros"
         description="Consejos prácticos de viaje: presupuesto, equipaje, cultura, seguridad, fotografía y gastronomía para tu próxima aventura en La Convención."
         keywords="consejos de viaje, tips viajeros, presupuesto viaje, equipaje viaje, seguridad viaje, fotografía viaje"
         url={`${SITE_CONFIG.url}/tips`}
       />
-      <div className="section-padding">
-        <div className="max-w-7xl mx-auto">
+      <div className="wp-section">
+        <div className="wp-container">
           {/* Header */}
-          <div className="text-center mb-12">
-            <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#212121] dark:text-white mb-4 tracking-tight">
-              Consejos de Viaje
-            </h1>
-            <p className="text-base md:text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto font-light leading-relaxed">
-              Aprende de nuestras experiencias y evita errores comunes con estos consejos prácticos para viajeros.
-            </p>
-          </div>
+          <SectionHeader
+            title="Consejos de Viaje"
+            subtitle="Aprende de nuestras experiencias y evita errores comunes con estos consejos prácticos para viajeros."
+          />
 
           {/* Tips Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {travelTips.map((tipCategory, index) => (
-              <div key={tipCategory.category} className="bg-white dark:bg-slate-800 rounded-xl shadow-md p-6 fade-in border-t-4 border-[#1B5E20] hover:shadow-xl transition-shadow duration-300" style={{ animationDelay: `${index * 0.1}s` }}>
-                <h3 className="text-xl font-semibold text-[#212121] dark:text-white mb-4 flex items-center">
+              <div key={tipCategory.category} className="wp-card wp-card-interactive p-6 border-t-4 border-accent-600 animate-reveal-up" style={{ animationDelay: `${index * 0.08}s` }}>
+                <h3 className="font-heading text-2xl font-semibold text-ink-900 dark:text-white mb-4 flex items-center">
                   <span className="mr-3 text-2xl">{TIP_ICONS[tipCategory.category]}</span>
                   {tipCategory.category}
                 </h3>
                 <ul className="space-y-3">
                   {tipCategory.tips.map((tip, tipIndex) => (
                     <li key={tipIndex} className="flex items-start">
-                      <span className="text-[#1B5E20] dark:text-[#4CAF50] mr-2 mt-1 font-bold">•</span>
-                      <span className="text-gray-600 dark:text-gray-300">{tip}</span>
+                      <span className="text-accent-600 dark:text-accent-300 mr-2 mt-1 font-bold">•</span>
+                      <span className="text-ink-600 dark:text-slate-300">{tip}</span>
                     </li>
                   ))}
                 </ul>
@@ -45,11 +42,11 @@ const Tips: React.FC = () => {
           </div>
 
           {/* Additional Resources */}
-          <div className="mt-16 bg-white dark:bg-slate-800 rounded-xl shadow-lg p-8 text-center border-4 border-[#4CAF50]">
-            <h2 className="text-2xl font-bold text-[#212121] dark:text-white mb-4">
+          <div className="mt-16 wp-card p-8 text-center border-2 border-accent-400/40">
+            <h2 className="font-heading text-3xl font-bold text-ink-900 dark:text-white mb-4">
               ¿Necesitas más ayuda?
             </h2>
-            <p className="text-gray-600 dark:text-gray-300 mb-6 max-w-2xl mx-auto">
+            <p className="text-ink-600 dark:text-slate-300 mb-6 max-w-2xl mx-auto">
               Suscríbete a nuestro newsletter semanal y recibe consejos exclusivos, 
               ofertas de viaje y guías detalladas directamente en tu correo.
             </p>
@@ -57,9 +54,9 @@ const Tips: React.FC = () => {
               <input
                 type="email"
                 placeholder="Tu correo electrónico"
-                className="px-4 py-3 border-2 border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-[#212121] dark:text-white rounded-lg flex-1 focus:outline-none focus:ring-2 focus:ring-[#4CAF50] focus:border-transparent"
+                className="wp-input flex-1"
               />
-              <button className="bg-[#1B5E20] dark:bg-[#4CAF50] text-white font-bold px-8 py-3 rounded-lg hover:bg-[#4CAF50] dark:hover:bg-[#1B5E20] transition-all duration-200 whitespace-nowrap">
+              <button className="wp-btn-primary whitespace-nowrap">
                 Suscribirse
               </button>
             </div>
@@ -71,3 +68,4 @@ const Tips: React.FC = () => {
 };
 
 export default Tips;
+

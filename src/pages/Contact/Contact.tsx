@@ -2,109 +2,185 @@ import React, { useState } from 'react';
 import { Mail, Phone, MapPin, Globe } from 'lucide-react';
 import SEOHead from '@/components/features/seo';
 import { SITE_CONFIG } from '@/config/site';
+import { SectionHeader } from '@/components/ui';
+
+type ContactFormData = {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+};
+
+type ContactFormErrors = Partial<Record<keyof ContactFormData, string>>;
+
+const INITIAL_FORM: ContactFormData = {
+  name: '',
+  email: '',
+  subject: '',
+  message: '',
+};
+
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+const validateForm = (values: ContactFormData): ContactFormErrors => {
+  const errors: ContactFormErrors = {};
+
+  if (values.name.trim().length < 2) {
+    errors.name = 'Ingresa un nombre válido (mínimo 2 caracteres).';
+  }
+
+  if (!EMAIL_REGEX.test(values.email.trim())) {
+    errors.email = 'Ingresa un correo electrónico válido.';
+  }
+
+  if (!values.subject) {
+    errors.subject = 'Selecciona un asunto.';
+  }
+
+  if (values.message.trim().length < 20) {
+    errors.message = 'El mensaje debe tener al menos 20 caracteres.';
+  }
+
+  return errors;
+};
 
 const Contact: React.FC = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
-  });
+  const [formData, setFormData] = useState<ContactFormData>(INITIAL_FORM);
+  const [errors, setErrors] = useState<ContactFormErrors>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [name]: value
     });
+
+    if (errors[name as keyof ContactFormData]) {
+      setErrors(prev => ({ ...prev, [name]: undefined }));
+    }
+
+    if (submitMessage) {
+      setSubmitMessage(null);
+    }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Aquí iría la lógica para enviar el formulario
-    alert('¡Mensaje enviado! Gracias por contactarnos.');
-    setFormData({
-      name: '',
-      email: '',
-      subject: '',
-      message: ''
-    });
+
+    const normalizedData: ContactFormData = {
+      name: formData.name.trim(),
+      email: formData.email.trim(),
+      subject: formData.subject,
+      message: formData.message.trim(),
+    };
+
+    const nextErrors = validateForm(normalizedData);
+    setErrors(nextErrors);
+
+    if (Object.keys(nextErrors).length > 0) {
+      setSubmitMessage({
+        type: 'error',
+        text: 'Revisa los campos marcados antes de enviar.',
+      });
+      return;
+    }
+
+    try {
+      setIsSubmitting(true);
+      setSubmitMessage(null);
+
+      // Simulación del envío en espera de integración con backend real
+      await new Promise((resolve) => setTimeout(resolve, 700));
+
+      setFormData(INITIAL_FORM);
+      setErrors({});
+      setSubmitMessage({
+        type: 'success',
+        text: '¡Mensaje enviado! Gracias por contactarnos. Te responderemos pronto.',
+      });
+    } catch {
+      setSubmitMessage({
+        type: 'error',
+        text: 'No pudimos enviar tu mensaje en este momento. Inténtalo nuevamente.',
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-slate-900">
+    <div className="wp-shell">
       <SEOHead 
         title="Contáctanos - Explorando la Convención"
         description="¿Tienes preguntas o quieres colaborar? Contáctanos por email, teléfono o visítanos en Quillabamba, La Convención."
         keywords="contacto explorando la convención, contactar, email, teléfono, Quillabamba"
         url={`${SITE_CONFIG.url}/contact`}
       />
-      <div className="section-padding">
-        <div className="max-w-7xl mx-auto">
+      <div className="wp-section">
+        <div className="wp-container">
           {/* Header */}
-          <div className="text-center mb-12">
-            <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#212121] dark:text-white mb-4 tracking-tight">
-              Contáctanos
-            </h1>
-            <p className="text-base md:text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto font-light leading-relaxed">
-              ¿Tienes preguntas, sugerencias o quieres colaborar con nosotros? 
-              Estamos aquí para ayudarte.
-            </p>
-          </div>
+          <SectionHeader
+            title="Contáctanos"
+            subtitle="¿Tienes preguntas, sugerencias o quieres colaborar con nosotros? Estamos aquí para ayudarte."
+          />
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
             {/* Contact Information */}
             <div className="lg:col-span-1">
-              <div className="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-8 border-l-4 border-[#1B5E20]">
-                <h2 className="text-2xl md:text-3xl font-bold text-[#212121] dark:text-white mb-6 tracking-tight">
+              <div className="wp-card p-8 border-l-4 border-accent-600">
+                <h2 className="font-heading text-3xl font-bold text-ink-900 dark:text-white mb-6 tracking-tight">
                   Información de Contacto
                 </h2>
                 
                 <div className="space-y-6">
                   <div className="flex items-start">
-                    <div className="w-10 h-10 bg-[#E8F5E9] dark:bg-slate-700 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
-                      <Mail className="w-5 h-5 text-[#1B5E20] dark:text-[#4CAF50]" />
+                    <div className="w-10 h-10 bg-primary-100/60 dark:bg-primary-700 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                      <Mail className="w-5 h-5 text-accent-700 dark:text-accent-300" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-[#212121] dark:text-white">Email</h3>
-                      <p className="text-gray-600 dark:text-gray-300">{SITE_CONFIG.contact.email}</p>
+                      <h3 className="font-semibold text-ink-900 dark:text-white">Email</h3>
+                      <p className="text-ink-600 dark:text-slate-300">{SITE_CONFIG.contact.email}</p>
                     </div>
                   </div>
                   
                   <div className="flex items-start">
-                    <div className="w-10 h-10 bg-[#E8F5E9] dark:bg-slate-700 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
-                      <Phone className="w-5 h-5 text-[#1B5E20] dark:text-[#4CAF50]" />
+                    <div className="w-10 h-10 bg-primary-100/60 dark:bg-primary-700 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                      <Phone className="w-5 h-5 text-accent-700 dark:text-accent-300" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-[#212121] dark:text-white">Teléfono</h3>
-                      <p className="text-gray-600 dark:text-gray-300">{SITE_CONFIG.contact.phone}</p>
-                      <p className="text-gray-600 dark:text-gray-300">{SITE_CONFIG.contact.schedule}</p>
+                      <h3 className="font-semibold text-ink-900 dark:text-white">Teléfono</h3>
+                      <p className="text-ink-600 dark:text-slate-300">{SITE_CONFIG.contact.phone}</p>
+                      <p className="text-ink-600 dark:text-slate-300">{SITE_CONFIG.contact.schedule}</p>
                     </div>
                   </div>
                   
                   <div className="flex items-start">
-                    <div className="w-10 h-10 bg-[#E8F5E9] dark:bg-slate-700 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
-                      <MapPin className="w-5 h-5 text-[#1B5E20] dark:text-[#4CAF50]" />
+                    <div className="w-10 h-10 bg-primary-100/60 dark:bg-primary-700 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                      <MapPin className="w-5 h-5 text-accent-700 dark:text-accent-300" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-[#212121] dark:text-white">Oficina</h3>
-                      <p className="text-gray-600 dark:text-gray-300">{SITE_CONFIG.contact.address}</p>
+                      <h3 className="font-semibold text-ink-900 dark:text-white">Oficina</h3>
+                      <p className="text-ink-600 dark:text-slate-300">{SITE_CONFIG.contact.address}</p>
                     </div>
                   </div>
                   
                   <div className="flex items-start">
-                    <div className="w-10 h-10 bg-[#E8F5E9] dark:bg-slate-700 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
-                      <Globe className="w-5 h-5 text-[#1B5E20] dark:text-[#4CAF50]" />
+                    <div className="w-10 h-10 bg-primary-100/60 dark:bg-primary-700 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                      <Globe className="w-5 h-5 text-accent-700 dark:text-accent-300" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-[#212121] dark:text-white">Redes Sociales</h3>
+                      <h3 className="font-semibold text-ink-900 dark:text-white">Redes Sociales</h3>
                       <div className="flex space-x-4 mt-2">
-                        <a href={SITE_CONFIG.social.facebook} target="_blank" rel="noopener noreferrer" className="text-gray-600 dark:text-gray-300 hover:text-[#1B5E20] dark:hover:text-[#4CAF50] transition-colors">
+                        <a href={SITE_CONFIG.social.facebook} target="_blank" rel="noopener noreferrer" className="wp-link" aria-label="Visitar Facebook de Explorando la Convención">
                           Facebook
                         </a>
-                        <a href={SITE_CONFIG.social.instagram} target="_blank" rel="noopener noreferrer" className="text-gray-600 dark:text-gray-300 hover:text-[#1B5E20] dark:hover:text-[#4CAF50] transition-colors">
+                        <a href={SITE_CONFIG.social.instagram} target="_blank" rel="noopener noreferrer" className="wp-link" aria-label="Visitar Instagram de Explorando la Convención">
                           Instagram
                         </a>
-                        <a href={SITE_CONFIG.social.youtube} target="_blank" rel="noopener noreferrer" className="text-gray-600 dark:text-gray-300 hover:text-[#1B5E20] dark:hover:text-[#4CAF50] transition-colors">
+                        <a href={SITE_CONFIG.social.youtube} target="_blank" rel="noopener noreferrer" className="wp-link" aria-label="Visitar YouTube de Explorando la Convención">
                           YouTube
                         </a>
                       </div>
@@ -116,15 +192,34 @@ const Contact: React.FC = () => {
 
             {/* Contact Form */}
             <div className="lg:col-span-2">
-              <div className="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-8 border-t-4 border-[#4CAF50]">
-                <h2 className="text-2xl font-bold text-[#212121] dark:text-white mb-6">
+              <div className="wp-card p-8 border-t-4 border-accent-700">
+                <h2 className="font-heading text-3xl font-bold text-ink-900 dark:text-white mb-6">
                   Envíanos un Mensaje
                 </h2>
                 
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-6" noValidate>
+                  <p className="text-sm text-ink-600 dark:text-slate-300">
+                    Los campos marcados con <span className="text-accent-700">*</span> son obligatorios.
+                  </p>
+
+                  <div className="min-h-[1.75rem]" aria-live="polite">
+                    {submitMessage && (
+                      <p
+                        className={`text-sm font-medium ${
+                          submitMessage.type === 'success'
+                            ? 'text-accent-700 dark:text-accent-300'
+                            : 'text-red-700 dark:text-red-400'
+                        }`}
+                        role={submitMessage.type === 'error' ? 'alert' : undefined}
+                      >
+                        {submitMessage.text}
+                      </p>
+                    )}
+                  </div>
+
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                      <label htmlFor="name" className="block text-sm font-medium text-[#212121] dark:text-white mb-2">
+                      <label htmlFor="name" className="block text-sm font-medium text-ink-900 dark:text-white mb-2">
                         Nombre Completo *
                       </label>
                       <input
@@ -134,13 +229,22 @@ const Contact: React.FC = () => {
                         value={formData.name}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-3 border-2 border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-[#212121] dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-[#4CAF50] focus:border-transparent transition-colors"
+                        autoComplete="name"
+                        className={`wp-input ${errors.name ? 'border-red-400 focus:border-red-500 focus:ring-red-300' : ''}`}
                         placeholder="Tu nombre"
+                        maxLength={80}
+                        aria-invalid={Boolean(errors.name)}
+                        aria-describedby={errors.name ? 'name-error' : undefined}
                       />
+                      {errors.name && (
+                        <p id="name-error" className="mt-2 text-sm text-red-700 dark:text-red-400">
+                          {errors.name}
+                        </p>
+                      )}
                     </div>
                     
                     <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-[#212121] dark:text-white mb-2">
+                      <label htmlFor="email" className="block text-sm font-medium text-ink-900 dark:text-white mb-2">
                         Email *
                       </label>
                       <input
@@ -150,14 +254,23 @@ const Contact: React.FC = () => {
                         value={formData.email}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-3 border-2 border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-[#212121] dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-[#4CAF50] focus:border-transparent transition-colors"
+                        autoComplete="email"
+                        className={`wp-input ${errors.email ? 'border-red-400 focus:border-red-500 focus:ring-red-300' : ''}`}
                         placeholder="tu@email.com"
+                        maxLength={120}
+                        aria-invalid={Boolean(errors.email)}
+                        aria-describedby={errors.email ? 'email-error' : undefined}
                       />
+                      {errors.email && (
+                        <p id="email-error" className="mt-2 text-sm text-red-700 dark:text-red-400">
+                          {errors.email}
+                        </p>
+                      )}
                     </div>
                   </div>
                   
                   <div>
-                    <label htmlFor="subject" className="block text-sm font-medium text-[#212121] dark:text-white mb-2">
+                    <label htmlFor="subject" className="block text-sm font-medium text-ink-900 dark:text-white mb-2">
                       Asunto *
                     </label>
                     <select
@@ -166,7 +279,9 @@ const Contact: React.FC = () => {
                       value={formData.subject}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 border-2 border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-[#212121] dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-[#4CAF50] focus:border-transparent transition-colors"
+                      className={`wp-select ${errors.subject ? 'border-red-400 focus:border-red-500 focus:ring-red-300' : ''}`}
+                      aria-invalid={Boolean(errors.subject)}
+                      aria-describedby={errors.subject ? 'subject-error' : undefined}
                     >
                       <option value="">Selecciona un asunto</option>
                       <option value="colaboracion">Colaboración</option>
@@ -175,10 +290,15 @@ const Contact: React.FC = () => {
                       <option value="publicidad">Publicidad</option>
                       <option value="otro">Otro</option>
                     </select>
+                    {errors.subject && (
+                      <p id="subject-error" className="mt-2 text-sm text-red-700 dark:text-red-400">
+                        {errors.subject}
+                      </p>
+                    )}
                   </div>
                   
                   <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-[#212121] dark:text-white mb-2">
+                    <label htmlFor="message" className="block text-sm font-medium text-ink-900 dark:text-white mb-2">
                       Mensaje *
                     </label>
                     <textarea
@@ -188,16 +308,35 @@ const Contact: React.FC = () => {
                       onChange={handleChange}
                       required
                       rows={6}
-                      className="w-full px-4 py-3 border-2 border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-[#212121] dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-[#4CAF50] focus:border-transparent transition-colors resize-vertical"
+                      className={`wp-textarea ${errors.message ? 'border-red-400 focus:border-red-500 focus:ring-red-300' : ''}`}
                       placeholder="Escribe tu mensaje aquí..."
+                      maxLength={1200}
+                      aria-invalid={Boolean(errors.message)}
+                      aria-describedby={errors.message ? 'message-error' : 'message-help'}
                     />
+                    <div className="mt-2 flex items-center justify-between gap-3">
+                      {errors.message ? (
+                        <p id="message-error" className="text-sm text-red-700 dark:text-red-400">
+                          {errors.message}
+                        </p>
+                      ) : (
+                        <p id="message-help" className="text-xs text-ink-500 dark:text-slate-400">
+                          Cuéntanos el contexto para ayudarte mejor.
+                        </p>
+                      )}
+                      <p className="text-xs text-ink-500 dark:text-slate-400">
+                        {formData.message.length}/1200
+                      </p>
+                    </div>
                   </div>
                   
                   <button
                     type="submit"
-                    className="bg-[#1B5E20] dark:bg-[#4CAF50] text-white font-bold px-8 py-3 rounded-lg hover:bg-[#4CAF50] dark:hover:bg-[#1B5E20] transition-all duration-200 w-full md:w-auto"
+                    className="wp-btn-primary w-full md:w-auto"
+                    disabled={isSubmitting}
+                    aria-busy={isSubmitting}
                   >
-                    Enviar Mensaje
+                    {isSubmitting ? 'Enviando...' : 'Enviar Mensaje'}
                   </button>
                 </form>
               </div>

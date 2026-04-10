@@ -11,25 +11,26 @@ const ThemeToggle: React.FC<ThemeToggleProps> = ({ scrolled = false }) => {
 
   if (!mounted) {
     return (
-      <div className="p-2 w-9 h-9 rounded-full" />
+      <div className="h-10 w-10 sm:h-9 sm:w-9 rounded-full" />
     );
   }
 
   return (
     <button
       onClick={toggleTheme}
-      className={`p-2 rounded-full transition-colors duration-200 focus:outline-none ${
+      className={`h-10 w-10 sm:h-9 sm:w-9 inline-flex items-center justify-center transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-400 focus-visible:ring-offset-2 ${
         scrolled
-          ? 'text-slate-800 dark:text-white'
-          : 'text-white'
+          ? 'text-ink-900 dark:text-white hover:text-accent-700 dark:hover:text-accent-300 focus-visible:ring-offset-white dark:focus-visible:ring-offset-primary-950'
+          : 'text-white hover:text-accent-200 focus-visible:ring-offset-transparent'
       }`}
       aria-label={darkMode ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
       title={darkMode ? 'Modo claro' : 'Modo oscuro'}
+      aria-pressed={darkMode}
     >
       {darkMode ? (
-        <Sun className="w-5 h-5" strokeWidth={2} />
+        <Sun className="w-5 h-5 sm:w-[18px] sm:h-[18px]" strokeWidth={2} />
       ) : (
-        <Moon className="w-5 h-5" strokeWidth={2} />
+        <Moon className="w-5 h-5 sm:w-[18px] sm:h-[18px]" strokeWidth={2} />
       )}
     </button>
   );

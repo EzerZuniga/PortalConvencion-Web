@@ -9,8 +9,8 @@ interface CardProps {
 const Card: React.FC<CardProps> = ({ children, className = '', hover = true }) => {
   return (
     <div
-      className={`bg-white dark:bg-slate-800 rounded-xl shadow-md border border-gray-100 dark:border-slate-700 ${
-        hover ? 'hover:shadow-xl transition-shadow duration-300' : ''
+      className={`wp-card ${
+        hover ? 'wp-card-interactive' : ''
       } ${className}`}
     >
       {children}

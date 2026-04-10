@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+﻿import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { User, Menu, X, MapPin, Clock, Mail, LogOut, Bell, UserCircle } from 'lucide-react';
 import { FaFacebookF, FaInstagram, FaYoutube } from 'react-icons/fa';
@@ -50,28 +50,28 @@ const Navbar: React.FC = () => {
     <header className="w-full fixed top-0 z-50 transition-all duration-300">
       {/* Top bar */}
       <div
-        className={`w-full bg-white dark:bg-slate-800 transition-all duration-300 overflow-hidden ${
+        className={`w-full bg-white dark:bg-primary-900 transition-all duration-300 overflow-hidden ${
           scrolled
             ? 'h-0 opacity-0 border-b-0'
-            : 'h-auto py-2.5 opacity-100 border-b border-gray-200 dark:border-slate-700'
+            : 'h-auto py-2.5 opacity-100 border-b border-earth-200 dark:border-primary-700'
         }`}
         style={{ display: scrolled ? 'none' : 'block' }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-4">
             <div className="flex items-center gap-4 sm:gap-6 text-xs sm:text-sm">
-              <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">
+              <div className="flex items-center gap-2 text-ink-600 dark:text-slate-300 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">
                 <MapPin size={14} className="flex-shrink-0" />
                 <span className="hidden sm:inline">{SITE_CONFIG.contact.location}</span>
                 <span className="sm:hidden">Quillabamba</span>
               </div>
-              <div className="hidden md:flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">
+              <div className="hidden md:flex items-center gap-2 text-ink-600 dark:text-slate-300 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">
                 <Clock size={14} className="flex-shrink-0" />
                 <span>{SITE_CONFIG.contact.schedule}</span>
               </div>
               <a
                 href={`mailto:${SITE_CONFIG.social.email}`}
-                className="hidden lg:flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
+                className="hidden lg:flex items-center gap-2 text-ink-600 dark:text-slate-300 hover:text-accent-600 dark:hover:text-accent-400 transition-colors"
               >
                 <Mail size={14} className="flex-shrink-0" />
                 <span>{SITE_CONFIG.social.email}</span>
@@ -79,22 +79,22 @@ const Navbar: React.FC = () => {
             </div>
 
             <div className="flex items-center gap-4">
-              <span className="hidden sm:inline text-sm font-medium text-gray-500 dark:text-gray-400">Síguenos:</span>
+              <span className="hidden sm:inline text-sm font-medium text-ink-500 dark:text-slate-400">Síguenos:</span>
               <div className="flex items-center gap-2">
                 <a href={SITE_CONFIG.social.facebook} target="_blank" rel="noopener noreferrer"
-                  className="w-7 h-7 rounded-full bg-gray-100 dark:bg-slate-700 hover:bg-emerald-600 dark:hover:bg-emerald-600 flex items-center justify-center transition-all duration-200 hover:scale-110"
+                  className="w-7 h-7 rounded-full bg-earth-100 dark:bg-primary-700 hover:bg-accent-600 dark:hover:bg-accent-600 flex items-center justify-center transition-all duration-200 hover:scale-110"
                   aria-label="Facebook" title="Síguenos en Facebook">
-                  <FaFacebookF className="text-sm text-gray-700 dark:text-white hover:text-white" />
+                  <FaFacebookF className="text-sm text-ink-700 dark:text-white hover:text-white" />
                 </a>
                 <a href={SITE_CONFIG.social.instagram} target="_blank" rel="noopener noreferrer"
-                  className="w-7 h-7 rounded-full bg-gray-100 dark:bg-slate-700 hover:bg-gradient-to-tr hover:from-purple-600 hover:to-pink-600 flex items-center justify-center transition-all duration-200 hover:scale-110"
+                  className="w-7 h-7 rounded-full bg-earth-100 dark:bg-primary-700 hover:bg-accent-600 dark:hover:bg-accent-600 flex items-center justify-center transition-all duration-200 hover:scale-110"
                   aria-label="Instagram" title="Síguenos en Instagram">
-                  <FaInstagram className="text-sm text-gray-700 dark:text-white hover:text-white" />
+                  <FaInstagram className="text-sm text-ink-700 dark:text-white hover:text-white" />
                 </a>
                 <a href={SITE_CONFIG.social.youtube} target="_blank" rel="noopener noreferrer"
-                  className="w-7 h-7 rounded-full bg-gray-100 dark:bg-slate-700 hover:bg-red-600 dark:hover:bg-red-600 flex items-center justify-center transition-all duration-200 hover:scale-110"
+                  className="w-7 h-7 rounded-full bg-earth-100 dark:bg-primary-700 hover:bg-accent-700 dark:hover:bg-accent-700 flex items-center justify-center transition-all duration-200 hover:scale-110"
                   aria-label="YouTube" title="Síguenos en YouTube">
-                  <FaYoutube className="text-sm text-gray-700 dark:text-white hover:text-white" />
+                  <FaYoutube className="text-sm text-ink-700 dark:text-white hover:text-white" />
                 </a>
               </div>
             </div>
@@ -105,7 +105,7 @@ const Navbar: React.FC = () => {
       {/* Main nav */}
       <nav
         className={`${
-          scrolled ? 'bg-white dark:bg-slate-900 shadow-lg' : 'bg-transparent'
+          scrolled ? 'bg-white/95 dark:bg-primary-950/95 backdrop-blur-md shadow-lg border-b border-earth-200 dark:border-primary-700' : 'bg-transparent'
         } transition-all duration-300`}
         role="navigation"
         aria-label="Navegación principal"
@@ -120,7 +120,7 @@ const Navbar: React.FC = () => {
                 className={`${scrolled ? 'h-10 sm:h-12 lg:h-14' : 'h-9 sm:h-11 lg:h-12'} w-auto object-contain transition-all duration-300 group-hover:scale-105 group-hover:brightness-110`}
                 onError={(e) => {
                   e.currentTarget.onerror = null;
-                  e.currentTarget.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjYwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iNjAiIGZpbGw9IiMxMEI5ODEiLz48dGV4dCB4PSIxMDAiIHk9IjM1IiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5FeHBsb3JhbmRvPC90ZXh0Pjwvc3ZnPg==';
+                  e.currentTarget.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjYwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iNjAiIGZpbGw9IiMwMEE4NkIiLz48dGV4dCB4PSIxMDAiIHk9IjM1IiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5FeHBsb3JhbmRvPC90ZXh0Pjwvc3ZnPg==';
                 }}
               />
             </Link>
@@ -133,8 +133,8 @@ const Navbar: React.FC = () => {
                   to={item.href}
                   className={`px-4 py-2 text-base font-medium transition-colors duration-200 ${
                     scrolled
-                      ? 'text-slate-700 dark:text-gray-200 hover:text-emerald-600 dark:hover:text-emerald-400'
-                      : 'text-white hover:text-emerald-300'
+                      ? 'text-ink-800 dark:text-slate-200 hover:text-accent-600 dark:hover:text-accent-300'
+                      : 'text-white hover:text-accent-200'
                   }`}
                   aria-current={isActive(item.href) ? 'page' : undefined}
                 >
@@ -148,7 +148,7 @@ const Navbar: React.FC = () => {
                   <div className="relative" ref={userMenuRef}>
                     <button
                       onClick={() => setShowUserMenu(!showUserMenu)}
-                      className="w-10 h-10 rounded-full overflow-hidden border-2 border-slate-300 dark:border-slate-600 hover:border-emerald-500 dark:hover:border-emerald-400 transition-colors"
+                      className="w-10 h-10 rounded-full overflow-hidden border-2 border-earth-300 dark:border-primary-600 hover:border-accent-500 dark:hover:border-accent-400 transition-colors"
                     >
                       {user.picture ? (
                         <img src={user.picture} alt={user.name} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
@@ -160,17 +160,17 @@ const Navbar: React.FC = () => {
                     </button>
 
                     {showUserMenu && (
-                      <div className="absolute right-0 mt-2 w-64 bg-white dark:bg-slate-800 rounded-lg shadow-2xl border border-gray-200 dark:border-slate-700 py-2 z-50">
+                      <div className="absolute right-0 mt-2 w-64 bg-white dark:bg-primary-900 rounded-lg shadow-2xl border border-earth-200 dark:border-primary-700 py-2 z-50">
                         <Link to="/profile" onClick={() => setShowUserMenu(false)}
-                          className="w-full px-4 py-3 flex items-center gap-3 hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors">
-                          <UserCircle className="w-5 h-5 text-gray-600 dark:text-gray-400" />
-                          <span className="text-sm text-gray-800 dark:text-white font-medium">Mi perfil</span>
+                          className="w-full px-4 py-3 flex items-center gap-3 hover:bg-earth-100 dark:hover:bg-primary-700 transition-colors">
+                          <UserCircle className="w-5 h-5 text-ink-600 dark:text-slate-400" />
+                          <span className="text-sm text-ink-800 dark:text-white font-medium">Mi perfil</span>
                         </Link>
-                        <button className="w-full px-4 py-3 flex items-center gap-3 hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors">
-                          <Bell className="w-5 h-5 text-gray-600 dark:text-gray-400" />
-                          <span className="text-sm text-gray-800 dark:text-white font-medium">Mis notificaciones</span>
+                        <button className="w-full px-4 py-3 flex items-center gap-3 hover:bg-earth-100 dark:hover:bg-primary-700 transition-colors">
+                          <Bell className="w-5 h-5 text-ink-600 dark:text-slate-400" />
+                          <span className="text-sm text-ink-800 dark:text-white font-medium">Mis notificaciones</span>
                         </button>
-                        <div className="border-t border-gray-200 dark:border-slate-700 my-2" />
+                        <div className="border-t border-earth-200 dark:border-primary-700 my-2" />
                         <button onClick={handleLogout}
                           className="w-full px-4 py-3 flex items-center gap-3 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors">
                           <LogOut className="w-5 h-5 text-red-600 dark:text-red-400" />
@@ -183,7 +183,7 @@ const Navbar: React.FC = () => {
                   <button
                     onClick={() => setShowLoginModal(true)}
                     className={`p-2 rounded-full transition-colors duration-200 focus:outline-none ${
-                      scrolled ? 'text-slate-800 dark:text-white' : 'text-white'
+                      scrolled ? 'text-ink-900 dark:text-white' : 'text-white'
                     }`}
                     aria-label="Iniciar sesión" title="Iniciar sesión"
                   >
@@ -213,7 +213,7 @@ const Navbar: React.FC = () => {
                 <button
                   onClick={() => setShowLoginModal(true)}
                   className={`p-2 rounded-full transition-colors duration-200 focus:outline-none ${
-                    scrolled ? 'text-slate-800 dark:text-white' : 'text-white'
+                    scrolled ? 'text-ink-900 dark:text-white' : 'text-white'
                   }`}
                   aria-label="Iniciar sesión" title="Iniciar sesión"
                 >
@@ -223,7 +223,7 @@ const Navbar: React.FC = () => {
               <button
                 onClick={() => setIsOpen(!isOpen)}
                 className={`inline-flex items-center justify-center p-2 rounded-lg focus:outline-none transition-all duration-200 ${
-                  scrolled ? 'text-slate-800 dark:text-gray-200' : 'text-white'
+                  scrolled ? 'text-ink-900 dark:text-slate-200' : 'text-white'
                 }`}
                 aria-label={isOpen ? 'Cerrar menú' : 'Abrir menú'}
                 aria-expanded={isOpen}
@@ -238,8 +238,8 @@ const Navbar: React.FC = () => {
         <div className={`lg:hidden transition-all duration-300 ease-in-out overflow-hidden ${isOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'}`}>
           <div className={`${
             scrolled
-              ? 'bg-white dark:bg-slate-900 shadow-md border-t border-gray-200 dark:border-slate-700'
-              : 'bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-t border-gray-200 dark:border-slate-700'
+              ? 'bg-white dark:bg-primary-950 shadow-md border-t border-earth-200 dark:border-primary-700'
+              : 'bg-white/95 dark:bg-primary-950/95 backdrop-blur-md border-t border-earth-200 dark:border-primary-700'
           } transition-all duration-300`}>
             <nav className="px-2 py-3" aria-label="Menú de navegación móvil">
               <ul className="space-y-1">
@@ -249,8 +249,8 @@ const Navbar: React.FC = () => {
                       to={item.href}
                       className={`block px-4 py-3 rounded-lg text-base font-medium transition-all duration-200 ${
                         isActive(item.href)
-                          ? 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400'
-                          : 'text-slate-700 dark:text-gray-200 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-emerald-600 dark:hover:text-emerald-400'
+                          ? 'bg-accent-50 dark:bg-accent-900/25 text-accent-700 dark:text-accent-300'
+                          : 'text-ink-700 dark:text-slate-200 hover:bg-earth-100 dark:hover:bg-primary-800 hover:text-accent-600 dark:hover:text-accent-300'
                       }`}
                       onClick={() => setIsOpen(false)}
                       aria-current={isActive(item.href) ? 'page' : undefined}
@@ -269,18 +269,18 @@ const Navbar: React.FC = () => {
       {showUserMenu && user && (
         <div className="fixed inset-0 z-50 lg:hidden">
           <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setShowUserMenu(false)} />
-          <div className="absolute top-20 right-4 left-4 sm:left-auto sm:w-80 bg-white dark:bg-slate-800 rounded-lg shadow-2xl border border-gray-200 dark:border-slate-700 p-2">
+          <div className="absolute top-20 right-4 left-4 sm:left-auto sm:w-80 bg-white dark:bg-primary-900 rounded-lg shadow-2xl border border-earth-200 dark:border-primary-700 p-2">
             <Link to="/profile" onClick={() => setShowUserMenu(false)}
-              className="w-full flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-700 text-slate-700 dark:text-gray-200 transition-colors duration-200">
+              className="w-full flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-earth-100 dark:hover:bg-primary-700 text-ink-700 dark:text-slate-200 transition-colors duration-200">
               <UserCircle className="w-5 h-5" />
               <span className="text-sm font-medium">Mi perfil</span>
             </Link>
             <button onClick={() => setShowUserMenu(false)}
-              className="w-full flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-700 text-slate-700 dark:text-gray-200 transition-colors duration-200">
+              className="w-full flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-earth-100 dark:hover:bg-primary-700 text-ink-700 dark:text-slate-200 transition-colors duration-200">
               <Bell className="w-5 h-5" />
               <span className="text-sm font-medium">Mis notificaciones</span>
             </button>
-            <div className="border-t border-gray-200 dark:border-slate-700 my-2" />
+            <div className="border-t border-earth-200 dark:border-primary-700 my-2" />
             <button onClick={() => { setShowUserMenu(false); handleLogout(); }}
               className="w-full flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20 text-red-600 dark:text-red-400 transition-colors duration-200">
               <LogOut className="w-5 h-5" />
@@ -296,3 +296,4 @@ const Navbar: React.FC = () => {
 };
 
 export default Navbar;
+

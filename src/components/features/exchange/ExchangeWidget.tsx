@@ -25,7 +25,7 @@ const ExchangeWidget: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="bg-white dark:bg-slate-800 rounded-xl p-6 border border-gray-200 dark:border-slate-700 flex items-center justify-center min-h-[180px]">
+      <div className="wp-card p-6 flex items-center justify-center min-h-[180px]">
         <LoadingSpinner size="md" />
       </div>
     );
@@ -33,7 +33,7 @@ const ExchangeWidget: React.FC = () => {
 
   if (error || !data) {
     return (
-      <div className="bg-white dark:bg-slate-800 rounded-xl p-6 border border-gray-200 dark:border-slate-700">
+      <div className="wp-card p-6">
         <ErrorMessage message="No se pudo cargar el tipo de cambio" onRetry={refetch} />
       </div>
     );
@@ -42,10 +42,10 @@ const ExchangeWidget: React.FC = () => {
   const displayCurrencies = ['PEN', 'EUR', 'BRL', 'COP'] as const;
 
   return (
-    <div className="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-slate-700 hover:shadow-xl transition-shadow duration-300">
+    <div className="wp-card wp-card-interactive p-6">
       <div className="flex items-center gap-2 mb-4">
-        <div className="w-8 h-8 bg-emerald-100 dark:bg-emerald-900/30 rounded-lg flex items-center justify-center">
-          <DollarSign className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+        <div className="w-8 h-8 bg-primary-100 dark:bg-primary-900/30 rounded-lg flex items-center justify-center">
+          <DollarSign className="w-4 h-4 text-primary-700 dark:text-primary-400" />
         </div>
         <div>
           <h3 className="text-sm font-semibold text-gray-900 dark:text-white">Tipo de Cambio</h3>

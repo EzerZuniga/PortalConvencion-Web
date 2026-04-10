@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PostCard from '@/components/features/blog';
+import { SectionHeader } from '@/components/ui';
 import { posts, categories } from '@/data/posts';
 import SEOHead from '@/components/features/seo';
 import { SITE_CONFIG } from '@/config/site';
@@ -12,24 +13,20 @@ const Destinations: React.FC = () => {
     : posts.filter(post => post.category === selectedCategory);
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-slate-900">
+    <div className="wp-shell">
       <SEOHead 
         title="Destinos Turísticos de La Convención - Guía Completa"
         description="Explora todos los destinos turísticos de La Convención: naturaleza, aventura, cultura y gastronomía en el corazón de Cusco."
         keywords="destinos La Convención, turismo Cusco, lugares turísticos Perú, qué visitar Quillabamba"
         url={`${SITE_CONFIG.url}/destinations`}
       />
-      <div className="section-padding">
-        <div className="max-w-7xl mx-auto">
+      <div className="wp-section">
+        <div className="wp-container">
           {/* Header */}
-          <div className="text-center mb-12">
-            <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#212121] dark:text-white mb-4 tracking-tight">
-              Todos los Destinos
-            </h1>
-            <p className="text-base md:text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto font-light leading-relaxed">
-              Explora nuestra colección completa de artículos sobre viajes, destinos y experiencias en La Convención.
-            </p>
-          </div>
+          <SectionHeader
+            title="Todos los Destinos"
+            subtitle="Explora nuestra colección completa de artículos sobre viajes, destinos y experiencias en La Convención."
+          />
 
           {/* Category Filter */}
           <div className="flex flex-wrap justify-center gap-4 mb-12">
@@ -37,10 +34,10 @@ const Destinations: React.FC = () => {
               <button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
-                className={`px-6 py-3 rounded-full font-medium transition-colors duration-200 ${
+                className={`wp-btn ${
                   selectedCategory === category
-                    ? 'bg-[#1B5E20] dark:bg-[#4CAF50] text-white'
-                    : 'bg-white dark:bg-slate-800 text-[#212121] dark:text-white hover:bg-gray-100 dark:hover:bg-slate-700'
+                    ? 'bg-accent-600 text-white dark:bg-accent-500'
+                    : 'bg-white dark:bg-primary-900 text-ink-900 dark:text-white border border-[var(--color-border)] dark:border-primary-700 hover:bg-primary-50 dark:hover:bg-primary-800'
                 }`}
               >
                 {category}
@@ -57,7 +54,7 @@ const Destinations: React.FC = () => {
 
           {filteredPosts.length === 0 && (
             <div className="text-center py-12">
-              <p className="text-gray-600 dark:text-gray-300 text-lg">
+              <p className="text-ink-600 dark:text-slate-300 text-lg">
                 No hay artículos en esta categoría.
               </p>
             </div>

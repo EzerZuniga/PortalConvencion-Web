@@ -1,5 +1,5 @@
 import React from 'react'
-import ReactDOM from 'react-dom/client'
+import { createRoot, hydrateRoot } from 'react-dom/client'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import { HelmetProvider } from 'react-helmet-async'
 import App from './App.tsx'
@@ -7,12 +7,24 @@ import '@/styles/globals.css'
 
 const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID || "CONFIGURA_TU_CLIENT_ID"
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+const appTree = (
   <React.StrictMode>
     <HelmetProvider>
       <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
         <App />
       </GoogleOAuthProvider>
     </HelmetProvider>
-  </React.StrictMode>,
+  </React.StrictMode>
 )
+
+const rootElement = document.getElementById('root')
+
+if (!rootElement) {
+  throw new Error('No se encontró el elemento root para inicializar la aplicación.')
+}
+
+if (rootElement.hasChildNodes()) {
+  hydrateRoot(rootElement, appTree)
+} else {
+  createRoot(rootElement).render(appTree)
+}

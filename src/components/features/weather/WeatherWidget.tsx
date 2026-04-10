@@ -9,7 +9,7 @@ const WeatherWidget: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="bg-gradient-to-br from-sky-500 to-blue-600 rounded-xl p-6 text-white flex items-center justify-center min-h-[180px]">
+      <div className="wp-card bg-gradient-to-br from-primary-600 to-primary-800 p-6 text-white flex items-center justify-center min-h-[180px]">
         <LoadingSpinner size="lg" className="border-white/30 border-t-white" />
       </div>
     );
@@ -17,14 +17,14 @@ const WeatherWidget: React.FC = () => {
 
   if (error || !data) {
     return (
-      <div className="bg-white dark:bg-slate-800 rounded-xl p-6 border border-gray-200 dark:border-slate-700">
+      <div className="wp-card p-6">
         <ErrorMessage message="No se pudo cargar el clima" onRetry={refetch} />
       </div>
     );
   }
 
   return (
-    <div className="bg-gradient-to-br from-sky-500 to-blue-600 rounded-xl p-6 text-white shadow-lg hover:shadow-xl transition-shadow duration-300">
+    <div className="wp-card wp-card-interactive bg-gradient-to-br from-primary-600 to-primary-800 p-6 text-white">
       <div className="flex items-center justify-between mb-4">
         <div>
           <h3 className="text-sm font-medium text-white/80 uppercase tracking-wide">Clima en Quillabamba</h3>

@@ -6,6 +6,15 @@ export default function ScrollToTop() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+
+    const focusMain = () => {
+      const main = document.getElementById('main-content');
+      if (main) {
+        main.focus({ preventScroll: true });
+      }
+    };
+
+    requestAnimationFrame(focusMain);
   }, [pathname]);
 
   return null;

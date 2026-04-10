@@ -31,7 +31,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
       }
 
       return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-slate-950 p-8">
+        <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-slate-950 p-8" role="alert" aria-live="assertive">
           <div className="max-w-lg text-center">
             <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
               Algo salió mal
