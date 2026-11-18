@@ -1,0 +1,20 @@
+- id: "el-mirador-de-quillabamba"
+  name: "El Mirador de Quillabamba"
+  description: "Restaurante con vista panorámica al valle del Urubamba. Cocina de fusión andino-selvática con ingredientes frescos de productores locales. Ideal para celebraciones y veladas especiales."
+  location: "Quillabamba Centro"
+  specialty: "Cocina Andino-Selvática"
+  rating: 4.8
+
+- id: "cafe-organico-montana"
+  name: "Café Orgánico Montaña"
+  description: "Cafetería de especialidad dedicada a los mejores cafés de altura de La Convención. Ambiente acogedor con remastería artesanal, catas guiadas y vista al jardín."
+  location: "Av. 28 de Julio"
+  specialty: "Café de Especialidad"
+  rating: 4.9
+
+- id: "sabor-selvatico"
+  name: "Sabor Selvático"
+  description: "Restaurante de tradición amazónica que preserva recetas ancestrales. Juanes, chicharrón quillabambino y pescados del río Urubamba preparados al momento con ingredientes de la zona."
+  location: "Plaza de Armas"
+  specialty: "Cocina Amazónica Tradicional"
+  rating: 4.7

@@ -23,6 +23,12 @@ export const ROUTES = {
 } as const;
 
 export type RouteKey = keyof typeof ROUTES;
+
+/** Constructores de rutas dinámicas (páginas de detalle). */
+export const routeTo = {
+  destination: (slug: string) => `${ROUTES.destinations}/${slug}`,
+  blogPost: (slug: string) => `${ROUTES.blog}/${slug}`,
+} as const;
 export type RoutePath = (typeof ROUTES)[RouteKey];
 
 type ChangeFrequency = NonNullable<MetadataRoute.Sitemap[number]["changeFrequency"]>;

@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { PHASE_DEVELOPMENT_SERVER, PHASE_PRODUCTION_BUILD } from "next/constants";
 
 // Valida las variables de entorno en `next dev` y `next build`: si falta una
 // obligatoria, el build falla antes de llegar a producción.
@@ -110,4 +111,23 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+/**
+ * Compila el contenido (content/ → .velite/) antes de que Next lea los módulos.
+ * En `next dev` queda en modo watch: editar un .mdx recarga la página.
+ * La variable de entorno evita lanzarlo dos veces (Next carga la config en
+ * varios procesos).
+ */
+async function buildContent(phase: string) {
+  const isDev = phase === PHASE_DEVELOPMENT_SERVER;
+  const isBuild = phase === PHASE_PRODUCTION_BUILD;
+  if (process.env.VELITE_STARTED || (!isDev && !isBuild)) return;
+
+  process.env.VELITE_STARTED = "1";
+  const { build } = await import("velite");
+  await build({ watch: isDev, clean: !isDev });
+}
+
+export default async function config(phase: string): Promise<NextConfig> {
+  await buildContent(phase);
+  return nextConfig;
+}

@@ -29,6 +29,8 @@ jobs:
           cache: npm
 
       - run: npm ci
+      - name: Compilar contenido (content/ → .velite/)
+        run: npm run content
       - run: npm run format:check
       - run: npm run lint -- --max-warnings=0
       - run: npm run typecheck

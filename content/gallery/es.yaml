@@ -1,0 +1,23 @@
+- id: "montanas-majestuosas"
+  title: "Montañas Majestuosas"
+  location: "Andes, La Convención"
+
+- id: "playas-tropicales"
+  title: "Playas Tropicales"
+  location: "Caribe, México"
+
+- id: "ciudades-antiguas"
+  title: "Ciudades Antiguas"
+  location: "Europa"
+
+- id: "desiertos-infinitos"
+  title: "Desiertos Infinitos"
+  location: "Sahara, África"
+
+- id: "bosques-magicos"
+  title: "Bosques Mágicos"
+  location: "Amazonas, Brasil"
+
+- id: "auroras-boreales"
+  title: "Auroras Boreales"
+  location: "Noruega"

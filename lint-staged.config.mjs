@@ -14,7 +14,7 @@ const lintStagedConfig = {
     `eslint --fix --max-warnings=0 ${toArgs(files)}`,
     `prettier --write ${toArgs(files)}`,
   ],
-  "*.{json,md,css,yml,yaml}": (files) => `prettier --write ${toArgs(files)}`,
+  "*.{json,md,mdx,css,yml,yaml}": (files) => `prettier --write ${toArgs(files)}`,
 };
 
 export default lintStagedConfig;

@@ -1,8 +1,18 @@
-import tsconfigPaths from "vite-tsconfig-paths";
+import { fileURLToPath } from "node:url";
 import { defineConfig } from "vitest/config";
 
 export default defineConfig({
-  plugins: [tsconfigPaths()],
+  resolve: {
+    tsconfigPaths: true,
+    alias: [
+      // `server-only` lanza fuera de React Server Components; en tests (Node)
+      // se usa su variante vacía, que el propio paquete incluye.
+      {
+        find: /^server-only$/,
+        replacement: fileURLToPath(new URL("./node_modules/server-only/empty.js", import.meta.url)),
+      },
+    ],
+  },
   test: {
     environment: "node",
     include: ["src/**/*.test.{ts,tsx}"],

@@ -1,0 +1,29 @@
+- id: "chicharron-quillabambino"
+  name: "Chicharrón Quillabambino"
+  description: "Cerdo frito lentamente en su propia manteca hasta lograr piel crujiente y carne jugosa. Servido con yuca sancochada, zarsa criolla y ají amarillo. El plato más emblemático de la ciudad."
+  category: "Platos Principales"
+
+- id: "juane-de-la-selva"
+  name: "Juane de la Selva"
+  description: "Arroz con gallina, aceitunas, huevo y especias, envuelto en hoja de bijao y cocido al vapor. Un clásico amazónico que se prepara en todo festejo familiar de La Convención."
+  category: "Platos Principales"
+
+- id: "trucha-a-la-parrilla"
+  name: "Trucha a la Parrilla"
+  description: "Trucha fresca de los ríos andinos, marinada con hierbas locales y asada sobre brasas de leña. Sabor limpio, textura firme y el aroma inconfundible de la sierra alta."
+  category: "Platos Principales"
+
+- id: "cafe-de-especialidad"
+  name: "Café de Especialidad"
+  description: "Cultivado entre 1,200 y 2,000 m.s.n.m. en las laderas andinas. Notas florales y frutales que le dan el reconocimiento de uno de los mejores cafés del Perú."
+  category: "Bebidas"
+
+- id: "pachamanca-regional"
+  name: "Pachamanca Regional"
+  description: "Cocción subterránea con piedras calientes, carnes de cerdo y pollo, papas nativas y hierbas aromáticas. Técnica ancestral que transforma ingredientes simples en algo extraordinario."
+  category: "Platos Principales"
+
+- id: "humitas-de-choclo"
+  name: "Humitas de Choclo"
+  description: "Masa de maíz tierno rallado, mezclada con queso fresco y especias, envuelta en sus propias hojas verdes y cocida al vapor. Dulce o salada, artesanal siempre."
+  category: "Entradas"

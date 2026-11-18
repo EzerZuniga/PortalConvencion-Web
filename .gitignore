@@ -146,3 +146,7 @@ next-env.d.ts
 
 # Vitest
 coverage
+
+# Velite (contenido compilado y assets generados)
+.velite
+public/static

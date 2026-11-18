@@ -76,5 +76,13 @@ export default defineConfig([
   // Desactiva reglas de formato que entran en conflicto con Prettier.
   prettier,
 
-  globalIgnores([".next/**", "out/**", "build/**", "coverage/**", "next-env.d.ts"]),
+  globalIgnores([
+    ".next/**",
+    ".velite/**",
+    "out/**",
+    "build/**",
+    "coverage/**",
+    "public/**",
+    "next-env.d.ts",
+  ]),
 ]);
