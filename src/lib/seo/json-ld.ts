@@ -181,3 +181,68 @@ export function createPageJsonLd(route: RouteKey): JsonLdObject | null {
 
   return build(base, seo);
 }
+
+// ─── Páginas de detalle ─────────────────────────────────────────────────────
+
+export interface ArticleJsonLdInput {
+  /** `TouristAttraction` para lugares; `Article`/`BlogPosting` para textos. */
+  type: "TouristAttraction" | "Article" | "BlogPosting";
+  title: string;
+  description: string;
+  path: string;
+  image: string;
+  author: string;
+  publishedAt: string;
+  updatedAt?: string;
+}
+
+/** JSON-LD de un artículo o atracción turística. */
+export function articleJsonLd(input: ArticleJsonLdInput): JsonLdObject {
+  const url = absoluteUrl(input.path);
+  const image = absoluteUrl(input.image);
+
+  if (input.type === "TouristAttraction") {
+    return {
+      "@context": "https://schema.org",
+      "@type": "TouristAttraction",
+      name: input.title,
+      description: input.description,
+      url,
+      image,
+      inLanguage: SITE_CONFIG.language,
+      containedInPlace: {
+        "@type": "AdministrativeArea",
+        name: PLACE_NAME,
+      },
+    };
+  }
+
+  return {
+    "@context": "https://schema.org",
+    "@type": input.type,
+    headline: input.title,
+    description: input.description,
+    url,
+    mainEntityOfPage: url,
+    image: [image],
+    datePublished: input.publishedAt,
+    dateModified: input.updatedAt ?? input.publishedAt,
+    author: { "@type": "Person", name: input.author },
+    publisher: organizationRef(),
+    inLanguage: SITE_CONFIG.language,
+  };
+}
+
+/** Migas de pan (`BreadcrumbList`) a partir de pares nombre/ruta. */
+export function breadcrumbJsonLd(items: readonly { name: string; path: string }[]): JsonLdObject {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      item: absoluteUrl(item.path),
+    })),
+  };
+}

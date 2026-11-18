@@ -1,4 +1,4 @@
-import type { RouteKey } from "@/config/routes";
+import { ROUTES, type RouteKey } from "@/config/routes";
 import { translations } from "@/features/i18n/translations";
 
 export interface PageSeo {
@@ -78,3 +78,10 @@ export const PAGE_SEO = {
     noIndex: true,
   },
 } as const satisfies Record<RouteKey, PageSeo>;
+
+/** Nombre corto de una ruta (el del menú), para migas de pan. */
+export function routeLabel(route: RouteKey): string {
+  const { main, footerInfo } = translations.es.navigation;
+  const item = [...main, ...footerInfo].find((nav) => nav.href === ROUTES[route]);
+  return item?.name ?? PAGE_SEO[route].title;
+}
