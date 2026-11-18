@@ -13,7 +13,7 @@ const PROVIDER_LABELS: Record<string, string> = {
   microsoft: "Microsoft",
 };
 
-export default function Profile() {
+export function ProfileView() {
   const router = useRouter();
   const { user, isLoading, signOut } = useAuth();
 

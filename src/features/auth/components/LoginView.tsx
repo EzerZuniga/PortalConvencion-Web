@@ -56,7 +56,7 @@ const OAUTH_PROVIDERS: OAuthProvider[] = [
 ];
 
 // ─── Component ─────────────────────────────────────────────────────────────────
-export default function AuthPage() {
+export function LoginView() {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") ?? "/";
   const [loadingProvider, setLoadingProvider] = useState<string | null>(null);

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Home, ArrowLeft } from "lucide-react";
 
-const NotFound: React.FC = () => {
+export const NotFoundView: React.FC = () => {
   return (
     <div className="wp-shell flex items-center justify-center px-4">
       <div className="wp-card max-w-md p-8 text-center sm:p-10">
@@ -26,5 +26,3 @@ const NotFound: React.FC = () => {
     </div>
   );
 };
-
-export default NotFound;

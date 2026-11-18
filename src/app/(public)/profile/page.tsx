@@ -2,7 +2,7 @@ import { redirect } from "next/navigation";
 import { ROUTES } from "@/config/routes";
 import { auth } from "@/lib/auth/server";
 import { createPageMetadata } from "@/lib/seo/metadata";
-import Profile from "@/views/Profile";
+import { ProfileView } from "@/features/auth/components/ProfileView";
 
 export const metadata = createPageMetadata("profile");
 
@@ -11,5 +11,5 @@ export default async function ProfilePage() {
   const session = await auth();
   if (!session) redirect(ROUTES.login);
 
-  return <Profile />;
+  return <ProfileView />;
 }

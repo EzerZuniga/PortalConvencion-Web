@@ -30,7 +30,7 @@ import { useLanguage } from "@/features/i18n";
 import WeatherWidget from "@/features/weather";
 import ExchangeWidget from "@/features/exchange";
 import QuoteWidget from "@/features/quotes";
-import type { Post } from "@/types";
+import type { ArticleCard } from "@/lib/content/types";
 import { InstitutionalCarousel, ScrollReveal } from "@/components/ui";
 import { ROUTES } from "@/config/routes";
 const SECTION_CLASS = "py-14 sm:py-16 lg:py-20";
@@ -298,6 +298,8 @@ function HighlightsCarousel({ highlights }: { highlights: Highlight[] }) {
     setActiveIndex((index) => (index + 1) % highlights.length);
   };
 
+  if (!active) return null;
+
   return (
     <div className="grid overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-[0_8px_30px_rgb(0,0,0,0.06)] lg:grid-cols-[1.15fr_0.85fr]">
       <div className="relative min-h-[300px] sm:min-h-[380px]">
@@ -481,8 +483,10 @@ function IdentityBand({
   );
 }
 
-function PostsCarousel({ featuredPosts }: { featuredPosts: Post[] }) {
+function PostsCarousel({ featuredPosts }: { featuredPosts: ArticleCard[] }) {
   const { content } = useLanguage();
+  const categoryLabel = (id: string) =>
+    content.pages.destinations.categories.find((c) => c.id === id)?.label ?? id;
   const [activeIndex, setActiveIndex] = useState(0);
   const activePost = featuredPosts[activeIndex] ?? featuredPosts[0];
 
@@ -511,7 +515,7 @@ function PostsCarousel({ featuredPosts }: { featuredPosts: Post[] }) {
         <div className="p-6 sm:p-8">
           <div className="mb-4 flex flex-wrap items-center gap-3 text-xs font-semibold text-gray-500">
             <span className="uppercase tracking-wide text-brand-primary">
-              {activePost.category}
+              {categoryLabel(activePost.category)}
             </span>
             <span className="inline-flex items-center gap-1">
               <Clock className="h-3.5 w-3.5" strokeWidth={1.75} />
@@ -548,7 +552,7 @@ function PostsCarousel({ featuredPosts }: { featuredPosts: Post[] }) {
               className={`rounded-xl border p-4 text-left transition-all duration-300 hover:-translate-y-0.5 ${index === activeIndex ? "bg-brand-background/50 border-brand-primary shadow-md" : "hover:border-brand-primary/50 border-gray-100 bg-white hover:shadow-md"}`}
             >
               <span className="text-xs font-bold uppercase tracking-wide text-brand-primary">
-                {post.category}
+                {categoryLabel(post.category)}
               </span>
               <span className="mt-1 block text-sm font-bold text-brand-text">{post.title}</span>
               <span className="mt-2 block text-xs text-gray-500">{post.readTime}</span>
@@ -638,7 +642,11 @@ function LocationCard({ locationCards }: { locationCards: PortalLink[] }) {
   );
 }
 
-function Home() {
+interface HomeViewProps {
+  featuredDestinations: ArticleCard[];
+}
+
+export function HomeView({ featuredDestinations }: HomeViewProps) {
   const { content } = useLanguage();
   const home = content.pages.home;
   const portalLinks = home.portalLinks.map((item, index) => ({
@@ -662,7 +670,6 @@ function Home() {
     ...item,
     Icon: locationCardIcons[index] ?? MapPin,
   }));
-  const featuredPosts = content.pages.destinations.posts.filter(({ featured }) => featured);
 
   return (
     <div className="min-h-screen bg-[var(--color-background)]">
@@ -808,7 +815,7 @@ function Home() {
                 <TextLinkButton to={ROUTES.blog}>{home.sections.posts.action}</TextLinkButton>
               }
             />
-            <PostsCarousel featuredPosts={featuredPosts} />
+            <PostsCarousel featuredPosts={featuredDestinations} />
           </ScrollReveal>
         </div>
       </section>
@@ -858,5 +865,3 @@ function Home() {
     </div>
   );
 }
-
-export default Home;

@@ -53,7 +53,7 @@ const validateForm = (
   return errors;
 };
 
-const Contact: React.FC = () => {
+export const ContactView: React.FC = () => {
   const { content } = useLanguage();
   const page = content.pages.contact;
   const [formData, setFormData] = useState<ContactFormData>(INITIAL_FORM);
@@ -371,5 +371,3 @@ const Contact: React.FC = () => {
     </div>
   );
 };
-
-export default Contact;

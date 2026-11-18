@@ -17,6 +17,7 @@ import {
 import { motion } from "framer-motion";
 import { ScrollReveal } from "@/components/ui";
 import { useLanguage } from "@/features/i18n";
+import type { DishCard, RestaurantCard } from "@/features/gastronomy/queries";
 
 const GASTRO_STAT_DELAYS = [
   "[animation-delay:460ms]",
@@ -30,7 +31,12 @@ const GASTRO_STATS = [
   { icon: Star, value: "3", label: "Restaurantes top" },
 ] as const;
 
-const Gastronomia: React.FC = () => {
+interface GastronomyViewProps {
+  dishes: DishCard[];
+  restaurants: RestaurantCard[];
+}
+
+export const GastronomyView: React.FC<GastronomyViewProps> = ({ dishes, restaurants }) => {
   const { content } = useLanguage();
   const page = content.pages.gastronomy;
 
@@ -187,7 +193,7 @@ const Gastronomia: React.FC = () => {
           </ScrollReveal>
 
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {page.dishes.map((dish, i) => (
+            {dishes.map((dish, i) => (
               <motion.div
                 key={dish.id}
                 initial={{ opacity: 0, y: 14 }}
@@ -310,7 +316,7 @@ const Gastronomia: React.FC = () => {
           </ScrollReveal>
 
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            {page.restaurants.map((restaurant, i) => (
+            {restaurants.map((restaurant, i) => (
               <motion.article
                 key={restaurant.id}
                 initial={{ opacity: 0, y: 14 }}
@@ -399,5 +405,3 @@ const Gastronomia: React.FC = () => {
     </div>
   );
 };
-
-export default Gastronomia;

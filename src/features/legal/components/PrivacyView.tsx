@@ -3,7 +3,7 @@ import { LegalPageLayout } from "./LegalPageLayout";
 import { SITE_CONFIG } from "@/config/site";
 import { ROUTES } from "@/config/routes";
 
-export const Privacy: React.FC = () => {
+export const PrivacyView: React.FC = () => {
   return (
     <LegalPageLayout title="Política de Privacidad" lastUpdated="Octubre 2024">
       <section>

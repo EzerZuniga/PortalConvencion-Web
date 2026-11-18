@@ -1,8 +1,9 @@
+import { getFeaturedDestinationCards } from "@/features/destinations/queries";
+import { HomeView } from "@/features/home/components/HomeView";
 import { createPageMetadata } from "@/lib/seo/metadata";
-import Home from "@/views/Home";
 
 export const metadata = createPageMetadata("home");
 
 export default function HomePage() {
-  return <Home />;
+  return <HomeView featuredDestinations={getFeaturedDestinationCards()} />;
 }

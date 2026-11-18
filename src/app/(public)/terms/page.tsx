@@ -1,8 +1,8 @@
 import { createPageMetadata } from "@/lib/seo/metadata";
-import { Terms } from "@/views/Legal";
+import { TermsView } from "@/features/legal/components/TermsView";
 
 export const metadata = createPageMetadata("terms");
 
 export default function TermsPage() {
-  return <Terms />;
+  return <TermsView />;
 }

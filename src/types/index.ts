@@ -1,64 +1,14 @@
-export interface Post {
-  id: number;
-  title: string;
-  excerpt: string;
-  content: string;
-  image: string;
-  category: string;
-  author: string;
-  date: string;
-  readTime: string;
-  featured?: boolean;
-}
-
-/** Vista previa de un Post (sin contenido completo). Usada en listas y widgets. */
-export type BlogPost = Omit<Post, "content" | "featured">;
+/**
+ * Tipos compartidos que no pertenecen a un dominio concreto.
+ * Los tipos del contenido editorial se generan desde el esquema de Velite
+ * (`#content`) y se exponen como modelos de vista en `@/lib/content/types`.
+ */
 
 export interface User {
   email: string;
   name: string;
   picture?: string;
   provider?: string;
-}
-
-export interface GalleryImage {
-  id: number;
-  src: string;
-  title: string;
-  location: string;
-}
-
-export interface TipCategory {
-  category: string;
-  tips: string[];
-}
-
-export interface Dish {
-  id: number;
-  name: string;
-  description: string;
-  image: string;
-  category: string;
-}
-
-export interface Restaurant {
-  id: number;
-  name: string;
-  description: string;
-  image: string;
-  location: string;
-  rating: number;
-  specialty: string;
-}
-
-export interface TeamMember {
-  name: string;
-  role: string;
-  description: string;
-  initials: string;
-  color: string;
-  image: string;
-  skills: string[];
 }
 
 export interface ValueItem {

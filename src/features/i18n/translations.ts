@@ -1,14 +1,4 @@
-import type {
-  BlogPost,
-  Dish,
-  GalleryImage,
-  Post,
-  Restaurant,
-  StatItem,
-  TeamMember,
-  TipCategory,
-  ValueItem,
-} from "@/types";
+import type { StatItem, ValueItem } from "@/types";
 import { ROUTES } from "@/config/routes";
 
 export const LANGUAGES = [
@@ -148,6 +138,11 @@ function createEnglishTranslations(base: TranslationContent) {
       searchArticles: "Search articles...",
       posts: "Posts",
       role: "Role:",
+      writtenBy: "By",
+      publishedOn: "Published on",
+      relatedArticles: "Keep exploring",
+      backToList: "Back to list",
+      readingTime: "Reading time",
     },
     pages: {
       home: {
@@ -568,6 +563,11 @@ function createPortugueseTranslations(base: TranslationContent) {
       searchArticles: "Buscar artigos...",
       posts: "Publicações",
       role: "Função:",
+      writtenBy: "Por",
+      publishedOn: "Publicado em",
+      relatedArticles: "Continue explorando",
+      backToList: "Voltar à lista",
+      readingTime: "Tempo de leitura",
     },
     pages: {
       home: {
@@ -711,6 +711,11 @@ function createFrenchTranslations(base: TranslationContent) {
       searchArticles: "Rechercher des articles...",
       posts: "Publications",
       role: "Rôle :",
+      writtenBy: "Par",
+      publishedOn: "Publié le",
+      relatedArticles: "Continuez à explorer",
+      backToList: "Retour à la liste",
+      readingTime: "Temps de lecture",
     },
     pages: {
       home: {
@@ -919,20 +924,22 @@ export type TranslationContent = {
     searchArticles: string;
     posts: string;
     role: string;
+    writtenBy: string;
+    publishedOn: string;
+    relatedArticles: string;
+    backToList: string;
+    readingTime: string;
   };
   pages: {
     home: HomeContent;
     destinations: PageBasics & {
       categories: CategoryOption[];
-      posts: Post[];
     };
     gallery: PageBasics & {
-      images: GalleryImage[];
       ctaText: string;
       ctaAction: string;
     };
     tips: PageBasics & {
-      items: TipCategory[];
       moreHelpTitle: string;
       moreHelpDescription: string;
       emailPlaceholder: string;
@@ -980,7 +987,6 @@ export type TranslationContent = {
       heroTitle: string;
       heroSubtitle: string;
       categories: CategoryOption[];
-      posts: BlogPost[];
       postsTitle: string;
       postsSubtitle: string;
       newsletterTitle: string;
@@ -998,13 +1004,11 @@ export type TranslationContent = {
       introParagraphs: string[];
       dishesTitle: string;
       dishesSubtitle: string;
-      dishes: Dish[];
       coffeeTitle: string;
       coffeeParagraphs: string[];
       coffeeAction: string;
       restaurantsTitle: string;
       restaurantsSubtitle: string;
-      restaurants: Restaurant[];
       ctaTitle: string;
       ctaDescription: string;
       ctaAction: string;
@@ -1026,7 +1030,6 @@ export type TranslationContent = {
       values: ValueItem[];
       teamTitle: string;
       teamSubtitle: string;
-      teamMembers: TeamMember[];
       ctaTitle: string;
       ctaDescription: string;
       ctaAction: string;
@@ -1034,285 +1037,7 @@ export type TranslationContent = {
   };
 };
 
-const blogPostsMeta = [
-  {
-    id: 1,
-    image: "/images/destinations/pueblo-magico.jpg",
-    author: "María Rodríguez",
-  },
-  {
-    id: 2,
-    image: "/images/destinations/andes-trekking.jpg",
-    author: "Carlos Mendoza",
-  },
-  { id: 3, image: "/images/gallery/fotografia.jpg", author: "Ana Silva" },
-  {
-    id: 4,
-    image: "/images/gallery/comida-asiatica.jpg",
-    author: "María Rodríguez",
-  },
-  {
-    id: 5,
-    image: "/images/destinations/pueblo-magico.jpg",
-    author: "Carlos Mendoza",
-  },
-  { id: 6, image: "/images/trips/presupuesto.jpg", author: "Ana Silva" },
-] as const;
-
-const dishMeta = [
-  { id: 1, image: "/images/gallery/comida-asiatica.jpg" },
-  { id: 2, image: "/images/gallery/fotografia.jpg" },
-  { id: 3, image: "/images/destinations/pueblo-magico.jpg" },
-  { id: 4, image: "/images/trips/presupuesto.jpg" },
-  { id: 5, image: "/images/gallery/comida-asiatica.jpg" },
-  { id: 6, image: "/images/destinations/andes-trekking.jpg" },
-] as const;
-
-const restaurantMeta = [
-  { id: 1, image: "/images/destinations/pueblo-magico.jpg", rating: 4.8 },
-  { id: 2, image: "/images/gallery/fotografia.jpg", rating: 4.9 },
-  { id: 3, image: "/images/gallery/comida-asiatica.jpg", rating: 4.7 },
-] as const;
-
-const galleryMeta = [
-  { id: 1, src: "/images/gallery/fotografia.jpg" },
-  { id: 2, src: "/images/gallery/playa.jpg" },
-  { id: 3, src: "/images/gallery/ciudad.jpg" },
-  { id: 4, src: "/images/gallery/desierto.jpg" },
-  { id: 5, src: "/images/gallery/bosque.jpg" },
-  { id: 6, src: "/images/gallery/aurora.jpg" },
-] as const;
-
 // ── Destinations-specific posts (50 items: 15 Destinos, 5 Consejos, 10 Gastronomía, 10 Aventura, 10 Fotografía) ──
-const destinationsPostsMeta = [
-  {
-    id: 1,
-    image: "/images/destinations/pueblo-magico.jpg",
-    author: "Mariela Ramos",
-    date: "2024-04-01",
-    featured: true,
-  },
-  {
-    id: 2,
-    image: "/images/destinations/andes-trekking.jpg",
-    author: "Carlos Huamán",
-    date: "2024-04-03",
-  },
-  { id: 3, image: "/images/gallery/fotografia.jpg", author: "Ana Paredes", date: "2024-04-05" },
-  {
-    id: 4,
-    image: "/images/gallery/comida-asiatica.jpg",
-    author: "Luis Fernández",
-    date: "2024-04-07",
-  },
-  { id: 5, image: "/images/trips/presupuesto.jpg", author: "Equipo Editorial", date: "2024-04-09" },
-  {
-    id: 6,
-    image: "/images/destinations/pueblo-magico.jpg",
-    author: "Mariela Ramos",
-    date: "2024-04-11",
-  },
-  {
-    id: 7,
-    image: "/images/destinations/andes-trekking.jpg",
-    author: "Carlos Huamán",
-    date: "2024-04-13",
-  },
-  { id: 8, image: "/images/gallery/fotografia.jpg", author: "Ana Paredes", date: "2024-04-15" },
-  {
-    id: 9,
-    image: "/images/gallery/comida-asiatica.jpg",
-    author: "Luis Fernández",
-    date: "2024-04-17",
-  },
-  {
-    id: 10,
-    image: "/images/destinations/pueblo-magico.jpg",
-    author: "Equipo Editorial",
-    date: "2024-04-19",
-  },
-  {
-    id: 11,
-    image: "/images/destinations/andes-trekking.jpg",
-    author: "Mariela Ramos",
-    date: "2024-04-21",
-  },
-  { id: 12, image: "/images/gallery/fotografia.jpg", author: "Carlos Huamán", date: "2024-04-23" },
-  {
-    id: 13,
-    image: "/images/gallery/comida-asiatica.jpg",
-    author: "Ana Paredes",
-    date: "2024-04-25",
-  },
-  {
-    id: 14,
-    image: "/images/destinations/pueblo-magico.jpg",
-    author: "Luis Fernández",
-    date: "2024-04-27",
-  },
-  {
-    id: 15,
-    image: "/images/destinations/andes-trekking.jpg",
-    author: "Equipo Editorial",
-    date: "2024-04-29",
-  },
-  { id: 16, image: "/images/trips/presupuesto.jpg", author: "Mariela Ramos", date: "2024-05-01" },
-  {
-    id: 17,
-    image: "/images/gallery/comida-asiatica.jpg",
-    author: "Carlos Huamán",
-    date: "2024-05-03",
-  },
-  { id: 18, image: "/images/trips/presupuesto.jpg", author: "Ana Paredes", date: "2024-05-05" },
-  {
-    id: 19,
-    image: "/images/destinations/pueblo-magico.jpg",
-    author: "Luis Fernández",
-    date: "2024-05-07",
-  },
-  {
-    id: 20,
-    image: "/images/destinations/andes-trekking.jpg",
-    author: "Equipo Editorial",
-    date: "2024-05-09",
-  },
-  {
-    id: 21,
-    image: "/images/gallery/comida-asiatica.jpg",
-    author: "Ana Paredes",
-    date: "2024-05-11",
-  },
-  {
-    id: 22,
-    image: "/images/destinations/pueblo-magico.jpg",
-    author: "Mariela Ramos",
-    date: "2024-05-13",
-  },
-  {
-    id: 23,
-    image: "/images/gallery/comida-asiatica.jpg",
-    author: "Carlos Huamán",
-    date: "2024-05-15",
-  },
-  { id: 24, image: "/images/gallery/fotografia.jpg", author: "Ana Paredes", date: "2024-05-17" },
-  { id: 25, image: "/images/trips/presupuesto.jpg", author: "Luis Fernández", date: "2024-05-19" },
-  {
-    id: 26,
-    image: "/images/gallery/comida-asiatica.jpg",
-    author: "Equipo Editorial",
-    date: "2024-05-21",
-  },
-  { id: 27, image: "/images/gallery/fotografia.jpg", author: "Mariela Ramos", date: "2024-05-23" },
-  {
-    id: 28,
-    image: "/images/gallery/comida-asiatica.jpg",
-    author: "Carlos Huamán",
-    date: "2024-05-25",
-  },
-  {
-    id: 29,
-    image: "/images/destinations/pueblo-magico.jpg",
-    author: "Ana Paredes",
-    date: "2024-05-27",
-  },
-  {
-    id: 30,
-    image: "/images/gallery/comida-asiatica.jpg",
-    author: "Luis Fernández",
-    date: "2024-05-29",
-  },
-  {
-    id: 31,
-    image: "/images/destinations/andes-trekking.jpg",
-    author: "Carlos Huamán",
-    date: "2024-06-01",
-  },
-  {
-    id: 32,
-    image: "/images/destinations/andes-trekking.jpg",
-    author: "Mariela Ramos",
-    date: "2024-06-03",
-  },
-  {
-    id: 33,
-    image: "/images/destinations/andes-trekking.jpg",
-    author: "Luis Fernández",
-    date: "2024-06-05",
-  },
-  {
-    id: 34,
-    image: "/images/gallery/fotografia.jpg",
-    author: "Equipo Editorial",
-    date: "2024-06-07",
-  },
-  {
-    id: 35,
-    image: "/images/destinations/andes-trekking.jpg",
-    author: "Carlos Huamán",
-    date: "2024-06-09",
-  },
-  {
-    id: 36,
-    image: "/images/destinations/pueblo-magico.jpg",
-    author: "Mariela Ramos",
-    date: "2024-06-11",
-  },
-  {
-    id: 37,
-    image: "/images/destinations/andes-trekking.jpg",
-    author: "Ana Paredes",
-    date: "2024-06-13",
-  },
-  { id: 38, image: "/images/gallery/fotografia.jpg", author: "Luis Fernández", date: "2024-06-15" },
-  {
-    id: 39,
-    image: "/images/trips/presupuesto.jpg",
-    author: "Equipo Editorial",
-    date: "2024-06-17",
-  },
-  {
-    id: 40,
-    image: "/images/destinations/andes-trekking.jpg",
-    author: "Carlos Huamán",
-    date: "2024-06-19",
-  },
-  { id: 41, image: "/images/gallery/fotografia.jpg", author: "Ana Paredes", date: "2024-06-21" },
-  {
-    id: 42,
-    image: "/images/gallery/comida-asiatica.jpg",
-    author: "Mariela Ramos",
-    date: "2024-06-23",
-  },
-  { id: 43, image: "/images/gallery/fotografia.jpg", author: "Carlos Huamán", date: "2024-06-25" },
-  {
-    id: 44,
-    image: "/images/destinations/pueblo-magico.jpg",
-    author: "Luis Fernández",
-    date: "2024-06-27",
-  },
-  {
-    id: 45,
-    image: "/images/destinations/andes-trekking.jpg",
-    author: "Equipo Editorial",
-    date: "2024-06-29",
-  },
-  { id: 46, image: "/images/gallery/fotografia.jpg", author: "Mariela Ramos", date: "2024-07-01" },
-  { id: 47, image: "/images/gallery/fotografia.jpg", author: "Carlos Huamán", date: "2024-07-03" },
-  {
-    id: 48,
-    image: "/images/destinations/pueblo-magico.jpg",
-    author: "Ana Paredes",
-    date: "2024-07-05",
-  },
-  { id: 49, image: "/images/gallery/fotografia.jpg", author: "Luis Fernández", date: "2024-07-07" },
-  {
-    id: 50,
-    image: "/images/destinations/andes-trekking.jpg",
-    author: "Equipo Editorial",
-    date: "2024-07-09",
-  },
-] as const;
-
 const es: TranslationContent = {
   languageSelector: {
     ariaLabel: "Cambiar idioma",
@@ -1382,6 +1107,11 @@ const es: TranslationContent = {
     searchArticles: "Buscar artículos...",
     posts: "Publicaciones",
     role: "Rol:",
+    writtenBy: "Por",
+    publishedOn: "Publicado el",
+    relatedArticles: "Sigue explorando",
+    backToList: "Volver al listado",
+    readingTime: "Tiempo de lectura",
   },
   pages: {
     home: {
@@ -1638,279 +1368,6 @@ const es: TranslationContent = {
         { id: "adventure", label: "Aventura" },
         { id: "photography", label: "Fotografía" },
       ],
-      posts: destinationsPostsMeta.map((post, index) => ({
-        ...post,
-        title: [
-          // Destinos (0-14)
-          "Siete Tinajas",
-          "Pongo de Mainique",
-          "Balneario de Samboray",
-          "Catarata de Illapani",
-          "Baños Termales de Cocalmayo",
-          "Echarati: Valle del Café",
-          "Complejo Arqueológico de Vilcabamba",
-          "Santuario Nacional Megantoni",
-          "Ivochote: Puerta a la Selva",
-          "Maranura: Haciendas Productoras",
-          "Catarata de Yanay",
-          "Plaza de Armas de Quillabamba",
-          "Kiteni: Grutas y Amazonía",
-          "Yanatile: Entre Andes y Amazonía",
-          "Miradores de Quillabamba",
-          // Consejos (15-19)
-          "Protección contra Insectos y Sol",
-          "Equipamiento Estratégico para la Selva",
-          "Gestión de Efectivo en la Región",
-          "Mejor Temporada para Visitar",
-          "Prevención de Salud en la Selva",
-          // Gastronomía (20-29)
-          "Chicharrón Quillabambino",
-          "Café de Especialidad de Altura",
-          "Cacao y Chocolate Chuncho",
-          "Pescado de Río: Paco y Doncella",
-          "Jugo de Caña y Cañazo",
-          "Frutas Tropicales Frescas",
-          "Helados Artesanales de la Plaza",
-          "Caldo de Gallina Andino",
-          "Empanadas Dulces y Saladas",
-          "Humitas de Choclo",
-          // Aventura (30-39)
-          "Canotaje y Rafting en el Urubamba",
-          "Trekking a Vilcabamba",
-          "Navegación en el Pongo de Mainique",
-          "Zipline y Tirolesa en Santa Teresa",
-          "Ciclismo de Montaña Downhill",
-          "Senderismo a las Siete Tinajas",
-          "Canyoning: Barranquismo en Cascadas",
-          "Exploración de Selva Virgen en Megantoni",
-          "Rutas en Cuatrimoto por los Cafetales",
-          "Camping Nocturno en Cocalmayo",
-          // Fotografía (40-49)
-          "Larga Exposición en Cataratas",
-          "Documental de la Ruta del Café",
-          "Aves y Fauna en Megantoni",
-          "Miradores al Atardecer del Urubamba",
-          "Arquitectura Inca en Espíritu Pampa",
-          "Street Photography en los Mercados",
-          "Astrofotografía en Vilcabamba",
-          "Retratos Culturales Machiguengas",
-          "Fotografía Macro de Orquídeas",
-          "Acción en los Rápidos del Pongo",
-        ][index],
-        excerpt: [
-          // Destinos (0-14)
-          "Formaciones rocosas naturales creadas por el flujo del agua, ideales para nadar en piscinas naturales de acceso libre.",
-          "El cañón más peligroso y espectacular del río Urubamba, rico en biodiversidad endémica y majestuosidad natural.",
-          "Zona de recreación a orillas del río, muy popular entre los locales para el descanso y la vida familiar.",
-          "Impresionante caída de agua rodeada de exuberante vegetación tropical en el corazón de la selva alta.",
-          "Aguas cristalinas y cálidas al aire libre cerca de Machu Picchu. Perfectas para relajarse tras el trekking.",
-          "Distrito famoso por su producción cafetalera de especialidad y miradores naturales de gran belleza escénica.",
-          "El último refugio de los Incas contra la conquista española, con impresionantes vestigios arqueológicos en la selva.",
-          "Área natural protegida con bosques vírgenes, biodiversidad única y comunidades nativas ancestrales intactas.",
-          "Puerto fluvial estratégico y punto de partida esencial para adentrarse en la selva profunda amazónica.",
-          "Zona agrícola histórica destacada por sus haciendas productoras de té, café de altura y cacao fino de aroma.",
-          "Hermosa cascada accesible tras una caminata moderada por senderos selváticos con flora y fauna endémica.",
-          "El corazón cultural y comercial de Quillabamba, rodeado de palmeras tropicales y vibrante vida cotidiana.",
-          "Poblado exótico con acceso a grutas subterráneas y ecosistemas amazónicos prácticamente intactos.",
-          "Valle de paisajes impresionantes que actúa como puente natural entre los paisajes andinos y la Amazonía.",
-          "Puntos elevados en la periferia urbana con vistas panorámicas del espectacular valle del río Urubamba.",
-          // Consejos (15-19)
-          "Lleva repelente con alto porcentaje de DEET y bloqueador solar. El clima tropical y húmedo lo hace indispensable.",
-          "Ropa ligera de manga larga para el día y chaqueta impermeable: las lluvias en la ceja de selva son impredecibles.",
-          "Lleva efectivo en soles en distritos alejados como Ivochote o Megantoni, donde cajeros y cobertura son nulos.",
-          "Prioriza viajar entre mayo y octubre (temporada seca) para evitar deslizamientos y crecidas de ríos.",
-          "Consume solo agua embotellada y vacúnate contra fiebre amarilla antes de ingresar a zonas más remotas.",
-          // Gastronomía (20-29)
-          "Carne de cerdo frita en su propia manteca, servida con yuca cocida y sarsa criolla. Un clásico irresistible.",
-          "Reconocido mundialmente, cultivado en altura. Su degustación directa en origen es una experiencia única.",
-          "Variedad nativa de cacao fino de aroma, famosa por sus notas frutales y florales excepcionales en el mundo.",
-          "Frito o en sudado, pescado fresco extraído del río Urubamba o criaderos locales. Sabor puro de selva alta.",
-          "Bebidas tradicionales extraídas de los vastos cañaverales de la provincia. Dulce, refrescante y artesanal.",
-          "Degustación de pacay, piña, cítricos, papaya y plátanos directamente de las chacras locales de la zona.",
-          "Elaborados con frutas exóticas de la región, muy populares en la Plaza de Armas de Quillabamba.",
-          "Plato contundente de herencia andina, consumido habitualmente en los mercados de abastos de la ciudad.",
-          "Horneadas artesanalmente con recetas familiares, son un clásico para el desayuno y la merienda local.",
-          "Masa de maíz tierno envuelta en su propia hoja y cocinada al vapor. Dulce o salada, siempre deliciosa.",
-          // Aventura (30-39)
-          "Navegación de rápidos de nivel III y IV en los tramos cercanos a Santa Teresa y Quillabamba. Adrenalina pura.",
-          "Rutas de senderismo de varios días explorando los vestigios del último bastión inca en la selva profunda.",
-          "Travesía extrema en bote a motor atravesando rápidos peligrosos entre cañones estrechos y verticales.",
-          "Descenso por cables de gran altitud cruzando el espectacular valle del río Urubamba en Santa Teresa.",
-          "Descenso desde el abra Málaga hasta la ceja de selva, con paisajes que cambian radicalmente a cada kilómetro.",
-          "Caminatas cortas pero exigentes con recompensa de nado en piscinas naturales de aguas cristalinas y puras.",
-          "Descenso con cuerdas por cascadas y farallones cercanos a Illapani. Adrenalina y naturaleza en estado puro.",
-          "Expedición guiada para observación de flora y fauna endémica en uno de los bosques más vírgenes del Perú.",
-          "Alquiler de ATVs para recorrer trochas rurales e impresionantes campos cafetaleros de la provincia.",
-          "Acampada nocturna al lado de las fuentes termales de Cocalmayo. Una noche de aventura y relajación natural.",
-          // Fotografía (40-49)
-          "Usa filtros ND en Siete Tinajas o Illapani para lograr el efecto seda en el agua con larga exposición.",
-          "Retrata el proceso artesanal del café, enfocándote en las manos de los agricultores y el secado del grano.",
-          "Fotografía de fauna con teleobjetivos: guacamayos, gallitos de las rocas y mariposas exóticas de Megantoni.",
-          "Captura la Golden Hour sobre el valle del Urubamba desde las partes más altas de la ciudad de Quillabamba.",
-          "Fotografía de contrastes entre la piedra inca y la selva devoradora en las ruinas de Espíritu Pampa.",
-          "Captura el vibrante color de las frutas tropicales y el movimiento diario de los comerciantes en mercados.",
-          "Aprovecha la nula contaminación lumínica en Vilcabamba para capturar la Vía Láctea con total nitidez.",
-          "Fotografías de las comunidades nativas Machiguengas cerca del Pongo, siempre con respeto y permiso previo.",
-          "Enfócate en la rica variedad de orquídeas e insectos endémicos en los senderos de la ceja de selva.",
-          "Usa velocidades de obturación rápidas para congelar el movimiento de los botes en los rápidos del Pongo.",
-        ][index],
-        content: [
-          "Siete Tinajas son formaciones rocosas naturales esculpidas por el flujo constante del río. Sus pozas de agua cristalina permiten el baño natural y son uno de los atractivos más visitados de la zona.",
-          "El Pongo de Mainique es un cañón sagrado para las comunidades nativas Machiguengas. Sus rápidos extremos y biodiversidad lo convierten en uno de los lugares más impresionantes del Perú.",
-          "El Balneario de Samboray es un espacio recreativo a orillas del río Urubamba, frecuentado por familias locales especialmente en fines de semana y temporada seca.",
-          "La Catarata de Illapani cae desde gran altura entre paredes de vegetación tropical. El acceso requiere una caminata moderada pero la recompensa visual es extraordinaria.",
-          "Los Baños Termales de Cocalmayo, ubicados en Santa Teresa, ofrecen pozas de agua caliente natural en plena selva. Son ideales para relajarse después del trekking a Machu Picchu.",
-          "Echarati es el distrito más extenso de La Convención y uno de los mayores productores de café de especialidad del Perú. Sus haciendas y miradores ofrecen experiencias únicas.",
-          "Espíritu Pampa, conocido también como Vilcabamba la Grande, fue el último refugio del Inca Túpac Amaru. Sus ruinas se encuentran cubiertas por la selva en un entorno misterioso.",
-          "El Santuario Nacional Megantoni protege una de las zonas de mayor biodiversidad del mundo. Es hogar de comunidades nativas en aislamiento voluntario y especies únicas de flora y fauna.",
-          "Ivochote es el principal puerto fluvial desde el que parten las embarcaciones hacia el interior de la selva, incluyendo el Pongo de Mainique y comunidades amazónicas remotas.",
-          "Maranura destaca por sus haciendas históricas dedicadas al cultivo de té, café y cacao. Es un destino ideal para el turismo agrícola y la experiencia directa con los productores locales.",
-          "La Catarata de Yanay es una hermosa cascada accesible mediante un sendero bien señalizado en la selva alta. Su entorno de vegetación densa y sonidos de la naturaleza es inigualable.",
-          "La Plaza de Armas de Quillabamba es el punto de encuentro social de la ciudad. Rodeada de palmeras tropicales, comercios y arquitectura local, representa la vida cotidiana de la capital provincial.",
-          "Kiteni es un poblado con acceso a grutas naturales y ecosistemas amazónicos de gran valor. Es punto de partida para expediciones hacia comunidades nativas y áreas remotas de la selva.",
-          "Yanatile es un valle que conecta los ecosistemas andinos con la Amazonía. Sus paisajes cambiantes, desde niebla y frío hasta calor selvático, lo convierten en un destino fotográfico único.",
-          "Los miradores de Quillabamba, ubicados en las laderas que rodean la ciudad, ofrecen vistas panorámicas del valle del Urubamba y los nevados distantes. El amanecer y el atardecer son espectaculares.",
-          "La protección solar e insecticida es fundamental para visitar La Convención. El clima tropical aumenta el riesgo de picaduras y quemaduras. El DEET al 30-50% es el estándar recomendado para la zona.",
-          "El equipamiento adecuado garantiza comodidad y seguridad en el clima variable de la ceja de selva. La ropa de manga larga protege de insectos y el sol, mientras que el impermeable es esencial.",
-          "La gestión de efectivo es crucial en La Convención. Aunque Quillabamba tiene cajeros y bancos, los distritos más alejados como Ivochote, Megantoni o Echarati no tienen acceso a servicios bancarios.",
-          "La temporada seca entre mayo y octubre ofrece las mejores condiciones climáticas para visitar La Convención. Las carreteras están más transitables y el nivel de los ríos permite acceder a más destinos.",
-          "La prevención de salud es indispensable antes de visitar áreas remotas de La Convención. La vacuna contra la fiebre amarilla es obligatoria para ingresar a zonas de selva baja y profunda.",
-          "El chicharrón quillabambino es el plato estrella de la gastronomía local. Se prepara friendo carne de cerdo en su propia manteca hasta lograr una textura crujiente por fuera y jugosa por dentro.",
-          "El café de La Convención es producido en altitudes entre 1200 y 1800 metros sobre el nivel del mar. Sus condiciones únicas de suelo y clima generan tazas de alta complejidad aromática.",
-          "El cacao Chuncho es una variedad nativa del Perú que crece en La Convención. Reconocido internacionalmente por su sabor fino y notas frutales y florales, es uno de los mejores cacaos del mundo.",
-          "El pescado de río es ingrediente fundamental de la cocina amazónica local. El paco y la doncella se preparan fritos, asados o en sudados con hierbas y vegetales de la zona.",
-          "El jugo de caña fresco y el aguardiente (cañazo) son bebidas tradicionales de La Convención. La provincia cuenta con extensos cañaverales que abastecen tanto el consumo local como la producción artesanal.",
-          "Las frutas tropicales de La Convención se caracterizan por su frescura y variedad. El pacay, la piña, los cítricos y los plátanos se pueden adquirir directamente de los productores en chacras locales.",
-          "Los helados artesanales de la Plaza de Armas son elaborados con frutas de la zona como aguaje, cocona y piña. Son una experiencia gastronómica única que refleja la biodiversidad local.",
-          "El caldo de gallina es un plato de herencia andina arraigado en la región. Se prepara con gallina criolla, papas, hierbas aromáticas y ají, siendo muy popular en mercados y restaurantes locales.",
-          "Las empanadas quillabambinas se hornean con recetas familiares de generaciones. Las hay de queso, pollo y de dulce con manjar blanco. Son ideales para el desayuno o como merienda cotidiana.",
-          "Las humitas de choclo son un plato tradicional andino que se prepara rallando maíz tierno, mezclando con queso y especias, y cociendo al vapor envuelto en las propias hojas del maíz.",
-          "El canotaje en el río Urubamba ofrece recorridos de rápidos clasificados entre nivel II y IV según el tramo. Las operadoras certificadas en Santa Teresa y Quillabamba garantizan equipamiento y guías expertos.",
-          "El trekking a Vilcabamba es una aventura de tres a cinco días que combina rutas andinas con descenso a la selva. Es uno de los destinos históricos más impresionantes del Perú para los amantes del senderismo.",
-          "La navegación por el Pongo de Mainique es una de las experiencias más extremas del Perú. Las embarcaciones locales se abren paso entre rápidos y paredes de roca de hasta 300 metros de altura.",
-          "El zipline en Santa Teresa ofrece cables de hasta 700 metros que cruzan el valle del río Urubamba. Es una de las actividades de aventura más populares de la región, con vistas espectaculares.",
-          "El ciclismo de montaña desde el abra Málaga combina el frío andino con el calor de la selva en un solo recorrido. El descenso de más de 3000 metros de desnivel es una experiencia única.",
-          "El senderismo a las Siete Tinajas es una excursión corta ideal para todos los niveles. El sendero bien señalizado conduce a las formaciones rocosas y piscinas naturales en menos de dos horas.",
-          "El canyoning en las cascadas cercanas a Illapani permite descender verticalmente por farallones con cuerdas y arnés. Es una actividad para personas con buena condición física y sin vértigo.",
-          "La exploración de Megantoni requiere organización previa, guías locales certificados y equipamiento de selva completo. Es una expedición para aventureros experimentados con respeto por el ecosistema.",
-          "Los cuatrimotos recorren caminos rurales entre cafetales, comunidades nativas y miradores naturales. Es una forma activa de conocer el paisaje agrícola y cultural de La Convención.",
-          "El camping en Cocalmayo combina la aventura del campamento nocturno con el relax de las termas naturales. La zona cuenta con áreas habilitadas y acceso a servicios básicos para los visitantes.",
-          "La técnica de larga exposición captura el movimiento del agua creando un efecto seda visual. Con un trípode estable, filtros ND y apertura pequeña, las cataratas de La Convención ofrecen resultados espectaculares.",
-          "El proceso del café de especialidad, desde la cosecha selectiva hasta el tostado artesanal, ofrece un relato visual y humano único. Los agricultores locales son los protagonistas de esta historia.",
-          "Megantoni alberga algunas de las especies de aves más raras del mundo. Con paciencia y equipamiento adecuado, es posible fotografiar guacamayos, gallitos de las rocas y más de 400 especies registradas.",
-          "Los miradores de Quillabamba ofrecen las condiciones ideales para la fotografía de paisajes. La luz dorada del atardecer sobre el valle del Urubamba crea composiciones de color y profundidad extraordinarias.",
-          "Las ruinas de Espíritu Pampa ofrecen contrastes fotográficos únicos entre la arquitectura de piedra inca y la selva que avanza. Las condiciones de luz filtrada entre el dosel arbóreo son especialmente evocadoras.",
-          "Los mercados de Quillabamba son escenarios de fotografía documental de alta riqueza visual. Los colores de las frutas tropicales, las expresiones de los comerciantes y el movimiento crean composiciones naturales.",
-          "La altitud y el alejamiento de las zonas urbanas convierten a Vilcabamba en uno de los mejores lugares del Perú para la astrofotografía. El cielo austral despejado permite capturar la Vía Láctea completa.",
-          "Las comunidades nativas Machiguengas del entorno del Pongo de Mainique preservan tradiciones culturales milenarias. Su fotografía requiere un proceso de acercamiento basado en el respeto y el consentimiento informado.",
-          "La biodiversidad de la ceja de selva ofrece oportunidades únicas para la fotografía macro. Las orquídeas silvestres, los insectos y los helechos del sotobosque son sujetos de una belleza extraordinaria.",
-          "Fotografiar el canotaje extremo en el Pongo de Mainique requiere velocidades de obturación superiores a 1/1000s. La combinación de agua, adrenalina y el encuadre de los cañones crea imágenes impactantes.",
-        ][index],
-        category: [
-          "Destinos",
-          "Destinos",
-          "Destinos",
-          "Destinos",
-          "Destinos",
-          "Destinos",
-          "Destinos",
-          "Destinos",
-          "Destinos",
-          "Destinos",
-          "Destinos",
-          "Destinos",
-          "Destinos",
-          "Destinos",
-          "Destinos",
-          "Consejos",
-          "Consejos",
-          "Consejos",
-          "Consejos",
-          "Consejos",
-          "Gastronomía",
-          "Gastronomía",
-          "Gastronomía",
-          "Gastronomía",
-          "Gastronomía",
-          "Gastronomía",
-          "Gastronomía",
-          "Gastronomía",
-          "Gastronomía",
-          "Gastronomía",
-          "Aventura",
-          "Aventura",
-          "Aventura",
-          "Aventura",
-          "Aventura",
-          "Aventura",
-          "Aventura",
-          "Aventura",
-          "Aventura",
-          "Aventura",
-          "Fotografía",
-          "Fotografía",
-          "Fotografía",
-          "Fotografía",
-          "Fotografía",
-          "Fotografía",
-          "Fotografía",
-          "Fotografía",
-          "Fotografía",
-          "Fotografía",
-        ][index],
-        readTime: [
-          "5 min",
-          "6 min",
-          "4 min",
-          "5 min",
-          "5 min",
-          "4 min",
-          "7 min",
-          "6 min",
-          "4 min",
-          "5 min",
-          "4 min",
-          "3 min",
-          "4 min",
-          "5 min",
-          "3 min",
-          "3 min",
-          "3 min",
-          "3 min",
-          "4 min",
-          "4 min",
-          "4 min",
-          "4 min",
-          "4 min",
-          "5 min",
-          "3 min",
-          "3 min",
-          "3 min",
-          "4 min",
-          "3 min",
-          "4 min",
-          "6 min",
-          "7 min",
-          "6 min",
-          "5 min",
-          "6 min",
-          "5 min",
-          "5 min",
-          "8 min",
-          "4 min",
-          "5 min",
-          "5 min",
-          "6 min",
-          "5 min",
-          "5 min",
-          "6 min",
-          "5 min",
-          "7 min",
-          "5 min",
-          "5 min",
-          "6 min",
-        ][index],
-      })),
     },
     gallery: {
       seoTitle: "Galería de Fotos - La Convención en Imágenes",
@@ -1920,25 +1377,6 @@ const es: TranslationContent = {
         "galería fotos La Convención, fotografía paisajes Perú, imágenes Cusco, fotos viaje",
       title: "Galería de Fotos",
       subtitle: "Un vistazo visual a los destinos más increíbles de La Convención.",
-      images: galleryMeta.map((image, index) => ({
-        ...image,
-        title: [
-          "Montañas Majestuosas",
-          "Playas Tropicales",
-          "Ciudades Antiguas",
-          "Desiertos Infinitos",
-          "Bosques Mágicos",
-          "Auroras Boreales",
-        ][index],
-        location: [
-          "Andes, La Convención",
-          "Caribe, México",
-          "Europa",
-          "Sahara, África",
-          "Amazonas, Brasil",
-          "Noruega",
-        ][index],
-      })),
       ctaText: "¿Quieres ver más fotos de nuestros viajes?",
       ctaAction: "Síguenos en Instagram",
     },
@@ -1951,56 +1389,6 @@ const es: TranslationContent = {
       title: "Consejos de Viaje",
       subtitle:
         "Aprende de nuestras experiencias y evita errores comunes con estos consejos prácticos para viajeros.",
-      items: [
-        {
-          category: "Presupuesto",
-          tips: [
-            "Viaja en temporada baja para ahorrar en vuelos y alojamiento",
-            "Usa aplicaciones de comparación de precios",
-            "Cocina algunas comidas en lugar de comer siempre fuera",
-          ],
-        },
-        {
-          category: "Equipaje",
-          tips: [
-            "Haz una lista de empaque una semana antes",
-            "Lleva ropa versátil que puedas combinar",
-            "No olvides adaptadores de corriente internacionales",
-          ],
-        },
-        {
-          category: "Cultura",
-          tips: [
-            "Aprende frases básicas en el idioma local",
-            "Investiga costumbres y tradiciones antes de viajar",
-            "Respeta las normas de vestimenta local",
-          ],
-        },
-        {
-          category: "Seguridad",
-          tips: [
-            "Guarda copias digitales de tus documentos importantes",
-            "Investiga las zonas seguras de tu destino",
-            "Ten siempre un plan de emergencia",
-          ],
-        },
-        {
-          category: "Fotografía",
-          tips: [
-            "Lleva baterías y tarjetas de memoria de repuesto",
-            "Toma fotos durante la hora dorada (amanecer/atardecer)",
-            "No solo fotografíes lugares, captura también momentos",
-          ],
-        },
-        {
-          category: "Gastronomía",
-          tips: [
-            "Prueba la comida callejera local (con precaución)",
-            "Visita mercados locales para experiencias auténticas",
-            "Aprende sobre los platos típicos antes de viajar",
-          ],
-        },
-      ],
       moreHelpTitle: "¿Necesitas más ayuda?",
       moreHelpDescription:
         "Suscríbete a nuestro newsletter semanal y recibe consejos exclusivos, ofertas de viaje y guías detalladas directamente en tu correo.",
@@ -2076,35 +1464,6 @@ const es: TranslationContent = {
         { id: "gastronomy", label: "Gastronomía" },
         { id: "tips", label: "Tips" },
       ],
-      posts: blogPostsMeta.map((post, index) => ({
-        ...post,
-        title: [
-          "Los 10 Mejores Destinos de La Convención para 2025",
-          "Guía Completa de Trekking en los Andes de La Convención",
-          "Festivales y Tradiciones: El Calendario Cultural de La Convención",
-          "Café de Altura: El Oro Verde de La Convención",
-          "Turismo Comunitario: Experiencias Auténticas",
-          "Consejos para Viajar en Temporada de Lluvias",
-        ][index],
-        excerpt: [
-          "Descubre los lugares imperdibles que debes visitar este año en nuestra hermosa provincia.",
-          "Todo lo que necesitas saber para preparar tu aventura de trekking en las montañas.",
-          "Conoce las festividades más importantes y cuándo celebrarlas en nuestra región.",
-          "Explora las plantaciones de café y aprende sobre el proceso que hace único a nuestro café.",
-          "Vive con las comunidades locales y conoce sus costumbres de primera mano.",
-          "Prepárate adecuadamente y disfruta al máximo tu visita en cualquier época del año.",
-        ][index],
-        date: [
-          "15 de Enero, 2025",
-          "10 de Enero, 2025",
-          "5 de Enero, 2025",
-          "28 de Diciembre, 2024",
-          "20 de Diciembre, 2024",
-          "15 de Diciembre, 2024",
-        ][index],
-        category: ["Destinos", "Aventura", "Cultura", "Gastronomía", "Cultura", "Tips"][index],
-        readTime: ["8 min", "10 min", "6 min", "7 min", "9 min", "5 min"][index],
-      })),
       postsTitle: "Publicaciones",
       postsSubtitle:
         "Artículos recientes sobre cultura, viajes y experiencias auténticas en La Convención.",
@@ -2134,33 +1493,6 @@ const es: TranslationContent = {
       ],
       dishesTitle: "Platos Típicos",
       dishesSubtitle: "Descubre los sabores que hacen única a nuestra región.",
-      dishes: dishMeta.map((dish, index) => ({
-        ...dish,
-        name: [
-          "Chicharrón Quillabambino",
-          "Juane de la Selva",
-          "Trucha a la Parrilla",
-          "Café de Especialidad",
-          "Pachamanca Regional",
-          "Humitas de Choclo",
-        ][index],
-        description: [
-          "Cerdo frito lentamente en su propia manteca hasta lograr piel crujiente y carne jugosa. Servido con yuca sancochada, zarsa criolla y ají amarillo. El plato más emblemático de la ciudad.",
-          "Arroz con gallina, aceitunas, huevo y especias, envuelto en hoja de bijao y cocido al vapor. Un clásico amazónico que se prepara en todo festejo familiar de La Convención.",
-          "Trucha fresca de los ríos andinos, marinada con hierbas locales y asada sobre brasas de leña. Sabor limpio, textura firme y el aroma inconfundible de la sierra alta.",
-          "Cultivado entre 1,200 y 2,000 m.s.n.m. en las laderas andinas. Notas florales y frutales que le dan el reconocimiento de uno de los mejores cafés del Perú.",
-          "Cocción subterránea con piedras calientes, carnes de cerdo y pollo, papas nativas y hierbas aromáticas. Técnica ancestral que transforma ingredientes simples en algo extraordinario.",
-          "Masa de maíz tierno rallado, mezclada con queso fresco y especias, envuelta en sus propias hojas verdes y cocida al vapor. Dulce o salada, artesanal siempre.",
-        ][index],
-        category: [
-          "Platos Principales",
-          "Platos Principales",
-          "Platos Principales",
-          "Bebidas",
-          "Platos Principales",
-          "Entradas",
-        ][index],
-      })),
       coffeeTitle: "Café y Cacao de Altura",
       coffeeParagraphs: [
         "La Convención produce uno de los cafés más premiados del Perú. Sus granos se cultivan en las laderas andinas entre 1,200 y 2,000 metros sobre el nivel del mar, en suelos volánicos y bajo una temperatura de neblina permanente que desarrolla notas florales y frutales de excepción.",
@@ -2169,21 +1501,6 @@ const es: TranslationContent = {
       coffeeAction: "Tour de Café y Cacao",
       restaurantsTitle: "Restaurantes Recomendados",
       restaurantsSubtitle: "Los mejores lugares para disfrutar de la gastronomía local.",
-      restaurants: restaurantMeta.map((restaurant, index) => ({
-        ...restaurant,
-        name: ["El Mirador de Quillabamba", "Café Orgánico Montaña", "Sabor Selvático"][index],
-        description: [
-          "Restaurante con vista panorámica al valle del Urubamba. Cocina de fusión andino-selvática con ingredientes frescos de productores locales. Ideal para celebraciones y veladas especiales.",
-          "Cafetería de especialidad dedicada a los mejores cafés de altura de La Convención. Ambiente acogedor con remastería artesanal, catas guiadas y vista al jardín.",
-          "Restaurante de tradición amazónica que preserva recetas ancestrales. Juanes, chicharrón quillabambino y pescados del río Urubamba preparados al momento con ingredientes de la zona.",
-        ][index],
-        location: ["Quillabamba Centro", "Av. 28 de Julio", "Plaza de Armas"][index],
-        specialty: [
-          "Cocina Andino-Selvática",
-          "Café de Especialidad",
-          "Cocina Amazónica Tradicional",
-        ][index],
-      })),
       ctaTitle: "¿Listo para probar nuestros sabores?",
       ctaDescription:
         "Reserva un tour gastronómico y descubre los secretos culinarios de La Convención",
@@ -2265,58 +1582,6 @@ const es: TranslationContent = {
       teamTitle: "Las personas detrás del portal",
       teamSubtitle:
         "Cinco quillabambinos con distintas habilidades y un solo objetivo: poner a La Convención en el mapa.",
-      teamMembers: [
-        {
-          name: "Ezer Benito Zúñiga Chura",
-          role: "Fundador & Desarrollador Web",
-          description:
-            "Estudiante de Ingeniería Informática y apasionado por la tecnología aplicada al turismo local. Creó esta plataforma para mostrar al mundo la riqueza cultural y natural de La Convención a través de soluciones digitales innovadoras. Quillabambino de nacimiento y corazón.",
-          initials: "EZ",
-          color: "#1B4332",
-          image: "/images/team/EzerB.jpg",
-          skills: ["Desarrollo Web", "Diseño UI/UX", "SEO", "Soluciones Digitales"],
-        },
-        {
-          name: "Keyla Milagros Mendoza Marín",
-          role: "Directora de Contenido",
-          description:
-            "Estudiante de Administración y Negocios Internacionales. Lidera la gestión estratégica y creación de guías que dan vida al portal, aplicando su visión empresarial para posicionar nuestra cultura en el mercado global. Orgullosamente quillabambina.",
-          initials: "KM",
-          color: "#4BB543",
-          image: "/images/team/keyla.jpg",
-          skills: ["Gestión Estratégica", "Redacción", "Negocios Internacionales"],
-        },
-        {
-          name: "Diego Toribio Torres Quispe",
-          role: "Fotógrafo & Videógrafo",
-          description:
-            "Estudiante de Arquitectura con un ojo artístico único. Captura la esencia de La Convención a través de imágenes que resaltan la armonía entre el paisaje natural y la identidad urbana de nuestra región. Quillabambino de raíces y pasión.",
-          initials: "DT",
-          color: "#4BB543",
-          image: "/images/team/diego.jpg",
-          skills: ["Fotografía", "Edición de Video", "Arquitectura"],
-        },
-        {
-          name: "Lucía Quena Quispe Valer",
-          role: "Guía Turística Local",
-          description:
-            "Estudiante de Derecho y guía oficial certificada. Combina su formación legal con su amor por la tierra para promover un turismo responsable, seguro y profundamente respetuoso con nuestro patrimonio. Natural de Quillabamba.",
-          initials: "LQ",
-          color: "#4BB543",
-          image: "/images/team/lucia.jpg",
-          skills: ["Guiado Turístico", "Derecho", "Turismo Responsable"],
-        },
-        {
-          name: "Rodrigo Augusto Apaza Villavicencio",
-          role: "Gestor de Redes Sociales",
-          description:
-            "Estudiante de Ingeniería de Sistemas. Se encarga de la conectividad y el crecimiento digital del proyecto, optimizando nuestras plataformas para que la voz de La Convención llegue a cada rincón del mundo. Quillabambino digital.",
-          initials: "RA",
-          color: "#35594D",
-          image: "/images/team/rodrigo.jpg",
-          skills: ["Ingeniería de Sistemas", "Redes Sociales", "Optimización Digital"],
-        },
-      ],
       ctaTitle: "¿Quieres ser parte del equipo?",
       ctaDescription:
         "Si amas La Convención y tienes algo que aportar, ya sea redactando, fotografiando, guiando o difundiendo, siempre estamos buscando personas apasionadas por nuestra región.",

@@ -35,7 +35,7 @@ const UserAvatarContent: React.FC<UserAvatarContentProps> = ({ name, picture, si
   }
   return (
     <div className="flex h-full w-full items-center justify-center bg-brand-text">
-      <span className="text-sm font-bold text-white">{name.split(" ")[0].charAt(0)}</span>
+      <span className="text-sm font-bold text-white">{name.trim().charAt(0)}</span>
     </div>
   );
 };

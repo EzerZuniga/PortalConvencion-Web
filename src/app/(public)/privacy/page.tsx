@@ -1,8 +1,8 @@
 import { createPageMetadata } from "@/lib/seo/metadata";
-import { Privacy } from "@/views/Legal";
+import { PrivacyView } from "@/features/legal/components/PrivacyView";
 
 export const metadata = createPageMetadata("privacy");
 
 export default function PrivacyPage() {
-  return <Privacy />;
+  return <PrivacyView />;
 }

@@ -2,7 +2,7 @@ import React from "react";
 import { LegalPageLayout } from "./LegalPageLayout";
 import { SITE_CONFIG } from "@/config/site";
 
-export const Terms: React.FC = () => {
+export const TermsView: React.FC = () => {
   return (
     <LegalPageLayout title="Términos y Condiciones" lastUpdated="Octubre 2024">
       <section>

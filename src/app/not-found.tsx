@@ -1,4 +1,4 @@
-import NotFound from "@/views/NotFound";
+import { NotFoundView } from "@/components/feedback/NotFoundView";
 
 export const metadata = {
   title: "Página no encontrada | Explorando la Convención",
@@ -9,5 +9,5 @@ export const metadata = {
 };
 
 export default function NotFoundPage() {
-  return <NotFound />;
+  return <NotFoundView />;
 }

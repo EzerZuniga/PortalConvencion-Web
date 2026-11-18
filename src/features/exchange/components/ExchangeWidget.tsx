@@ -69,7 +69,7 @@ const ExchangeWidget: React.FC = () => {
                 <div>
                   <span className="block text-sm font-bold leading-tight text-white">{code}</span>
                   <span className="block text-[10px] uppercase tracking-wider text-white/60">
-                    {CURRENCY_NAMES[code].split(" ")[0]}
+                    {CURRENCY_NAMES[code]?.split(" ")[0]}
                   </span>
                 </div>
               </div>

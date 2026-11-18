@@ -11,7 +11,7 @@ export function useCounterAnimation(end: number, duration: number = 2000, start:
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting && !isVisible) {
+        if (entry?.isIntersecting && !isVisible) {
           setIsVisible(true);
         }
       },

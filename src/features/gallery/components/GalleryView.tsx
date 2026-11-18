@@ -6,8 +6,13 @@ import { MapPin } from "lucide-react";
 import { SITE_CONFIG } from "@/config/site";
 import { SectionHeader } from "@/components/ui";
 import { useLanguage } from "@/features/i18n";
+import type { GalleryItem } from "@/features/gallery/queries";
 
-const Gallery: React.FC = () => {
+interface GalleryViewProps {
+  images: GalleryItem[];
+}
+
+export const GalleryView: React.FC<GalleryViewProps> = ({ images }) => {
   const { content } = useLanguage();
   const page = content.pages.gallery;
 
@@ -20,7 +25,7 @@ const Gallery: React.FC = () => {
 
           {/* Gallery Grid */}
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {page.images.map((image) => (
+            {images.map((image) => (
               <div
                 key={image.id}
                 className="wp-card wp-card-interactive group overflow-hidden border-2 border-transparent hover:border-brand-primary"
@@ -69,5 +74,3 @@ const Gallery: React.FC = () => {
     </div>
   );
 };
-
-export default Gallery;

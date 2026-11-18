@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useLanguage } from "@/features/i18n";
+import type { TeamMemberCard } from "@/features/about/queries";
 import { useCounterAnimation } from "@/hooks";
 import { ScrollReveal } from "@/components/ui";
 import { ROUTES } from "@/config/routes";
@@ -91,13 +92,17 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
   );
 };
 
-const About: React.FC = () => {
+interface AboutViewProps {
+  team: TeamMemberCard[];
+}
+
+export const AboutView: React.FC<AboutViewProps> = ({ team }) => {
   const { content } = useLanguage();
   const page = content.pages.about;
-  const c0 = useCounterAnimation(page.stats[0].value, 1500);
-  const c1 = useCounterAnimation(page.stats[1].value, 2000);
-  const c2 = useCounterAnimation(page.stats[2].value, 2500);
-  const c3 = useCounterAnimation(page.stats[3].value, 1200);
+  const c0 = useCounterAnimation(page.stats[0]?.value ?? 0, 1500);
+  const c1 = useCounterAnimation(page.stats[1]?.value ?? 0, 2000);
+  const c2 = useCounterAnimation(page.stats[2]?.value ?? 0, 2500);
+  const c3 = useCounterAnimation(page.stats[3]?.value ?? 0, 1200);
   const counters = [c0, c1, c2, c3];
 
   return (
@@ -152,11 +157,11 @@ const About: React.FC = () => {
               {page.stats.map((stat, i) => (
                 <div
                   key={stat.label}
-                  ref={counters[i].counterRef}
+                  ref={counters[i]?.counterRef}
                   className={`hover:border-brand-secondary/30 group flex animate-reveal-up flex-col items-center justify-center rounded-2xl border border-white/10 bg-[#111B21]/95 p-6 text-center shadow-xl backdrop-blur-lg transition-transform duration-300 [animation-fill-mode:both] hover:-translate-y-1 hover:bg-[#1a2535]/95 ${getRevealDelayClass(STAT_REVEAL_DELAYS, i)}`}
                 >
                   <div className="relative mb-2 flex items-baseline gap-1 font-heading text-[clamp(2.5rem,5vw,3.5rem)] font-bold text-white">
-                    <span>{counters[i].count}</span>
+                    <span>{counters[i]?.count ?? stat.value}</span>
                     <span className="text-[clamp(1.5rem,3vw,2rem)] text-brand-secondary">
                       {stat.suffix}
                     </span>
@@ -357,8 +362,8 @@ const About: React.FC = () => {
           <SectionHeader title={page.teamTitle} subtitle={page.teamSubtitle} align="center" />
 
           <div className="mt-24 flex flex-wrap justify-center gap-x-8 gap-y-24 lg:gap-x-12">
-            {page.teamMembers.map((member, index) => {
-              const isFirst = member.name.includes("Ezer");
+            {team.map((member, index) => {
+              const isFirst = index === 0;
               // Split description to use the first sentence as a quote
               const parts = member.description.split(". ");
               const quote = parts[0] + (parts.length > 1 ? "." : "");
@@ -376,13 +381,22 @@ const About: React.FC = () => {
                     <div className="absolute -top-14 left-1/2 z-20 h-40 w-40 -translate-x-1/2 sm:-left-14 sm:-top-14 sm:h-48 sm:w-48 sm:translate-x-0">
                       <div className="absolute inset-0 scale-110 rounded-full bg-slate-200 opacity-20 blur-xl" />
                       <div className="relative h-full w-full overflow-hidden rounded-full border-[6px] border-white shadow-xl sm:border-[8px]">
-                        <Image
-                          src={member.image}
-                          alt={`Foto de ${member.name}`}
-                          fill
-                          sizes="(min-width: 1024px) 12rem, 10rem"
-                          className="object-cover"
-                        />
+                        {member.image ? (
+                          <Image
+                            src={member.image}
+                            alt={`Foto de ${member.name}`}
+                            fill
+                            sizes="(min-width: 1024px) 12rem, 10rem"
+                            className="object-cover"
+                          />
+                        ) : (
+                          <span
+                            className="flex h-full w-full items-center justify-center text-3xl font-bold text-white"
+                            style={{ backgroundColor: member.color }}
+                          >
+                            {member.initials}
+                          </span>
+                        )}
                       </div>
                     </div>
 
@@ -512,5 +526,3 @@ const About: React.FC = () => {
     </div>
   );
 };
-
-export default About;

@@ -1,11 +1,11 @@
 import { Suspense } from "react";
 import { createPageMetadata } from "@/lib/seo/metadata";
-import AuthPage from "@/views/Auth";
+import { LoginView } from "@/features/auth/components/LoginView";
 
 export const metadata = createPageMetadata("login");
 
 /**
- * Suspense is required because AuthPage uses useSearchParams(),
+ * Suspense is required because LoginView uses useSearchParams(),
  * which needs a Suspense boundary in Next.js App Router.
  */
 export default function LoginPage() {
@@ -17,7 +17,7 @@ export default function LoginPage() {
         </div>
       }
     >
-      <AuthPage />
+      <LoginView />
     </Suspense>
   );
 }

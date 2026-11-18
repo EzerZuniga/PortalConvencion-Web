@@ -3,19 +3,13 @@
 import React from "react";
 import { ScrollReveal, SectionHeader } from "@/components/ui";
 import { useLanguage } from "@/features/i18n";
+import type { TipGroupCard } from "@/features/tips/queries";
 
-// TODO(fase-2): mover el icono al frontmatter del contenido. Hoy la clave es el
-// nombre de categoría en español, por lo que en en/pt no se muestra el icono.
-const TIP_ICONS: Record<string, string> = {
-  Presupuesto: "💰",
-  Equipaje: "🎒",
-  Cultura: "🌐",
-  Seguridad: "🛡️",
-  Fotografía: "📷",
-  Gastronomía: "🍽️",
-};
+interface TipsViewProps {
+  groups: TipGroupCard[];
+}
 
-const Tips: React.FC = () => {
+export const TipsView: React.FC<TipsViewProps> = ({ groups }) => {
   const { content } = useLanguage();
   const page = content.pages.tips;
 
@@ -28,15 +22,15 @@ const Tips: React.FC = () => {
 
           {/* Tips Grid */}
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {page.items.map((tipCategory, index) => (
+            {groups.map((tipCategory, index) => (
               <div
-                key={tipCategory.category}
+                key={tipCategory.id}
                 className="wp-card wp-card-interactive animate-reveal-up border-t-4 border-brand-primary p-6"
                 style={{ animationDelay: `${index * 0.08}s` }}
               >
                 <h3 className="mb-4 flex items-center font-heading text-2xl font-semibold text-brand-text">
-                  <span className="mr-3 text-2xl">{TIP_ICONS[tipCategory.category]}</span>
-                  {tipCategory.category}
+                  <span className="mr-3 text-2xl">{tipCategory.icon}</span>
+                  {tipCategory.title}
                 </h3>
                 <ul className="space-y-3">
                   {tipCategory.tips.map((tip, tipIndex) => (
@@ -66,5 +60,3 @@ const Tips: React.FC = () => {
     </div>
   );
 };
-
-export default Tips;

@@ -16,6 +16,7 @@ import {
 import { motion } from "framer-motion";
 import { ScrollReveal } from "@/components/ui";
 import { useLanguage } from "@/features/i18n";
+import type { ArticleCard } from "@/lib/content/types";
 
 const BLOG_STAT_DELAYS = [
   "[animation-delay:460ms]",
@@ -23,16 +24,21 @@ const BLOG_STAT_DELAYS = [
   "[animation-delay:640ms]",
 ] as const;
 
-const Blog: React.FC = () => {
+interface BlogViewProps {
+  posts: ArticleCard[];
+}
+
+export const BlogView: React.FC<BlogViewProps> = ({ posts }) => {
   const { content } = useLanguage();
   const page = content.pages.blog;
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
 
   const selectedCategoryLabel = page.categories.find((c) => c.id === selectedCategory)?.label;
+  const categoryLabel = (id: string) => page.categories.find((c) => c.id === id)?.label ?? id;
 
-  const filteredPosts = page.posts.filter((post) => {
-    const matchesCategory = selectedCategory === "all" || post.category === selectedCategoryLabel;
+  const filteredPosts = posts.filter((post) => {
+    const matchesCategory = selectedCategory === "all" || post.category === selectedCategory;
     const q = searchTerm.toLowerCase();
     const matchesSearch =
       !q || post.title.toLowerCase().includes(q) || post.excerpt.toLowerCase().includes(q);
@@ -179,8 +185,8 @@ const Blog: React.FC = () => {
                     const isActive = selectedCategory === cat.id;
                     const count =
                       cat.id === "all"
-                        ? page.posts.length
-                        : page.posts.filter((p) => p.category === cat.label).length;
+                        ? posts.length
+                        : posts.filter((p) => p.category === cat.id).length;
                     return (
                       <button
                         key={cat.id}
@@ -277,7 +283,7 @@ const Blog: React.FC = () => {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent" />
                     <span className="absolute bottom-3 left-3 rounded-full bg-black/55 px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-white/90 backdrop-blur-sm">
-                      {post.category}
+                      {categoryLabel(post.category)}
                     </span>
                   </div>
 
@@ -300,7 +306,7 @@ const Blog: React.FC = () => {
                     </div>
 
                     <Link
-                      href={`/post/${post.id}`}
+                      href={post.href}
                       className="group/link inline-flex items-center gap-1.5 text-sm font-semibold text-brand-primary transition-colors duration-200 hover:text-brand-accent"
                       aria-label={`${content.common.readArticle}: ${post.title}`}
                     >
@@ -321,5 +327,3 @@ const Blog: React.FC = () => {
     </div>
   );
 };
-
-export default Blog;

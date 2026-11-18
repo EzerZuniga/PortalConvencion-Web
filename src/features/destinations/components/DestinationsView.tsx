@@ -18,7 +18,7 @@ import {
 import { ScrollReveal } from "@/components/ui";
 import { useLanguage } from "@/features/i18n";
 import { motion } from "framer-motion";
-import type { Post } from "@/types";
+import type { ArticleCard } from "@/lib/content/types";
 import { ROUTES } from "@/config/routes";
 
 const STAT_DELAYS = [
@@ -34,13 +34,13 @@ const HERO_STATS = [
 ] as const;
 
 // ── Portal-style destination card (no blog metadata) ─────────────────
-function DestinationCard({ post }: { post: Post }) {
+function DestinationCard({ post, categoryLabel }: { post: ArticleCard; categoryLabel: string }) {
   const { content } = useLanguage();
   return (
     <article className="wp-card flex h-full flex-col overflow-hidden" aria-label={post.title}>
       {/* Image with gradient overlay + category badge */}
       <Link
-        href={`/post/${post.id}`}
+        href={post.href}
         tabIndex={-1}
         aria-hidden="true"
         className="bg-brand-primary/10 relative block h-48 overflow-hidden"
@@ -54,13 +54,13 @@ function DestinationCard({ post }: { post: Post }) {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
         <span className="absolute bottom-3 left-3 rounded-full bg-black/50 px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-white/90 backdrop-blur-sm">
-          {post.category}
+          {categoryLabel}
         </span>
       </Link>
 
       {/* Content */}
       <div className="flex flex-1 flex-col gap-3 p-5">
-        <Link href={`/post/${post.id}`} className="group/title">
+        <Link href={post.href} className="group/title">
           <h3 className="line-clamp-2 font-heading text-[1.05rem] font-bold leading-snug text-brand-text transition-colors duration-200 group-hover/title:text-brand-primary">
             {post.title}
           </h3>
@@ -69,7 +69,7 @@ function DestinationCard({ post }: { post: Post }) {
           {post.excerpt}
         </p>
         <Link
-          href={`/post/${post.id}`}
+          href={post.href}
           className="group/link mt-auto inline-flex items-center gap-1.5 text-sm font-semibold text-brand-primary transition-colors duration-200 hover:text-brand-accent"
           aria-label={`${content.common.viewMore}: ${post.title}`}
         >
@@ -85,20 +85,25 @@ function DestinationCard({ post }: { post: Post }) {
   );
 }
 
-const Destinations: React.FC = () => {
+interface DestinationsViewProps {
+  destinations: ArticleCard[];
+}
+
+export const DestinationsView: React.FC<DestinationsViewProps> = ({ destinations }) => {
   const { content } = useLanguage();
   const page = content.pages.destinations;
   const [selectedCategory, setSelectedCategory] = useState("all");
 
   const selectedCategoryLabel = page.categories.find((c) => c.id === selectedCategory)?.label;
+  const categoryLabel = (id: string) => page.categories.find((c) => c.id === id)?.label ?? id;
 
   const filteredPosts =
     selectedCategory === "all"
-      ? page.posts
-      : page.posts.filter((post) => post.category === selectedCategoryLabel);
+      ? destinations
+      : destinations.filter((post) => post.category === selectedCategory);
 
   const spotlightPost =
-    selectedCategory === "all" ? (page.posts.find((p) => p.featured) ?? null) : null;
+    selectedCategory === "all" ? (destinations.find((p) => p.featured) ?? null) : null;
 
   const gridPosts = spotlightPost
     ? filteredPosts.filter((p) => p.id !== spotlightPost.id)
@@ -218,8 +223,8 @@ const Destinations: React.FC = () => {
                   const isActive = selectedCategory === cat.id;
                   const count =
                     cat.id === "all"
-                      ? page.posts.length
-                      : page.posts.filter((p) => p.category === cat.label).length;
+                      ? destinations.length
+                      : destinations.filter((p) => p.category === cat.id).length;
                   return (
                     <button
                       key={cat.id}
@@ -272,7 +277,7 @@ const Destinations: React.FC = () => {
                 <div className="grid md:grid-cols-5">
                   {/* Image */}
                   <Link
-                    href={`/post/${spotlightPost.id}`}
+                    href={spotlightPost.href}
                     tabIndex={-1}
                     aria-hidden="true"
                     className="bg-brand-primary/10 relative block h-60 overflow-hidden md:col-span-2 md:h-auto"
@@ -294,9 +299,9 @@ const Destinations: React.FC = () => {
                   {/* Content */}
                   <div className="flex flex-col justify-center gap-3 p-6 md:col-span-3 md:p-8">
                     <span className="text-brand-primary/80 text-[10px] font-bold uppercase tracking-widest">
-                      {spotlightPost.category}
+                      {categoryLabel(spotlightPost.category)}
                     </span>
-                    <Link href={`/post/${spotlightPost.id}`} className="group/title">
+                    <Link href={spotlightPost.href} className="group/title">
                       <h2 className="line-clamp-3 font-heading text-[clamp(1.2rem,2.5vw,1.7rem)] font-bold leading-snug text-brand-text transition-colors duration-200 group-hover/title:text-brand-primary">
                         {spotlightPost.title}
                       </h2>
@@ -305,7 +310,7 @@ const Destinations: React.FC = () => {
                       {spotlightPost.excerpt}
                     </p>
                     <Link
-                      href={`/post/${spotlightPost.id}`}
+                      href={spotlightPost.href}
                       className="group/link mt-1 inline-flex w-fit items-center gap-1.5 text-sm font-semibold text-brand-primary transition-colors duration-200 hover:text-brand-accent"
                     >
                       {content.common.viewMore}
@@ -341,7 +346,7 @@ const Destinations: React.FC = () => {
                     ease: "easeOut",
                   }}
                 >
-                  <DestinationCard post={post} />
+                  <DestinationCard post={post} categoryLabel={categoryLabel(post.category)} />
                 </motion.div>
               ))}
             </motion.div>
@@ -420,5 +425,3 @@ const Destinations: React.FC = () => {
     </div>
   );
 };
-
-export default Destinations;
