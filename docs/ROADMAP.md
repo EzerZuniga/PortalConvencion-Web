@@ -5,8 +5,8 @@ Cada fase se entrega en su propia rama, con commits pequeños, y no se empieza
 la siguiente hasta validar la anterior.
 
 > Restricciones del proyecto: coste $0 (Vercel Hobby + planes gratuitos),
-> contenido publicado por una sola persona, audiencia internacional (es/en/pt)
-> con SEO por idioma, URLs base en español.
+> contenido publicado por una sola persona, audiencia internacional
+> con SEO por idioma (es/en/pt/fr), URLs base en español.
 
 ---
 
@@ -36,28 +36,44 @@ Hallazgos corregidos durante la fase:
 - Antipatrones de React (setState síncrono en efectos, refs escritas en render).
 - 14 archivos y 2 dependencias sin uso eliminados (detectados con Knip).
 
-## Fase 2 — Capa de contenido (MDX)
+## Fase 2 — Capa de contenido (MDX) ✅ completada
 
 Objetivo: sacar el contenido editorial del código TypeScript.
 
-- [ ] Velite + MDX con esquemas zod tipados en `content/`.
-- [ ] Identificador estable `id` separado del `slug` (la BD referencia `id`).
-- [ ] Migrar destinos, blog, gastronomía, galería y tips desde `translations.ts`.
-- [ ] Rutas de detalle `[slug]` con `generateStaticParams` + `generateMetadata`.
-- [ ] JSON-LD por tipo (`Article`, `TouristAttraction`, `Restaurant`).
-- [ ] Imágenes junto al contenido, comprimidas (WebP/AVIF); corregir las
-      16 rutas de imagen rotas actuales.
-- [ ] Reorganizar `src/views` → `src/features/<dominio>` (Server Components).
-- [ ] Activar `noUncheckedIndexedAccess` en tsconfig (hoy da 22 errores, casi todos
-      en `translations.ts`, que esta fase elimina).
-- [ ] Iconos de tips en el frontmatter (hoy dependen del nombre en español y
-      no aparecen en en/pt).
+- [x] Velite + MDX con esquemas tipados en `content/` (guía en [CONTENT.md](CONTENT.md)).
+- [x] Identificador estable `id` (carpeta) separado del `slug` (URL).
+- [x] Migrar destinos (50), blog (6), platos, restaurantes, galería, tips y
+      equipo desde `translations.ts` (−750 líneas; ahora solo textos de UI).
+- [x] Rutas de detalle `/destinations/[slug]` y `/blog/[slug]`, estáticas,
+      con `generateStaticParams`, `generateMetadata` y `dynamicParams = false`.
+- [x] JSON-LD por tipo (`TouristAttraction`, `Article`, `BlogPosting`) y
+      `BreadcrumbList`. Sitemap con las 56 páginas de detalle.
+- [x] Imágenes junto al contenido, optimizadas en build (equipo migrado). Las
+      16 rutas rotas se sustituyen por una imagen de respaldo.
+- [x] `src/views` → `src/features/<dominio>/components` + `queries.ts`.
+- [x] `noUncheckedIndexedAccess` activado.
+- [x] Iconos de tips en el contenido.
+
+Hallazgos corregidos durante la fase:
+
+- Las 56 tarjetas de Destinos y Blog enlazaban a `/post/{id}`, ruta inexistente (404).
+- El filtro de categorías comparaba etiquetas traducidas: ahora usa claves.
+- El cuerpo de los artículos ya no viaja al navegador (se renderiza en servidor).
+
+Pendiente (requiere material del autor):
+
+- [ ] Fotos reales para destinos, blog, platos, restaurantes y galería.
+- [ ] Texto completo de los 6 posts del blog (hoy el cuerpo es el resumen).
+
+Movido a la Fase 3:
+
+- Convertir las vistas en Server Components: depende de tener i18n en servidor.
 
 ## Fase 3 — Internacionalización con SEO
 
 - [ ] `next-intl` con rutas `app/[locale]/...` y `pathnames` traducidos
-      (`/es/destinos`, `/en/destinations`, `/pt/destinos`).
-- [ ] `messages/{es,en,pt}.json` solo para textos de UI.
+      (`/es/destinos`, `/en/destinations`, `/pt/destinos`, `/fr/destinations`).
+- [ ] `messages/{es,en,pt,fr}.json` solo para textos de UI.
 - [ ] Diccionarios cargados en servidor; `"use client"` solo en islas interactivas.
 - [ ] `hreflang` + `x-default`, sitemap multilenguaje, detección por
       `Accept-Language` en la primera visita.

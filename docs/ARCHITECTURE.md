@@ -7,8 +7,9 @@ Las decisiones concretas y su contexto están en [`adr/`](adr).
 
 1. **Estático por defecto, dinámico por islas.** El contenido se genera en build;
    solo lo que depende del usuario (sesión, favoritos, comentarios) es dinámico.
-2. **Una sola fuente de verdad.** Rutas en `config/routes.ts`, entorno en
-   `config/env.ts`, datos del sitio en `config/site.ts`. Nada se duplica.
+2. **Una sola fuente de verdad.** Rutas en `config/routes.ts`, idiomas en
+   `config/i18n.ts`, entorno en `config/env.ts`, datos del sitio en
+   `config/site.ts`, contenido en `content/`. Nada se duplica.
 3. **Fronteras explícitas con librerías externas.** Cada dependencia que podría
    reemplazarse (auth, HTTP, contenido) se consume a través de `src/lib/<area>`.
 4. **La autorización vive junto a los datos.** El proxy hace comprobaciones
@@ -20,17 +21,46 @@ Las decisiones concretas y su contexto están en [`adr/`](adr).
 ## Capas y dependencias permitidas
 
 ```
-app/  ──►  views/ · features/ · components/ · lib/ · config/
-views/ ──►  features/ · components/ · hooks/ · lib/ · config/
+app/  ──►  features/ · components/ · lib/ · config/
 features/<x>/ ──►  components/ · hooks/ · lib/ · config/   (nunca otra feature)
 components/ ──►  hooks/ · lib/ · config/                   (sin dominio)
-lib/ ──►  config/
+lib/ ──►  config/ · #content
 config/ ──►  (nada del proyecto)
 ```
 
-- `app/` solo compone: lee parámetros, pide datos y renderiza. Sin lógica de negocio.
+- `app/` solo compone: lee parámetros, pide datos a las `queries` de cada
+  dominio y renderiza la vista. Si una página necesita datos de dos dominios
+  (la home muestra destinos), los combina `app/`, nunca una feature a otra.
+- Excepción temporal: `features/i18n` y `features/auth` son transversales y
+  cualquier feature puede usarlos. Pasarán a `lib/` en las Fases 3 y 4.
 - `config/` es declarativo y no importa nada del resto del proyecto.
 - `lib/auth` es el **único** lugar que importa `next-auth` (regla de ESLint).
+
+## Anatomía de una feature
+
+```
+features/destinations/
+├── components/
+│   ├── DestinationsView.tsx    # vista de la página de listado
+│   └── DestinationArticle.tsx  # vista de la página de detalle
+├── queries.ts                  # acceso al contenido (server-only)
+└── queries.test.ts
+```
+
+- `queries.ts` es la única puerta al contenido del dominio. Devuelve **modelos de
+  vista** (`ArticleCard`, `DishCard`…), nunca los documentos crudos: así el
+  cuerpo MDX y los campos internos no llegan al navegador.
+- Los componentes reciben datos por props; no importan `#content`.
+
+## Flujo del contenido
+
+```
+content/*.mdx|yaml ──(Velite, en next dev/build)──► .velite/ ──► features/*/queries.ts
+                                                                   │
+                     app/**/page.tsx ◄── modelos de vista ◄────────┘
+```
+
+Guía para editores: [`CONTENT.md`](CONTENT.md).
 
 ## Convenciones
 

@@ -33,6 +33,7 @@ La Convención (Cusco, Perú), dirigido a una audiencia internacional.
 | UI            | React 19, Tailwind CSS 3, Framer Motion    |
 | Lenguaje      | TypeScript 5 (`strict`)                    |
 | Autenticación | Auth.js v5 (Google) — se migrará en Fase 4 |
+| Contenido     | Velite (MDX + YAML con esquemas tipados)   |
 | Validación    | zod (variables de entorno)                 |
 | Calidad       | ESLint 9, Prettier, Knip, Vitest           |
 | Flujo de git  | Husky, lint-staged, commitlint             |
@@ -61,7 +62,8 @@ Para saltarte la validación puntualmente: `SKIP_ENV_VALIDATION=1`.
 
 | Script              | Descripción                                               |
 | ------------------- | --------------------------------------------------------- |
-| `npm run dev`       | Servidor de desarrollo (Turbopack).                       |
+| `npm run dev`       | Servidor de desarrollo (compila el contenido en watch).   |
+| `npm run content`   | Compila `content/` → `.velite/` (lo hacen dev y build).   |
 | `npm run build`     | Build de producción.                                      |
 | `npm run start`     | Sirve el build de producción.                             |
 | `npm run lint`      | ESLint (`lint:fix` para corregir).                        |
@@ -74,26 +76,31 @@ Para saltarte la validación puntualmente: `SKIP_ENV_VALIDATION=1`.
 ## Estructura del proyecto
 
 ```
+content/                 # Contenido editorial (MDX + YAML) — ver docs/CONTENT.md
 src/
 ├── app/                 # Rutas (App Router). Solo composición: sin lógica.
-│   ├── (public)/        # Páginas públicas con layout principal
+│   ├── (public)/        # Páginas públicas (incluye destinations/[slug], blog/[slug])
 │   ├── (auth)/          # Login
 │   ├── api/             # Route Handlers
 │   ├── sitemap.ts, robots.ts
 │   └── layout.tsx, providers.tsx, error.tsx, not-found.tsx
 ├── components/          # Componentes compartidos sin conocimiento de dominio
+│   ├── content/         # <MdxContent />, <ArticleLayout />
+│   ├── feedback/        # Estados de error / no encontrado
 │   ├── layout/          # Navbar, Footer, newsletter
 │   ├── seo/             # <JsonLd />
 │   └── ui/              # Primitivas reutilizables
-├── config/              # Valores declarativos: env, sitio, rutas
-├── features/            # Módulos por funcionalidad (auth, i18n, widgets)
+├── config/              # Valores declarativos: env, idiomas, sitio, rutas
+├── features/            # Un módulo por dominio: components/ + queries.ts
+│   ├── destinations/    # (también blog, gastronomy, gallery, tips, about,
+│   └── …                #  home, contact, legal, auth, i18n, widgets)
 ├── hooks/               # Hooks genéricos
 ├── lib/                 # Lógica de infraestructura
 │   ├── auth/            # Única frontera con la librería de auth
+│   ├── content/         # Utilidades y modelos de vista del contenido
 │   ├── http/            # Cliente HTTP y servicios externos
 │   ├── seo/             # Metadata, JSON-LD, URLs canónicas
 │   └── utils.ts
-├── views/               # Vistas de página (se migrarán a features/ en Fase 2)
 ├── styles/
 ├── types/
 └── proxy.ts             # Proxy de Next 16 (antes middleware)
@@ -125,6 +132,7 @@ Vercel (plan Hobby). Configuración:
 ## Documentación
 
 - [`docs/ROADMAP.md`](docs/ROADMAP.md) — plan por fases.
+- [`docs/CONTENT.md`](docs/CONTENT.md) — cómo publicar y editar contenido.
 - [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) — principios y reglas de la arquitectura.
 - [`docs/adr/`](docs/adr) — decisiones de arquitectura (ADR).
 

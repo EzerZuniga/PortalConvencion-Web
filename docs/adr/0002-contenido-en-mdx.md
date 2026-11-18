@@ -1,6 +1,6 @@
 # ADR 0002 — Contenido editorial en MDX dentro del repositorio
 
-- **Estado:** Aceptado (implementación en Fase 2)
+- **Estado:** Aceptado — implementado en la Fase 2
 - **Fecha:** 2026-11-17
 
 ## Contexto
