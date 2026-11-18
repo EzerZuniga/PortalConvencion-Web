@@ -4,9 +4,12 @@ import type {
   GalleryImage,
   Post,
   Restaurant,
+  StatItem,
+  TeamMember,
   TipCategory,
+  ValueItem,
 } from "@/types";
-import type { StatItem, TeamMember, ValueItem } from "@/data/about";
+import { ROUTES } from "@/config/routes";
 
 export const LANGUAGES = [
   {
@@ -48,10 +51,10 @@ type NavigationItem = {
 
 type DeepPartial<T> = {
   [Key in keyof T]?: T[Key] extends Array<unknown>
-  ? T[Key]
-  : T[Key] extends object
-  ? DeepPartial<T[Key]>
-  : T[Key];
+    ? T[Key]
+    : T[Key] extends object
+      ? DeepPartial<T[Key]>
+      : T[Key];
 };
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -69,10 +72,7 @@ function mergeContent<T>(base: T, overrides: DeepPartial<T>): T {
     if (value === undefined) return;
 
     const baseValue = merged[key];
-    merged[key] =
-      isRecord(baseValue) && isRecord(value)
-        ? mergeContent(baseValue, value)
-        : value;
+    merged[key] = isRecord(baseValue) && isRecord(value) ? mergeContent(baseValue, value) : value;
   });
 
   return merged as T;
@@ -87,26 +87,26 @@ function createEnglishTranslations(base: TranslationContent) {
     },
     navigation: {
       main: [
-        { name: "Home", href: "/" },
-        { name: "Our Team", href: "/about" },
-        { name: "Destinations", href: "/destinations" },
-        { name: "Gastronomy", href: "/gastronomia" },
-        { name: "Blog", href: "/blog" },
-        { name: "Gallery", href: "/gallery" },
-        { name: "Tips", href: "/tips" },
-        { name: "Contact", href: "/contact" },
+        { name: "Home", href: ROUTES.home },
+        { name: "Our Team", href: ROUTES.about },
+        { name: "Destinations", href: ROUTES.destinations },
+        { name: "Gastronomy", href: ROUTES.gastronomy },
+        { name: "Blog", href: ROUTES.blog },
+        { name: "Gallery", href: ROUTES.gallery },
+        { name: "Tips", href: ROUTES.tips },
+        { name: "Contact", href: ROUTES.contact },
       ],
       footerMain: [
-        { name: "Home", href: "/" },
-        { name: "Destinations", href: "/destinations" },
-        { name: "Gallery", href: "/gallery" },
-        { name: "Travel tips", href: "/tips" },
-        { name: "Contact", href: "/contact" },
+        { name: "Home", href: ROUTES.home },
+        { name: "Destinations", href: ROUTES.destinations },
+        { name: "Gallery", href: ROUTES.gallery },
+        { name: "Travel tips", href: ROUTES.tips },
+        { name: "Contact", href: ROUTES.contact },
       ],
       footerInfo: [
-        { name: "Our Team", href: "/about" },
-        { name: "Privacy policy", href: "/privacy" },
-        { name: "Terms and conditions", href: "/terms" },
+        { name: "Our Team", href: ROUTES.about },
+        { name: "Privacy policy", href: ROUTES.privacy },
+        { name: "Terms and conditions", href: ROUTES.terms },
       ],
     },
     navbar: {
@@ -152,8 +152,7 @@ function createEnglishTranslations(base: TranslationContent) {
     pages: {
       home: {
         seo: {
-          title:
-            "Exploring La Convención - Travel and Tourism Blog in Peru | Complete Guides",
+          title: "Exploring La Convención - Travel and Tourism Blog in Peru | Complete Guides",
           description:
             "Discover the best tourism destinations in La Convención, Cusco and Peru. Travel guides, practical tips, gastronomy and unique adventure experiences.",
           keywords:
@@ -196,52 +195,45 @@ function createEnglishTranslations(base: TranslationContent) {
           },
           visit: {
             title: "Prepare your visit",
-            description:
-              "Three simple steps to move from inspiration to a well-organized route.",
+            description: "Three simple steps to move from inspiration to a well-organized route.",
           },
           faq: {
             title: "Frequently asked questions",
-            description:
-              "Quick answers to common questions before exploring the portal sections.",
+            description: "Quick answers to common questions before exploring the portal sections.",
           },
           location: {
             title: "Find us",
-            description:
-              "Main reference to locate Quillabamba and plan access to the province.",
+            description: "Main reference to locate Quillabamba and plan access to the province.",
           },
         },
         portalLinks: [
           {
-            to: "/destinations",
+            to: ROUTES.destinations,
             title: "Destinations",
-            description:
-              "Nature routes, viewpoints, waterfalls and points of interest.",
+            description: "Nature routes, viewpoints, waterfalls and points of interest.",
           },
           {
-            to: "/gastronomia",
+            to: ROUTES.gastronomy,
             title: "Gastronomy",
-            description:
-              "Coffee, cacao, local products and high-jungle flavors.",
+            description: "Coffee, cacao, local products and high-jungle flavors.",
           },
           {
-            to: "/tips",
+            to: ROUTES.tips,
             title: "Tips",
-            description:
-              "Weather, transport, safety and practical recommendations.",
+            description: "Weather, transport, safety and practical recommendations.",
           },
           {
-            to: "/blog",
+            to: ROUTES.blog,
             title: "Blog",
             description: "Guides, stories and updates to plan better.",
           },
           {
-            to: "/gallery",
+            to: ROUTES.gallery,
             title: "Gallery",
-            description:
-              "Images of landscapes, culture, routes and experiences.",
+            description: "Images of landscapes, culture, routes and experiences.",
           },
           {
-            to: "/about",
+            to: ROUTES.about,
             title: "Culture",
             description: "History, identity, festivities and local memory.",
           },
@@ -252,7 +244,7 @@ function createEnglishTranslations(base: TranslationContent) {
             description:
               "An ideal base to organize routes through the province, connect with local services and approach natural paths.",
             image: "/images/destinations/pueblo-magico.jpg",
-            to: "/destinations",
+            to: ROUTES.destinations,
             label: "View destinations",
             meta: "Routes and guidance",
           },
@@ -261,7 +253,7 @@ function createEnglishTranslations(base: TranslationContent) {
             description:
               "Emblematic products that help explain the agricultural and gastronomic identity of La Convención.",
             image: "/images/gallery/comida-asiatica.jpg",
-            to: "/gastronomia",
+            to: ROUTES.gastronomy,
             label: "Explore gastronomy",
             meta: "Regional flavors",
           },
@@ -270,7 +262,7 @@ function createEnglishTranslations(base: TranslationContent) {
             description:
               "Forests, viewpoints and green spaces best explored with previous information and respect for the environment.",
             image: "/images/gallery/fotografia.jpg",
-            to: "/gallery",
+            to: ROUTES.gallery,
             label: "View gallery",
             meta: "Landscapes and culture",
           },
@@ -279,14 +271,12 @@ function createEnglishTranslations(base: TranslationContent) {
           {
             value: "30+",
             label: "districts and sectors",
-            description:
-              "Territories with their own identity and routes to discover.",
+            description: "Territories with their own identity and routes to discover.",
           },
           {
             value: "50+",
             label: "reference attractions",
-            description:
-              "Waterfalls, viewpoints, cultural spaces and green routes.",
+            description: "Waterfalls, viewpoints, cultural spaces and green routes.",
           },
           {
             value: "365",
@@ -296,48 +286,42 @@ function createEnglishTranslations(base: TranslationContent) {
         ],
         planningSteps: [
           {
-            to: "/tips",
+            to: ROUTES.tips,
             title: "Before traveling",
-            description:
-              "Check weather, travel times, budget and available services.",
+            description: "Check weather, travel times, budget and available services.",
           },
           {
-            to: "/destinations",
+            to: ROUTES.destinations,
             title: "During the route",
             description:
               "Prioritize marked routes, ask for local guidance and care for natural spaces.",
           },
           {
-            to: "/contact",
+            to: ROUTES.contact,
             title: "Need help",
-            description:
-              "Find location references and channels to keep exploring the portal.",
+            description: "Find location references and channels to keep exploring the portal.",
           },
         ],
         portalPillars: [
           {
-            to: "/",
+            to: ROUTES.home,
             title: "Organized information",
-            description:
-              "Sections designed for quick consultation without losing context.",
+            description: "Sections designed for quick consultation without losing context.",
           },
           {
-            to: "/",
+            to: ROUTES.home,
             title: "Responsible tourism",
-            description:
-              "Recommendations to care for routes, communities and natural spaces.",
+            description: "Recommendations to care for routes, communities and natural spaces.",
           },
           {
-            to: "/",
+            to: ROUTES.home,
             title: "Clear planning",
-            description:
-              "Practical data to review before choosing a route or activity.",
+            description: "Practical data to review before choosing a route or activity.",
           },
         ],
         identity: {
           eyebrow: "Information portal",
-          title:
-            "Clear information to explore La Convención with more context.",
+          title: "Clear information to explore La Convención with more context.",
           description:
             "We bring together routes, tips, culture, posts and useful data in an organized experience for visitors, locals and anyone who wants to know the province better.",
         },
@@ -365,22 +349,20 @@ function createEnglishTranslations(base: TranslationContent) {
         ],
         locationCards: [
           {
-            to: "/destinations",
+            to: ROUTES.destinations,
             title: "Location",
-            description:
-              "Quillabamba, capital of La Convención province, Cusco region, Peru.",
+            description: "Quillabamba, capital of La Convención province, Cusco region, Peru.",
           },
           {
-            to: "/tips",
+            to: ROUTES.tips,
             title: "Access",
             description:
               "About 4 to 5 hours by road from Cusco city, depending on route and weather.",
           },
           {
-            to: "/contact",
+            to: ROUTES.contact,
             title: "Useful reference",
-            description:
-              "Use the map as a starting point to organize routes, times and services.",
+            description: "Use the map as a starting point to organize routes, times and services.",
           },
         ],
         ui: {
@@ -412,8 +394,7 @@ function createEnglishTranslations(base: TranslationContent) {
         seoKeywords:
           "La Convención photo gallery, Peru landscape photography, Cusco images, travel photos",
         title: "Photo Gallery",
-        subtitle:
-          "A visual look at the most incredible destinations in La Convención.",
+        subtitle: "A visual look at the most incredible destinations in La Convención.",
         ctaText: "Want to see more photos from our trips?",
         ctaAction: "Follow us on Instagram",
       },
@@ -436,8 +417,7 @@ function createEnglishTranslations(base: TranslationContent) {
         seoTitle: "Contact Us - Explorando la Convención",
         seoDescription:
           "Have questions or want to collaborate? Contact us by email, phone or visit us in Quillabamba, La Convención.",
-        seoKeywords:
-          "contact explorando la convención, contact, email, phone, Quillabamba",
+        seoKeywords: "contact explorando la convención, contact, email, phone, Quillabamba",
         title: "Contact Us",
         subtitle:
           "Have questions, suggestions or want to collaborate with us? We are here to help.",
@@ -448,8 +428,7 @@ function createEnglishTranslations(base: TranslationContent) {
         submitting: "Sending...",
       },
       blog: {
-        seoTitle:
-          "Travel Blog - Explorando la Convención | Tourism Articles and Tips",
+        seoTitle: "Travel Blog - Explorando la Convención | Tourism Articles and Tips",
         seoDescription:
           "Read our latest articles about travel, destinations in La Convención and Cusco, practical tips and travel experiences in Peru.",
         seoKeywords:
@@ -462,8 +441,7 @@ function createEnglishTranslations(base: TranslationContent) {
         postsSubtitle:
           "Recent articles about culture, travel and authentic experiences in La Convención.",
         newsletterTitle: "Subscribe to Our Newsletter",
-        newsletterDescription:
-          "Receive the latest news, tips and articles directly in your inbox",
+        newsletterDescription: "Receive the latest news, tips and articles directly in your inbox",
         emailPlaceholder: "Your email address",
         subscribe: "Subscribe",
         subscribing: "Subscribing...",
@@ -531,26 +509,26 @@ function createPortugueseTranslations(base: TranslationContent) {
     },
     navigation: {
       main: [
-        { name: "Início", href: "/" },
-        { name: "Nossa Equipe", href: "/about" },
-        { name: "Destinos", href: "/destinations" },
-        { name: "Gastronomia", href: "/gastronomia" },
-        { name: "Blog", href: "/blog" },
-        { name: "Galeria", href: "/gallery" },
-        { name: "Dicas", href: "/tips" },
-        { name: "Contato", href: "/contact" },
+        { name: "Início", href: ROUTES.home },
+        { name: "Nossa Equipe", href: ROUTES.about },
+        { name: "Destinos", href: ROUTES.destinations },
+        { name: "Gastronomia", href: ROUTES.gastronomy },
+        { name: "Blog", href: ROUTES.blog },
+        { name: "Galeria", href: ROUTES.gallery },
+        { name: "Dicas", href: ROUTES.tips },
+        { name: "Contato", href: ROUTES.contact },
       ],
       footerMain: [
-        { name: "Início", href: "/" },
-        { name: "Destinos", href: "/destinations" },
-        { name: "Galeria", href: "/gallery" },
-        { name: "Dicas de viagem", href: "/tips" },
-        { name: "Contato", href: "/contact" },
+        { name: "Início", href: ROUTES.home },
+        { name: "Destinos", href: ROUTES.destinations },
+        { name: "Galeria", href: ROUTES.gallery },
+        { name: "Dicas de viagem", href: ROUTES.tips },
+        { name: "Contato", href: ROUTES.contact },
       ],
       footerInfo: [
-        { name: "Nossa Equipe", href: "/about" },
-        { name: "Política de privacidade", href: "/privacy" },
-        { name: "Termos e condições", href: "/terms" },
+        { name: "Nossa Equipe", href: ROUTES.about },
+        { name: "Política de privacidade", href: ROUTES.privacy },
+        { name: "Termos e condições", href: ROUTES.terms },
       ],
     },
     navbar: {
@@ -674,26 +652,26 @@ function createFrenchTranslations(base: TranslationContent) {
     },
     navigation: {
       main: [
-        { name: "Accueil", href: "/" },
-        { name: "Notre Équipe", href: "/about" },
-        { name: "Destinations", href: "/destinations" },
-        { name: "Gastronomie", href: "/gastronomia" },
-        { name: "Blog", href: "/blog" },
-        { name: "Galerie", href: "/gallery" },
-        { name: "Conseils", href: "/tips" },
-        { name: "Contact", href: "/contact" },
+        { name: "Accueil", href: ROUTES.home },
+        { name: "Notre Équipe", href: ROUTES.about },
+        { name: "Destinations", href: ROUTES.destinations },
+        { name: "Gastronomie", href: ROUTES.gastronomy },
+        { name: "Blog", href: ROUTES.blog },
+        { name: "Galerie", href: ROUTES.gallery },
+        { name: "Conseils", href: ROUTES.tips },
+        { name: "Contact", href: ROUTES.contact },
       ],
       footerMain: [
-        { name: "Accueil", href: "/" },
-        { name: "Destinations", href: "/destinations" },
-        { name: "Galerie", href: "/gallery" },
-        { name: "Conseils de voyage", href: "/tips" },
-        { name: "Contact", href: "/contact" },
+        { name: "Accueil", href: ROUTES.home },
+        { name: "Destinations", href: ROUTES.destinations },
+        { name: "Galerie", href: ROUTES.gallery },
+        { name: "Conseils de voyage", href: ROUTES.tips },
+        { name: "Contact", href: ROUTES.contact },
       ],
       footerInfo: [
-        { name: "Notre Équipe", href: "/about" },
-        { name: "Politique de confidentialité", href: "/privacy" },
-        { name: "Conditions générales", href: "/terms" },
+        { name: "Notre Équipe", href: ROUTES.about },
+        { name: "Politique de confidentialité", href: ROUTES.privacy },
+        { name: "Conditions générales", href: ROUTES.terms },
       ],
     },
     navbar: {
@@ -1056,8 +1034,6 @@ export type TranslationContent = {
   };
 };
 
-
-
 const blogPostsMeta = [
   {
     id: 1,
@@ -1109,56 +1085,232 @@ const galleryMeta = [
 
 // ── Destinations-specific posts (50 items: 15 Destinos, 5 Consejos, 10 Gastronomía, 10 Aventura, 10 Fotografía) ──
 const destinationsPostsMeta = [
-  { id: 1,  image: "/images/destinations/pueblo-magico.jpg", author: "Mariela Ramos",     date: "2024-04-01", featured: true },
-  { id: 2,  image: "/images/destinations/andes-trekking.jpg", author: "Carlos Huamán",    date: "2024-04-03" },
-  { id: 3,  image: "/images/gallery/fotografia.jpg",          author: "Ana Paredes",      date: "2024-04-05" },
-  { id: 4,  image: "/images/gallery/comida-asiatica.jpg",     author: "Luis Fernández",   date: "2024-04-07" },
-  { id: 5,  image: "/images/trips/presupuesto.jpg",           author: "Equipo Editorial", date: "2024-04-09" },
-  { id: 6,  image: "/images/destinations/pueblo-magico.jpg",  author: "Mariela Ramos",    date: "2024-04-11" },
-  { id: 7,  image: "/images/destinations/andes-trekking.jpg", author: "Carlos Huamán",    date: "2024-04-13" },
-  { id: 8,  image: "/images/gallery/fotografia.jpg",          author: "Ana Paredes",      date: "2024-04-15" },
-  { id: 9,  image: "/images/gallery/comida-asiatica.jpg",     author: "Luis Fernández",   date: "2024-04-17" },
-  { id: 10, image: "/images/destinations/pueblo-magico.jpg",  author: "Equipo Editorial", date: "2024-04-19" },
-  { id: 11, image: "/images/destinations/andes-trekking.jpg", author: "Mariela Ramos",    date: "2024-04-21" },
-  { id: 12, image: "/images/gallery/fotografia.jpg",          author: "Carlos Huamán",    date: "2024-04-23" },
-  { id: 13, image: "/images/gallery/comida-asiatica.jpg",     author: "Ana Paredes",      date: "2024-04-25" },
-  { id: 14, image: "/images/destinations/pueblo-magico.jpg",  author: "Luis Fernández",   date: "2024-04-27" },
-  { id: 15, image: "/images/destinations/andes-trekking.jpg", author: "Equipo Editorial", date: "2024-04-29" },
-  { id: 16, image: "/images/trips/presupuesto.jpg",           author: "Mariela Ramos",    date: "2024-05-01" },
-  { id: 17, image: "/images/gallery/comida-asiatica.jpg",     author: "Carlos Huamán",    date: "2024-05-03" },
-  { id: 18, image: "/images/trips/presupuesto.jpg",           author: "Ana Paredes",      date: "2024-05-05" },
-  { id: 19, image: "/images/destinations/pueblo-magico.jpg",  author: "Luis Fernández",   date: "2024-05-07" },
-  { id: 20, image: "/images/destinations/andes-trekking.jpg", author: "Equipo Editorial", date: "2024-05-09" },
-  { id: 21, image: "/images/gallery/comida-asiatica.jpg",     author: "Ana Paredes",      date: "2024-05-11" },
-  { id: 22, image: "/images/destinations/pueblo-magico.jpg",  author: "Mariela Ramos",    date: "2024-05-13" },
-  { id: 23, image: "/images/gallery/comida-asiatica.jpg",     author: "Carlos Huamán",    date: "2024-05-15" },
-  { id: 24, image: "/images/gallery/fotografia.jpg",          author: "Ana Paredes",      date: "2024-05-17" },
-  { id: 25, image: "/images/trips/presupuesto.jpg",           author: "Luis Fernández",   date: "2024-05-19" },
-  { id: 26, image: "/images/gallery/comida-asiatica.jpg",     author: "Equipo Editorial", date: "2024-05-21" },
-  { id: 27, image: "/images/gallery/fotografia.jpg",          author: "Mariela Ramos",    date: "2024-05-23" },
-  { id: 28, image: "/images/gallery/comida-asiatica.jpg",     author: "Carlos Huamán",    date: "2024-05-25" },
-  { id: 29, image: "/images/destinations/pueblo-magico.jpg",  author: "Ana Paredes",      date: "2024-05-27" },
-  { id: 30, image: "/images/gallery/comida-asiatica.jpg",     author: "Luis Fernández",   date: "2024-05-29" },
-  { id: 31, image: "/images/destinations/andes-trekking.jpg", author: "Carlos Huamán",    date: "2024-06-01" },
-  { id: 32, image: "/images/destinations/andes-trekking.jpg", author: "Mariela Ramos",    date: "2024-06-03" },
-  { id: 33, image: "/images/destinations/andes-trekking.jpg", author: "Luis Fernández",   date: "2024-06-05" },
-  { id: 34, image: "/images/gallery/fotografia.jpg",          author: "Equipo Editorial", date: "2024-06-07" },
-  { id: 35, image: "/images/destinations/andes-trekking.jpg", author: "Carlos Huamán",    date: "2024-06-09" },
-  { id: 36, image: "/images/destinations/pueblo-magico.jpg",  author: "Mariela Ramos",    date: "2024-06-11" },
-  { id: 37, image: "/images/destinations/andes-trekking.jpg", author: "Ana Paredes",      date: "2024-06-13" },
-  { id: 38, image: "/images/gallery/fotografia.jpg",          author: "Luis Fernández",   date: "2024-06-15" },
-  { id: 39, image: "/images/trips/presupuesto.jpg",           author: "Equipo Editorial", date: "2024-06-17" },
-  { id: 40, image: "/images/destinations/andes-trekking.jpg", author: "Carlos Huamán",    date: "2024-06-19" },
-  { id: 41, image: "/images/gallery/fotografia.jpg",          author: "Ana Paredes",      date: "2024-06-21" },
-  { id: 42, image: "/images/gallery/comida-asiatica.jpg",     author: "Mariela Ramos",    date: "2024-06-23" },
-  { id: 43, image: "/images/gallery/fotografia.jpg",          author: "Carlos Huamán",    date: "2024-06-25" },
-  { id: 44, image: "/images/destinations/pueblo-magico.jpg",  author: "Luis Fernández",   date: "2024-06-27" },
-  { id: 45, image: "/images/destinations/andes-trekking.jpg", author: "Equipo Editorial", date: "2024-06-29" },
-  { id: 46, image: "/images/gallery/fotografia.jpg",          author: "Mariela Ramos",    date: "2024-07-01" },
-  { id: 47, image: "/images/gallery/fotografia.jpg",          author: "Carlos Huamán",    date: "2024-07-03" },
-  { id: 48, image: "/images/destinations/pueblo-magico.jpg",  author: "Ana Paredes",      date: "2024-07-05" },
-  { id: 49, image: "/images/gallery/fotografia.jpg",          author: "Luis Fernández",   date: "2024-07-07" },
-  { id: 50, image: "/images/destinations/andes-trekking.jpg", author: "Equipo Editorial", date: "2024-07-09" },
+  {
+    id: 1,
+    image: "/images/destinations/pueblo-magico.jpg",
+    author: "Mariela Ramos",
+    date: "2024-04-01",
+    featured: true,
+  },
+  {
+    id: 2,
+    image: "/images/destinations/andes-trekking.jpg",
+    author: "Carlos Huamán",
+    date: "2024-04-03",
+  },
+  { id: 3, image: "/images/gallery/fotografia.jpg", author: "Ana Paredes", date: "2024-04-05" },
+  {
+    id: 4,
+    image: "/images/gallery/comida-asiatica.jpg",
+    author: "Luis Fernández",
+    date: "2024-04-07",
+  },
+  { id: 5, image: "/images/trips/presupuesto.jpg", author: "Equipo Editorial", date: "2024-04-09" },
+  {
+    id: 6,
+    image: "/images/destinations/pueblo-magico.jpg",
+    author: "Mariela Ramos",
+    date: "2024-04-11",
+  },
+  {
+    id: 7,
+    image: "/images/destinations/andes-trekking.jpg",
+    author: "Carlos Huamán",
+    date: "2024-04-13",
+  },
+  { id: 8, image: "/images/gallery/fotografia.jpg", author: "Ana Paredes", date: "2024-04-15" },
+  {
+    id: 9,
+    image: "/images/gallery/comida-asiatica.jpg",
+    author: "Luis Fernández",
+    date: "2024-04-17",
+  },
+  {
+    id: 10,
+    image: "/images/destinations/pueblo-magico.jpg",
+    author: "Equipo Editorial",
+    date: "2024-04-19",
+  },
+  {
+    id: 11,
+    image: "/images/destinations/andes-trekking.jpg",
+    author: "Mariela Ramos",
+    date: "2024-04-21",
+  },
+  { id: 12, image: "/images/gallery/fotografia.jpg", author: "Carlos Huamán", date: "2024-04-23" },
+  {
+    id: 13,
+    image: "/images/gallery/comida-asiatica.jpg",
+    author: "Ana Paredes",
+    date: "2024-04-25",
+  },
+  {
+    id: 14,
+    image: "/images/destinations/pueblo-magico.jpg",
+    author: "Luis Fernández",
+    date: "2024-04-27",
+  },
+  {
+    id: 15,
+    image: "/images/destinations/andes-trekking.jpg",
+    author: "Equipo Editorial",
+    date: "2024-04-29",
+  },
+  { id: 16, image: "/images/trips/presupuesto.jpg", author: "Mariela Ramos", date: "2024-05-01" },
+  {
+    id: 17,
+    image: "/images/gallery/comida-asiatica.jpg",
+    author: "Carlos Huamán",
+    date: "2024-05-03",
+  },
+  { id: 18, image: "/images/trips/presupuesto.jpg", author: "Ana Paredes", date: "2024-05-05" },
+  {
+    id: 19,
+    image: "/images/destinations/pueblo-magico.jpg",
+    author: "Luis Fernández",
+    date: "2024-05-07",
+  },
+  {
+    id: 20,
+    image: "/images/destinations/andes-trekking.jpg",
+    author: "Equipo Editorial",
+    date: "2024-05-09",
+  },
+  {
+    id: 21,
+    image: "/images/gallery/comida-asiatica.jpg",
+    author: "Ana Paredes",
+    date: "2024-05-11",
+  },
+  {
+    id: 22,
+    image: "/images/destinations/pueblo-magico.jpg",
+    author: "Mariela Ramos",
+    date: "2024-05-13",
+  },
+  {
+    id: 23,
+    image: "/images/gallery/comida-asiatica.jpg",
+    author: "Carlos Huamán",
+    date: "2024-05-15",
+  },
+  { id: 24, image: "/images/gallery/fotografia.jpg", author: "Ana Paredes", date: "2024-05-17" },
+  { id: 25, image: "/images/trips/presupuesto.jpg", author: "Luis Fernández", date: "2024-05-19" },
+  {
+    id: 26,
+    image: "/images/gallery/comida-asiatica.jpg",
+    author: "Equipo Editorial",
+    date: "2024-05-21",
+  },
+  { id: 27, image: "/images/gallery/fotografia.jpg", author: "Mariela Ramos", date: "2024-05-23" },
+  {
+    id: 28,
+    image: "/images/gallery/comida-asiatica.jpg",
+    author: "Carlos Huamán",
+    date: "2024-05-25",
+  },
+  {
+    id: 29,
+    image: "/images/destinations/pueblo-magico.jpg",
+    author: "Ana Paredes",
+    date: "2024-05-27",
+  },
+  {
+    id: 30,
+    image: "/images/gallery/comida-asiatica.jpg",
+    author: "Luis Fernández",
+    date: "2024-05-29",
+  },
+  {
+    id: 31,
+    image: "/images/destinations/andes-trekking.jpg",
+    author: "Carlos Huamán",
+    date: "2024-06-01",
+  },
+  {
+    id: 32,
+    image: "/images/destinations/andes-trekking.jpg",
+    author: "Mariela Ramos",
+    date: "2024-06-03",
+  },
+  {
+    id: 33,
+    image: "/images/destinations/andes-trekking.jpg",
+    author: "Luis Fernández",
+    date: "2024-06-05",
+  },
+  {
+    id: 34,
+    image: "/images/gallery/fotografia.jpg",
+    author: "Equipo Editorial",
+    date: "2024-06-07",
+  },
+  {
+    id: 35,
+    image: "/images/destinations/andes-trekking.jpg",
+    author: "Carlos Huamán",
+    date: "2024-06-09",
+  },
+  {
+    id: 36,
+    image: "/images/destinations/pueblo-magico.jpg",
+    author: "Mariela Ramos",
+    date: "2024-06-11",
+  },
+  {
+    id: 37,
+    image: "/images/destinations/andes-trekking.jpg",
+    author: "Ana Paredes",
+    date: "2024-06-13",
+  },
+  { id: 38, image: "/images/gallery/fotografia.jpg", author: "Luis Fernández", date: "2024-06-15" },
+  {
+    id: 39,
+    image: "/images/trips/presupuesto.jpg",
+    author: "Equipo Editorial",
+    date: "2024-06-17",
+  },
+  {
+    id: 40,
+    image: "/images/destinations/andes-trekking.jpg",
+    author: "Carlos Huamán",
+    date: "2024-06-19",
+  },
+  { id: 41, image: "/images/gallery/fotografia.jpg", author: "Ana Paredes", date: "2024-06-21" },
+  {
+    id: 42,
+    image: "/images/gallery/comida-asiatica.jpg",
+    author: "Mariela Ramos",
+    date: "2024-06-23",
+  },
+  { id: 43, image: "/images/gallery/fotografia.jpg", author: "Carlos Huamán", date: "2024-06-25" },
+  {
+    id: 44,
+    image: "/images/destinations/pueblo-magico.jpg",
+    author: "Luis Fernández",
+    date: "2024-06-27",
+  },
+  {
+    id: 45,
+    image: "/images/destinations/andes-trekking.jpg",
+    author: "Equipo Editorial",
+    date: "2024-06-29",
+  },
+  { id: 46, image: "/images/gallery/fotografia.jpg", author: "Mariela Ramos", date: "2024-07-01" },
+  { id: 47, image: "/images/gallery/fotografia.jpg", author: "Carlos Huamán", date: "2024-07-03" },
+  {
+    id: 48,
+    image: "/images/destinations/pueblo-magico.jpg",
+    author: "Ana Paredes",
+    date: "2024-07-05",
+  },
+  { id: 49, image: "/images/gallery/fotografia.jpg", author: "Luis Fernández", date: "2024-07-07" },
+  {
+    id: 50,
+    image: "/images/destinations/andes-trekking.jpg",
+    author: "Equipo Editorial",
+    date: "2024-07-09",
+  },
 ] as const;
 
 const es: TranslationContent = {
@@ -1169,26 +1321,26 @@ const es: TranslationContent = {
   },
   navigation: {
     main: [
-      { name: "Inicio", href: "/" },
-      { name: "Nuestro Equipo", href: "/about" },
-      { name: "Destinos", href: "/destinations" },
-      { name: "Gastronomía", href: "/gastronomia" },
-      { name: "Blog", href: "/blog" },
-      { name: "Galería", href: "/gallery" },
-      { name: "Tips", href: "/tips" },
-      { name: "Contacto", href: "/contact" },
+      { name: "Inicio", href: ROUTES.home },
+      { name: "Nuestro Equipo", href: ROUTES.about },
+      { name: "Destinos", href: ROUTES.destinations },
+      { name: "Gastronomía", href: ROUTES.gastronomy },
+      { name: "Blog", href: ROUTES.blog },
+      { name: "Galería", href: ROUTES.gallery },
+      { name: "Tips", href: ROUTES.tips },
+      { name: "Contacto", href: ROUTES.contact },
     ],
     footerMain: [
-      { name: "Inicio", href: "/" },
-      { name: "Destinos", href: "/destinations" },
-      { name: "Galería", href: "/gallery" },
-      { name: "Consejos de viaje", href: "/tips" },
-      { name: "Contacto", href: "/contact" },
+      { name: "Inicio", href: ROUTES.home },
+      { name: "Destinos", href: ROUTES.destinations },
+      { name: "Galería", href: ROUTES.gallery },
+      { name: "Consejos de viaje", href: ROUTES.tips },
+      { name: "Contacto", href: ROUTES.contact },
     ],
     footerInfo: [
-      { name: "Nuestro Equipo", href: "/about" },
-      { name: "Política de privacidad", href: "/privacy" },
-      { name: "Términos y condiciones", href: "/terms" },
+      { name: "Nuestro Equipo", href: ROUTES.about },
+      { name: "Política de privacidad", href: ROUTES.privacy },
+      { name: "Términos y condiciones", href: ROUTES.terms },
     ],
   },
   navbar: {
@@ -1226,8 +1378,7 @@ const es: TranslationContent = {
     readArticle: "Leer artículo",
     article: "Artículo",
     noCategoryArticles: "No hay artículos en esta categoría.",
-    noSearchResults:
-      "No se encontraron artículos que coincidan con tu búsqueda.",
+    noSearchResults: "No se encontraron artículos que coincidan con tu búsqueda.",
     searchArticles: "Buscar artículos...",
     posts: "Publicaciones",
     role: "Rol:",
@@ -1235,8 +1386,7 @@ const es: TranslationContent = {
   pages: {
     home: {
       seo: {
-        title:
-          "Explorando la Convención - Blog de Viajes y Turismo en Perú | Guías Completas",
+        title: "Explorando la Convención - Blog de Viajes y Turismo en Perú | Guías Completas",
         description:
           "Descubre los mejores destinos turísticos de La Convención, Cusco y Perú. Guías de viaje, consejos prácticos, gastronomía y experiencias únicas de aventura.",
         keywords:
@@ -1295,37 +1445,37 @@ const es: TranslationContent = {
       },
       portalLinks: [
         {
-          to: "/destinations",
+          to: ROUTES.destinations,
           title: "Destinos",
           description:
             "Rutas naturales, miradores, cascadas, caminos escénicos y puntos de interés para organizar tu próxima visita.",
         },
         {
-          to: "/gastronomia",
+          to: ROUTES.gastronomy,
           title: "Gastronomía",
           description:
             "Café, cacao, productos locales y sabores de selva alta para descubrir la identidad culinaria de la provincia.",
         },
         {
-          to: "/tips",
+          to: ROUTES.tips,
           title: "Consejos",
           description:
             "Clima, transporte, seguridad, presupuesto y recomendaciones prácticas para viajar con más confianza.",
         },
         {
-          to: "/blog",
+          to: ROUTES.blog,
           title: "Blog",
           description:
             "Guías, historias, novedades y experiencias locales para planificar mejor cada recorrido por La Convención.",
         },
         {
-          to: "/gallery",
+          to: ROUTES.gallery,
           title: "Galería",
           description:
             "Imágenes de paisajes, cultura, rutas y experiencias para inspirar tu próxima visita con más contexto.",
         },
         {
-          to: "/about",
+          to: ROUTES.about,
           title: "Cultura",
           description:
             "Historia, identidad, festividades, memoria local y valores que dan forma a la vida de la provincia.",
@@ -1337,7 +1487,7 @@ const es: TranslationContent = {
           description:
             "Una base ideal para organizar recorridos por la provincia, conectar con servicios locales y acercarse a rutas naturales.",
           image: "/images/destinations/pueblo-magico.jpg",
-          to: "/destinations",
+          to: ROUTES.destinations,
           label: "Ver destinos",
           meta: "Rutas y orientación",
         },
@@ -1346,7 +1496,7 @@ const es: TranslationContent = {
           description:
             "Productos emblemáticos que ayudan a entender la identidad agrícola y gastronómica de La Convención.",
           image: "/images/gallery/comida-asiatica.jpg",
-          to: "/gastronomia",
+          to: ROUTES.gastronomy,
           label: "Explorar gastronomía",
           meta: "Sabores regionales",
         },
@@ -1355,7 +1505,7 @@ const es: TranslationContent = {
           description:
             "Bosques, miradores y espacios verdes que conviene recorrer con información previa y respeto por el entorno.",
           image: "/images/gallery/fotografia.jpg",
-          to: "/gallery",
+          to: ROUTES.gallery,
           label: "Ver galería",
           meta: "Paisajes y cultura",
         },
@@ -1364,14 +1514,12 @@ const es: TranslationContent = {
         {
           value: "30+",
           label: "distritos y sectores",
-          description:
-            "Territorios con identidad propia y rutas por descubrir.",
+          description: "Territorios con identidad propia y rutas por descubrir.",
         },
         {
           value: "50+",
           label: "atractivos referenciales",
-          description:
-            "Cascadas, miradores, espacios culturales y rutas verdes.",
+          description: "Cascadas, miradores, espacios culturales y rutas verdes.",
         },
         {
           value: "365",
@@ -1381,19 +1529,18 @@ const es: TranslationContent = {
       ],
       planningSteps: [
         {
-          to: "/tips",
+          to: ROUTES.tips,
           title: "Antes de viajar",
-          description:
-            "Revisa clima, tiempos de traslado, presupuesto y servicios disponibles.",
+          description: "Revisa clima, tiempos de traslado, presupuesto y servicios disponibles.",
         },
         {
-          to: "/destinations",
+          to: ROUTES.destinations,
           title: "Durante el recorrido",
           description:
             "Prioriza rutas señalizadas, consulta orientación local y cuida los espacios naturales.",
         },
         {
-          to: "/contact",
+          to: ROUTES.contact,
           title: "Necesitas ayuda",
           description:
             "Encuentra referencias de ubicación y canales para seguir explorando el portal.",
@@ -1401,28 +1548,24 @@ const es: TranslationContent = {
       ],
       portalPillars: [
         {
-          to: "/",
+          to: ROUTES.home,
           title: "Información organizada",
-          description:
-            "Secciones pensadas para consultar rápido sin perder contexto.",
+          description: "Secciones pensadas para consultar rápido sin perder contexto.",
         },
         {
-          to: "/",
+          to: ROUTES.home,
           title: "Turismo responsable",
-          description:
-            "Recomendaciones para cuidar rutas, comunidades y espacios naturales.",
+          description: "Recomendaciones para cuidar rutas, comunidades y espacios naturales.",
         },
         {
-          to: "/",
+          to: ROUTES.home,
           title: "Planificación clara",
-          description:
-            "Datos prácticos para revisar antes de decidir una ruta o actividad.",
+          description: "Datos prácticos para revisar antes de decidir una ruta o actividad.",
         },
       ],
       identity: {
         eyebrow: "Portal informativo",
-        title:
-          "Información clara para recorrer La Convención con más contexto.",
+        title: "Información clara para recorrer La Convención con más contexto.",
         description:
           "Reunimos rutas, consejos, cultura, publicaciones y datos útiles en una experiencia ordenada para visitantes, vecinos y personas que quieren conocer mejor la provincia.",
       },
@@ -1450,22 +1593,20 @@ const es: TranslationContent = {
       ],
       locationCards: [
         {
-          to: "/destinations",
+          to: ROUTES.destinations,
           title: "Ubicación",
-          description:
-            "Quillabamba, capital de la provincia de La Convención, región Cusco, Perú.",
+          description: "Quillabamba, capital de la provincia de La Convención, región Cusco, Perú.",
         },
         {
-          to: "/tips",
+          to: ROUTES.tips,
           title: "Acceso",
           description:
             "Aproximadamente 4 a 5 horas por vía terrestre desde la ciudad del Cusco, según ruta y clima.",
         },
         {
-          to: "/contact",
+          to: ROUTES.contact,
           title: "Referencia útil",
-          description:
-            "Usa el mapa como punto inicial para organizar rutas, tiempos y servicios.",
+          description: "Usa el mapa como punto inicial para organizar rutas, tiempos y servicios.",
         },
       ],
       ui: {
@@ -1666,28 +1807,108 @@ const es: TranslationContent = {
           "Fotografiar el canotaje extremo en el Pongo de Mainique requiere velocidades de obturación superiores a 1/1000s. La combinación de agua, adrenalina y el encuadre de los cañones crea imágenes impactantes.",
         ][index],
         category: [
-          "Destinos", "Destinos", "Destinos", "Destinos", "Destinos",
-          "Destinos", "Destinos", "Destinos", "Destinos", "Destinos",
-          "Destinos", "Destinos", "Destinos", "Destinos", "Destinos",
-          "Consejos", "Consejos", "Consejos", "Consejos", "Consejos",
-          "Gastronomía", "Gastronomía", "Gastronomía", "Gastronomía", "Gastronomía",
-          "Gastronomía", "Gastronomía", "Gastronomía", "Gastronomía", "Gastronomía",
-          "Aventura", "Aventura", "Aventura", "Aventura", "Aventura",
-          "Aventura", "Aventura", "Aventura", "Aventura", "Aventura",
-          "Fotografía", "Fotografía", "Fotografía", "Fotografía", "Fotografía",
-          "Fotografía", "Fotografía", "Fotografía", "Fotografía", "Fotografía",
+          "Destinos",
+          "Destinos",
+          "Destinos",
+          "Destinos",
+          "Destinos",
+          "Destinos",
+          "Destinos",
+          "Destinos",
+          "Destinos",
+          "Destinos",
+          "Destinos",
+          "Destinos",
+          "Destinos",
+          "Destinos",
+          "Destinos",
+          "Consejos",
+          "Consejos",
+          "Consejos",
+          "Consejos",
+          "Consejos",
+          "Gastronomía",
+          "Gastronomía",
+          "Gastronomía",
+          "Gastronomía",
+          "Gastronomía",
+          "Gastronomía",
+          "Gastronomía",
+          "Gastronomía",
+          "Gastronomía",
+          "Gastronomía",
+          "Aventura",
+          "Aventura",
+          "Aventura",
+          "Aventura",
+          "Aventura",
+          "Aventura",
+          "Aventura",
+          "Aventura",
+          "Aventura",
+          "Aventura",
+          "Fotografía",
+          "Fotografía",
+          "Fotografía",
+          "Fotografía",
+          "Fotografía",
+          "Fotografía",
+          "Fotografía",
+          "Fotografía",
+          "Fotografía",
+          "Fotografía",
         ][index],
         readTime: [
-          "5 min", "6 min", "4 min", "5 min", "5 min",
-          "4 min", "7 min", "6 min", "4 min", "5 min",
-          "4 min", "3 min", "4 min", "5 min", "3 min",
-          "3 min", "3 min", "3 min", "4 min", "4 min",
-          "4 min", "4 min", "4 min", "5 min", "3 min",
-          "3 min", "3 min", "4 min", "3 min", "4 min",
-          "6 min", "7 min", "6 min", "5 min", "6 min",
-          "5 min", "5 min", "8 min", "4 min", "5 min",
-          "5 min", "6 min", "5 min", "5 min", "6 min",
-          "5 min", "7 min", "5 min", "5 min", "6 min",
+          "5 min",
+          "6 min",
+          "4 min",
+          "5 min",
+          "5 min",
+          "4 min",
+          "7 min",
+          "6 min",
+          "4 min",
+          "5 min",
+          "4 min",
+          "3 min",
+          "4 min",
+          "5 min",
+          "3 min",
+          "3 min",
+          "3 min",
+          "3 min",
+          "4 min",
+          "4 min",
+          "4 min",
+          "4 min",
+          "4 min",
+          "5 min",
+          "3 min",
+          "3 min",
+          "3 min",
+          "4 min",
+          "3 min",
+          "4 min",
+          "6 min",
+          "7 min",
+          "6 min",
+          "5 min",
+          "6 min",
+          "5 min",
+          "5 min",
+          "8 min",
+          "4 min",
+          "5 min",
+          "5 min",
+          "6 min",
+          "5 min",
+          "5 min",
+          "6 min",
+          "5 min",
+          "7 min",
+          "5 min",
+          "5 min",
+          "6 min",
         ][index],
       })),
     },
@@ -1698,8 +1919,7 @@ const es: TranslationContent = {
       seoKeywords:
         "galería fotos La Convención, fotografía paisajes Perú, imágenes Cusco, fotos viaje",
       title: "Galería de Fotos",
-      subtitle:
-        "Un vistazo visual a los destinos más increíbles de La Convención.",
+      subtitle: "Un vistazo visual a los destinos más increíbles de La Convención.",
       images: galleryMeta.map((image, index) => ({
         ...image,
         title: [
@@ -1791,8 +2011,7 @@ const es: TranslationContent = {
       seoTitle: "Contáctanos - Explorando la Convención",
       seoDescription:
         "¿Tienes preguntas o quieres colaborar? Contáctanos por email, teléfono o visítanos en Quillabamba, La Convención.",
-      seoKeywords:
-        "contacto explorando la convención, contactar, email, teléfono, Quillabamba",
+      seoKeywords: "contacto explorando la convención, contactar, email, teléfono, Quillabamba",
       title: "Contáctanos",
       subtitle:
         "¿Tienes preguntas, sugerencias o quieres colaborar con nosotros? Estamos aquí para ayudarte.",
@@ -1827,10 +2046,8 @@ const es: TranslationContent = {
         subject: "Selecciona un asunto.",
         message: "El mensaje debe tener al menos 20 caracteres.",
         review: "Revisa los campos marcados antes de enviar.",
-        success:
-          "¡Mensaje enviado! Gracias por contactarnos. Te responderemos pronto.",
-        failure:
-          "No pudimos enviar tu mensaje en este momento. Inténtalo nuevamente.",
+        success: "¡Mensaje enviado! Gracias por contactarnos. Te responderemos pronto.",
+        failure: "No pudimos enviar tu mensaje en este momento. Inténtalo nuevamente.",
       },
       helper: "Cuéntanos el contexto para ayudarte mejor.",
       submit: "Enviar Mensaje",
@@ -1842,8 +2059,7 @@ const es: TranslationContent = {
       },
     },
     blog: {
-      seoTitle:
-        "Blog de Viajes - Explorando la Convención | Artículos y Consejos de Turismo",
+      seoTitle: "Blog de Viajes - Explorando la Convención | Artículos y Consejos de Turismo",
       seoDescription:
         "Lee nuestros últimos artículos sobre viajes, destinos turísticos de La Convención y Cusco, consejos prácticos y experiencias de viaje en Perú.",
       seoKeywords:
@@ -1886,17 +2102,8 @@ const es: TranslationContent = {
           "20 de Diciembre, 2024",
           "15 de Diciembre, 2024",
         ][index],
-        category: [
-          "Destinos",
-          "Aventura",
-          "Cultura",
-          "Gastronomía",
-          "Cultura",
-          "Tips",
-        ][index],
-        readTime: ["8 min", "10 min", "6 min", "7 min", "9 min", "5 min"][
-          index
-        ],
+        category: ["Destinos", "Aventura", "Cultura", "Gastronomía", "Cultura", "Tips"][index],
+        readTime: ["8 min", "10 min", "6 min", "7 min", "9 min", "5 min"][index],
       })),
       postsTitle: "Publicaciones",
       postsSubtitle:
@@ -1961,26 +2168,21 @@ const es: TranslationContent = {
       ],
       coffeeAction: "Tour de Café y Cacao",
       restaurantsTitle: "Restaurantes Recomendados",
-      restaurantsSubtitle:
-        "Los mejores lugares para disfrutar de la gastronomía local.",
+      restaurantsSubtitle: "Los mejores lugares para disfrutar de la gastronomía local.",
       restaurants: restaurantMeta.map((restaurant, index) => ({
         ...restaurant,
-        name: [
-          "El Mirador de Quillabamba",
-          "Café Orgánico Montaña",
-          "Sabor Selvático",
-        ][index],
+        name: ["El Mirador de Quillabamba", "Café Orgánico Montaña", "Sabor Selvático"][index],
         description: [
           "Restaurante con vista panorámica al valle del Urubamba. Cocina de fusión andino-selvática con ingredientes frescos de productores locales. Ideal para celebraciones y veladas especiales.",
           "Cafetería de especialidad dedicada a los mejores cafés de altura de La Convención. Ambiente acogedor con remastería artesanal, catas guiadas y vista al jardín.",
           "Restaurante de tradición amazónica que preserva recetas ancestrales. Juanes, chicharrón quillabambino y pescados del río Urubamba preparados al momento con ingredientes de la zona.",
         ][index],
-        location: ["Quillabamba Centro", "Av. 28 de Julio", "Plaza de Armas"][
-          index
-        ],
-        specialty: ["Cocina Andino-Selvática", "Café de Especialidad", "Cocina Amazónica Tradicional"][
-          index
-        ],
+        location: ["Quillabamba Centro", "Av. 28 de Julio", "Plaza de Armas"][index],
+        specialty: [
+          "Cocina Andino-Selvática",
+          "Café de Especialidad",
+          "Cocina Amazónica Tradicional",
+        ][index],
       })),
       ctaTitle: "¿Listo para probar nuestros sabores?",
       ctaDescription:
@@ -2072,12 +2274,7 @@ const es: TranslationContent = {
           initials: "EZ",
           color: "#1B4332",
           image: "/images/team/EzerB.jpg",
-          skills: [
-            "Desarrollo Web",
-            "Diseño UI/UX",
-            "SEO",
-            "Soluciones Digitales",
-          ],
+          skills: ["Desarrollo Web", "Diseño UI/UX", "SEO", "Soluciones Digitales"],
         },
         {
           name: "Keyla Milagros Mendoza Marín",
@@ -2087,11 +2284,7 @@ const es: TranslationContent = {
           initials: "KM",
           color: "#4BB543",
           image: "/images/team/keyla.jpg",
-          skills: [
-            "Gestión Estratégica",
-            "Redacción",
-            "Negocios Internacionales",
-          ],
+          skills: ["Gestión Estratégica", "Redacción", "Negocios Internacionales"],
         },
         {
           name: "Diego Toribio Torres Quispe",
@@ -2121,11 +2314,7 @@ const es: TranslationContent = {
           initials: "RA",
           color: "#35594D",
           image: "/images/team/rodrigo.jpg",
-          skills: [
-            "Ingeniería de Sistemas",
-            "Redes Sociales",
-            "Optimización Digital",
-          ],
+          skills: ["Ingeniería de Sistemas", "Redes Sociales", "Optimización Digital"],
         },
       ],
       ctaTitle: "¿Quieres ser parte del equipo?",

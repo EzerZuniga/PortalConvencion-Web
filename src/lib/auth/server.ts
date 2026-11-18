@@ -1,2 +1,3 @@
-export { auth, signIn, signOut } from "@/lib/auth/config";
-export type { Session } from "next-auth";
+import "server-only";
+
+export { auth } from "@/lib/auth/config";

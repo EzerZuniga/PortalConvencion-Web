@@ -1,1 +1,1 @@
-export { default } from './components/ExchangeWidget';
+export { default } from "./components/ExchangeWidget";

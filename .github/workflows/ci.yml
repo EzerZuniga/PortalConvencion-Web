@@ -1,0 +1,64 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+# Cancela ejecuciones anteriores de la misma rama/PR.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    name: Calidad (format, lint, tipos, código muerto, tests)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      SKIP_ENV_VALIDATION: "1"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - run: npm ci
+      - run: npm run format:check
+      - run: npm run lint -- --max-warnings=0
+      - run: npm run typecheck
+      - run: npm run knip
+      - run: npm run test
+
+  build:
+    name: Build de producción
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs: quality
+    env:
+      # Valores de marcador solo para compilar; los reales viven en Vercel.
+      AUTH_SECRET: ci-placeholder-secret-not-used-in-production
+      NEXT_PUBLIC_SITE_URL: https://example.com
+      NEXT_TELEMETRY_DISABLED: "1"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - uses: actions/cache@v4
+        with:
+          path: .next/cache
+          key: next-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-${{ hashFiles('src/**') }}
+          restore-keys: |
+            next-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-
+
+      - run: npm ci
+      - run: npm run build

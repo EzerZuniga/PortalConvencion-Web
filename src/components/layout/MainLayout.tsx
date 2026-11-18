@@ -5,16 +5,12 @@ import NewsletterConditional from "./NewsletterConditional";
 
 export default function MainLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="flex min-h-screen flex-col">
       <a href="#main-content" className="skip-link">
         Saltar al contenido principal
       </a>
       <Navbar />
-      <main
-        id="main-content"
-        tabIndex={-1}
-        className="flex-1 focus:outline-none"
-      >
+      <main id="main-content" tabIndex={-1} className="flex-1 focus:outline-none">
         {children}
       </main>
       <NewsletterConditional />

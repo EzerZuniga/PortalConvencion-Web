@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
-import { SITE_CONFIG } from "@/constants";
+import { NON_INDEXABLE_ROUTES } from "@/config/routes";
+import { absoluteUrl } from "@/lib/seo/url";
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -7,9 +8,9 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/api/", "/_next/static/", "/profile"],
+        disallow: ["/api/", ...NON_INDEXABLE_ROUTES],
       },
     ],
-    sitemap: `${SITE_CONFIG.url}/sitemap.xml`,
+    sitemap: absoluteUrl("/sitemap.xml"),
   };
 }

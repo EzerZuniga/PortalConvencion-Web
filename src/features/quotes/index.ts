@@ -1,1 +1,1 @@
-export { default } from './components/QuoteWidget';
+export { default } from "./components/QuoteWidget";

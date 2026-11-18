@@ -1,7 +1,7 @@
+import { createPageMetadata } from "@/lib/seo/metadata";
 import Home from "@/views/Home";
-import { createPageMetadata } from "@/config/metadata";
 
-export const metadata = createPageMetadata("/");
+export const metadata = createPageMetadata("home");
 
 export default function HomePage() {
   return <Home />;

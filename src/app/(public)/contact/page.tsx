@@ -1,14 +1,14 @@
-import Contact from "@/views/Contact";
-import { createPageMetadata, createPageJsonLd } from "@/config/metadata";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { createPageJsonLd } from "@/lib/seo/json-ld";
+import { createPageMetadata } from "@/lib/seo/metadata";
+import Contact from "@/views/Contact";
 
-export const metadata = createPageMetadata("/contact");
+export const metadata = createPageMetadata("contact");
 
 export default function ContactPage() {
-  const jsonLd = createPageJsonLd("/contact");
   return (
     <>
-      <JsonLd data={jsonLd} />
+      <JsonLd data={createPageJsonLd("contact")} />
       <Contact />
     </>
   );

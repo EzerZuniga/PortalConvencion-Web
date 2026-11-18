@@ -3,7 +3,7 @@
 import { Facebook, Instagram, Youtube, Github } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { SITE_CONFIG } from "@/constants";
+import { SITE_CONFIG } from "@/config/site";
 import { useLanguage } from "@/features/i18n";
 
 export default function Footer() {
@@ -11,10 +11,10 @@ export default function Footer() {
   const { footer } = content;
 
   return (
-    <footer className="bg-[#111B21] text-brand-background text-sm">
+    <footer className="bg-[#111B21] text-sm text-brand-background">
       <div
         aria-hidden="true"
-        className="h-5 w-full bg-[url('/images/ui/divider.png')] bg-repeat-x bg-top bg-[length:auto_20px]"
+        className="h-5 w-full bg-[url('/images/ui/divider.png')] bg-[length:auto_20px] bg-top bg-repeat-x"
       />
       <div className="mx-auto grid max-w-7xl grid-cols-1 items-start gap-10 px-5 py-12 sm:px-6 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1.25fr] lg:gap-12">
         {/* Branding */}
@@ -25,17 +25,17 @@ export default function Footer() {
               alt={footer.logoAlt}
               width={1486}
               height={515}
-              className="h-auto w-40 brightness-110 contrast-125 saturate-125 drop-shadow-[0_2px_5px_rgba(255,255,255,0.24)] sm:w-48 md:w-52"
+              className="saturate-125 h-auto w-40 brightness-110 contrast-125 drop-shadow-[0_2px_5px_rgba(255,255,255,0.24)] sm:w-48 md:w-52"
             />
           </Link>
-          <p className="max-w-[22rem] text-center text-sm sm:text-[15px] leading-relaxed text-white/75 md:text-left">
+          <p className="max-w-[22rem] text-center text-sm leading-relaxed text-white/75 sm:text-[15px] md:text-left">
             {footer.description}
           </p>
         </div>
 
         {/* Navigation */}
         <nav aria-label={content.navbar.mainNavLabel}>
-          <h3 className="mb-4 text-[15px] sm:text-base font-bold uppercase tracking-wide text-white">
+          <h3 className="mb-4 text-[15px] font-bold uppercase tracking-wide text-white sm:text-base">
             {footer.navigationTitle}
           </h3>
           <ul className="flex flex-col gap-2.5 text-sm">
@@ -43,7 +43,7 @@ export default function Footer() {
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="group flex items-center gap-3 py-1 font-medium text-sm sm:text-[15px] text-white/80 transition-colors hover:text-brand-primary"
+                  className="group flex items-center gap-3 py-1 text-sm font-medium text-white/80 transition-colors hover:text-brand-primary sm:text-[15px]"
                 >
                   <span className="text-brand-primary transition-transform duration-300 group-hover:translate-x-1">
                     ›
@@ -57,7 +57,7 @@ export default function Footer() {
 
         {/* Info */}
         <nav aria-label={footer.infoTitle}>
-          <h3 className="mb-4 text-[15px] sm:text-base font-bold uppercase tracking-wide text-white">
+          <h3 className="mb-4 text-[15px] font-bold uppercase tracking-wide text-white sm:text-base">
             {footer.infoTitle}
           </h3>
           <ul className="flex flex-col gap-2.5 text-sm">
@@ -65,7 +65,7 @@ export default function Footer() {
               <li key={item.name}>
                 <Link
                   href={item.href}
-                  className="group flex items-center gap-3 py-1 font-medium text-sm sm:text-[15px] text-white/80 transition-colors hover:text-brand-primary"
+                  className="group flex items-center gap-3 py-1 text-sm font-medium text-white/80 transition-colors hover:text-brand-primary sm:text-[15px]"
                 >
                   <span className="text-brand-primary transition-transform duration-300 group-hover:translate-x-1">
                     ›
@@ -79,7 +79,7 @@ export default function Footer() {
 
         {/* Social */}
         <div className="flex flex-col items-center md:items-start">
-          <h3 className="mb-4 text-[15px] sm:text-base font-bold uppercase tracking-wide text-white">
+          <h3 className="mb-4 text-[15px] font-bold uppercase tracking-wide text-white sm:text-base">
             {footer.followTitle}
           </h3>
           <div className="flex flex-row flex-wrap justify-center gap-4 sm:gap-4 md:justify-start">
@@ -120,7 +120,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <span className="absolute left-1/2 top-full -translate-x-1/2 -translate-y-1/2 aspect-square w-[250%] origin-center scale-0 rounded-[50%] bg-brand-primary transition-transform duration-700 ease-ripple group-hover:scale-100 transform-gpu" />
+                  <span className="absolute left-1/2 top-full aspect-square w-[250%] origin-center -translate-x-1/2 -translate-y-1/2 scale-0 transform-gpu rounded-[50%] bg-brand-primary transition-transform duration-700 ease-ripple group-hover:scale-100" />
                   <Icon
                     size={20}
                     className="relative z-10 text-white transition-all duration-500 group-hover:scale-110 group-hover:text-white"
@@ -132,17 +132,17 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="mx-5 flex flex-col items-center justify-between gap-1 border-t border-white/30 px-1 py-4 text-[13px] sm:text-sm font-semibold text-white/82 sm:mx-6 sm:flex-row lg:mx-8">
+      <div className="text-white/82 mx-5 flex flex-col items-center justify-between gap-1 border-t border-white/30 px-1 py-4 text-[13px] font-semibold sm:mx-6 sm:flex-row sm:text-sm lg:mx-8">
         <span className="w-full text-center sm:text-left">
           © {new Date().getFullYear()} {SITE_CONFIG.name}. {footer.rights}
         </span>
-        <span className="w-full text-center sm:w-auto sm:text-right mt-1 sm:mt-0 whitespace-nowrap">
+        <span className="mt-1 w-full whitespace-nowrap text-center sm:mt-0 sm:w-auto sm:text-right">
           {footer.developedBy}{" "}
           <a
             href="https://www.instagram.com/ezerzuniga.oficial16/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-primary/80 relative transition-colors duration-200 hover:text-brand-primary/70 after:absolute after:left-0 after:-bottom-1 after:w-full after:h-[2px] after:bg-brand-primary/80 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:origin-left"
+            className="text-brand-primary/80 hover:text-brand-primary/70 after:bg-brand-primary/80 relative transition-colors duration-200 after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-full after:origin-left after:scale-x-0 after:transition-transform hover:after:scale-x-100"
           >
             Ezer Zuniga
           </a>
@@ -150,7 +150,7 @@ export default function Footer() {
       </div>
       <div
         aria-hidden="true"
-        className="h-5 w-full bg-[url('/images/ui/divider.png')] bg-repeat-x bg-bottom bg-[length:auto_20px]"
+        className="h-5 w-full bg-[url('/images/ui/divider.png')] bg-[length:auto_20px] bg-bottom bg-repeat-x"
       />
     </footer>
   );

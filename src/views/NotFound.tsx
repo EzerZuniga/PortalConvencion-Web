@@ -6,27 +6,19 @@ import { Home, ArrowLeft } from "lucide-react";
 const NotFound: React.FC = () => {
   return (
     <div className="wp-shell flex items-center justify-center px-4">
-      <div className="wp-card p-8 sm:p-10 text-center max-w-md">
-        <h1 className="font-heading text-8xl font-bold text-brand-text  mb-4">
-          404
-        </h1>
-        <h2 className="font-heading text-3xl font-bold text-gray-900  mb-4">
-          Página no encontrada
-        </h2>
-        <p className="text-brand-text/75  mb-8 leading-relaxed">
-          Lo sentimos, la página que buscas no existe o fue movida a otra
-          ubicación.
+      <div className="wp-card max-w-md p-8 text-center sm:p-10">
+        <h1 className="mb-4 font-heading text-8xl font-bold text-brand-text">404</h1>
+        <h2 className="mb-4 font-heading text-3xl font-bold text-gray-900">Página no encontrada</h2>
+        <p className="text-brand-text/75 mb-8 leading-relaxed">
+          Lo sentimos, la página que buscas no existe o fue movida a otra ubicación.
         </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        <div className="flex flex-col justify-center gap-4 sm:flex-row">
           <Link href="/" className="wp-btn-primary">
-            <Home className="w-5 h-5" />
+            <Home className="h-5 w-5" />
             Ir al inicio
           </Link>
-          <button
-            onClick={() => window.history.back()}
-            className="wp-btn-secondary"
-          >
-            <ArrowLeft className="w-5 h-5" />
+          <button onClick={() => window.history.back()} className="wp-btn-secondary">
+            <ArrowLeft className="h-5 w-5" />
             Volver atrás
           </button>
         </div>

@@ -8,6 +8,7 @@ import { signIn } from "@/lib/auth/client";
 import { FcGoogle } from "react-icons/fc";
 import { FaApple } from "react-icons/fa";
 import { Compass, MapPin, Heart } from "lucide-react";
+import { ROUTES } from "@/config/routes";
 
 // ─── Benefits list ─────────────────────────────────────────────────────────────
 const BENEFITS = [
@@ -71,14 +72,14 @@ export default function AuthPage() {
   };
 
   return (
-    <div className="min-h-screen grid lg:grid-cols-2">
+    <div className="grid min-h-screen lg:grid-cols-2">
       {/* ── Panel izquierdo — branding ─────────────────────────────────────── */}
-      <div className="relative hidden lg:flex flex-col justify-between bg-brand-primary p-12 overflow-hidden">
+      <div className="relative hidden flex-col justify-between overflow-hidden bg-brand-primary p-12 lg:flex">
         {/* Fondo oscuro base */}
         <div className="absolute inset-0 bg-[#111B21]" />
         {/* Destellos decorativos en verde primario */}
-        <div className="absolute bottom-0 right-0 w-96 h-96 rounded-full bg-brand-primary/10 translate-x-1/3 translate-y-1/3 blur-3xl" />
-        <div className="absolute top-1/4 left-0 w-64 h-64 rounded-full bg-brand-primary/8 -translate-x-1/3 blur-2xl" />
+        <div className="bg-brand-primary/10 absolute bottom-0 right-0 h-96 w-96 translate-x-1/3 translate-y-1/3 rounded-full blur-3xl" />
+        <div className="bg-brand-primary/8 absolute left-0 top-1/4 h-64 w-64 -translate-x-1/3 rounded-full blur-2xl" />
 
         {/* Logo */}
         <div className="relative z-10 flex items-center gap-3">
@@ -89,23 +90,23 @@ export default function AuthPage() {
             height={40}
             className="rounded-full"
           />
-          <span className="text-white font-heading font-bold text-lg">
+          <span className="font-heading text-lg font-bold text-white">
             Explorando la Convención
           </span>
         </div>
 
         {/* Benefits */}
         <div className="relative z-10 space-y-6">
-          <h2 className="text-white font-heading text-3xl font-bold leading-tight">
+          <h2 className="font-heading text-3xl font-bold leading-tight text-white">
             Descubre La Convención como nunca antes
           </h2>
           <ul className="space-y-4">
             {BENEFITS.map(({ icon: Icon, label, iconColor }) => (
               <li key={label} className="flex items-center gap-3">
-                <div className="flex-shrink-0 w-10 h-10 rounded-full bg-white/10 flex items-center justify-center">
-                  <Icon className={`w-5 h-5 ${iconColor}`} />
+                <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-white/10">
+                  <Icon className={`h-5 w-5 ${iconColor}`} />
                 </div>
-                <span className="text-white/90 font-medium">{label}</span>
+                <span className="font-medium text-white/90">{label}</span>
               </li>
             ))}
           </ul>
@@ -113,17 +114,17 @@ export default function AuthPage() {
 
         {/* Footer del panel */}
         <div className="relative z-10">
-          <p className="text-white/60 text-sm">
+          <p className="text-sm text-white/60">
             © {new Date().getFullYear()} Explorando la Convención
           </p>
         </div>
       </div>
 
       {/* ── Panel derecho — formulario OAuth ──────────────────────────────── */}
-      <div className="flex flex-col items-center justify-center px-6 py-12 sm:px-12 lg:px-16 bg-white">
+      <div className="flex flex-col items-center justify-center bg-white px-6 py-12 sm:px-12 lg:px-16">
         <div className="w-full max-w-sm">
           {/* Logo móvil */}
-          <div className="flex lg:hidden items-center gap-3 mb-8">
+          <div className="mb-8 flex items-center gap-3 lg:hidden">
             <Image
               src="/images/brand/logo.png"
               alt="Explorando la Convención"
@@ -131,14 +132,12 @@ export default function AuthPage() {
               height={36}
               className="rounded-full"
             />
-            <span className="font-heading font-bold text-brand-text">
-              Explorando la Convención
-            </span>
+            <span className="font-heading font-bold text-brand-text">Explorando la Convención</span>
           </div>
 
           {/* Header */}
           <div className="mb-8">
-            <h1 className="text-2xl font-heading font-bold text-brand-text mb-2">
+            <h1 className="mb-2 font-heading text-2xl font-bold text-brand-text">
               Bienvenido de vuelta
             </h1>
             <p className="text-sm text-gray-500">
@@ -158,9 +157,9 @@ export default function AuthPage() {
                 className={className}
               >
                 {loadingProvider === id ? (
-                  <span className="w-5 h-5 rounded-full border-2 border-current border-t-transparent animate-spin" />
+                  <span className="h-5 w-5 animate-spin rounded-full border-2 border-current border-t-transparent" />
                 ) : (
-                  <Icon className={`w-5 h-5 flex-shrink-0 ${iconClassName ?? ""}`} />
+                  <Icon className={`h-5 w-5 flex-shrink-0 ${iconClassName ?? ""}`} />
                 )}
                 <span>{loadingProvider === id ? "Redirigiendo..." : label}</span>
               </button>
@@ -168,23 +167,23 @@ export default function AuthPage() {
           </div>
 
           {/* Divider + back link */}
-          <div className="mt-8 pt-6 border-t border-gray-100 text-center">
+          <div className="mt-8 border-t border-gray-100 pt-6 text-center">
             <Link
               href="/"
-              className="text-sm text-gray-500 hover:text-brand-primary transition-colors"
+              className="text-sm text-gray-500 transition-colors hover:text-brand-primary"
             >
               ← Volver al portal
             </Link>
           </div>
 
           {/* Legal */}
-          <p className="mt-6 text-xs text-gray-400 text-center leading-relaxed">
+          <p className="mt-6 text-center text-xs leading-relaxed text-gray-400">
             Al continuar aceptas nuestros{" "}
-            <Link href="/terms" className="underline hover:text-gray-600">
+            <Link href={ROUTES.terms} className="underline hover:text-gray-600">
               Términos de uso
             </Link>{" "}
             y{" "}
-            <Link href="/privacy" className="underline hover:text-gray-600">
+            <Link href={ROUTES.privacy} className="underline hover:text-gray-600">
               Política de privacidad
             </Link>
             .

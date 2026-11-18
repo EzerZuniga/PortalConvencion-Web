@@ -1,5 +1,5 @@
 import React from "react";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 export interface LoadingSpinnerProps {
   size?: "sm" | "md" | "lg";
@@ -12,15 +12,12 @@ const sizes = {
   lg: "w-12 h-12 border-4",
 };
 
-const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
-  size = "md",
-  className = "",
-}) => {
+const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({ size = "md", className = "" }) => {
   return (
     <div
       className={cn(
         sizes[size],
-        "border-brand-primary/25 border-t-brand-primary   rounded-full animate-spin",
+        "border-brand-primary/25 animate-spin rounded-full border-t-brand-primary",
         className,
       )}
       role="status"

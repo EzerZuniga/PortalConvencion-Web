@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 export function useScrollPosition(threshold: number = 50) {
   const [scrolled, setScrolled] = useState(false);
@@ -23,10 +23,10 @@ export function useScrollPosition(threshold: number = 50) {
     };
 
     handleScroll();
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
       if (animationFrameId !== null) {
         window.cancelAnimationFrame(animationFrameId);
       }

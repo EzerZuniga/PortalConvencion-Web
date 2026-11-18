@@ -18,23 +18,24 @@ const doubledLogos = [...logos, ...logos, ...logos, ...logos];
 
 export function InstitutionalCarousel() {
   return (
-    <div className="w-full overflow-hidden py-8 sm:py-12 bg-white">
-      <div className="max-w-3xl mx-auto text-center mb-8 sm:mb-10 px-4">
-        <h2 className="text-lg sm:text-xl lg:text-2xl font-bold tracking-tight uppercase text-brand-text">
+    <div className="w-full overflow-hidden bg-white py-8 sm:py-12">
+      <div className="mx-auto mb-8 max-w-3xl px-4 text-center sm:mb-10">
+        <h2 className="text-lg font-bold uppercase tracking-tight text-brand-text sm:text-xl lg:text-2xl">
           Ecosistema Institucional
         </h2>
-        <div className="w-14 h-1 mt-3 mb-4 mx-auto bg-brand-primary"></div>
-        <p className="text-sm sm:text-base leading-relaxed text-gray-600">
-          Nuestra red de respaldo académico y regional. Un proyecto impulsado por el talento formado en las principales instituciones de nuestra región.
+        <div className="mx-auto mb-4 mt-3 h-1 w-14 bg-brand-primary" />
+        <p className="text-sm leading-relaxed text-gray-600 sm:text-base">
+          Nuestra red de respaldo académico y regional. Un proyecto impulsado por el talento formado
+          en las principales instituciones de nuestra región.
         </p>
       </div>
 
-      <div className="relative w-full overflow-hidden flex flex-col items-center group">
+      <div className="group relative flex w-full flex-col items-center overflow-hidden">
         {/* Gradients to fade the edges smoothly */}
-        <div className="absolute inset-y-0 left-0 w-16 sm:w-32 bg-gradient-to-r from-white to-transparent z-10"></div>
-        <div className="absolute inset-y-0 right-0 w-16 sm:w-32 bg-gradient-to-l from-white to-transparent z-10"></div>
+        <div className="absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-white to-transparent sm:w-32" />
+        <div className="absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-white to-transparent sm:w-32" />
 
-        <motion.div 
+        <motion.div
           className="flex w-max"
           animate={{ x: ["0%", "-50%"] }}
           transition={{
@@ -46,14 +47,14 @@ export function InstitutionalCarousel() {
           {doubledLogos.map((logo, index) => (
             <div
               key={index}
-              className="flex-shrink-0 w-[180px] sm:w-[240px] md:w-[280px] mx-10 sm:mx-20 flex items-center justify-center transition-all duration-300"
+              className="mx-10 flex w-[180px] flex-shrink-0 items-center justify-center transition-all duration-300 sm:mx-20 sm:w-[240px] md:w-[280px]"
             >
               <Image
                 src={logo.src}
                 alt={logo.alt}
                 width={280}
                 height={140}
-                className="w-full h-auto object-contain max-h-[120px] sm:max-h-[140px] filter grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all duration-500 hover:scale-110"
+                className="h-auto max-h-[120px] w-full object-contain opacity-70 grayscale filter transition-all duration-500 hover:scale-110 hover:opacity-100 hover:grayscale-0 sm:max-h-[140px]"
               />
             </div>
           ))}

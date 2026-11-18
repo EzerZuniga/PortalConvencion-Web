@@ -1,14 +1,16 @@
-﻿import NextAuth from "next-auth";
+import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
 import Apple from "next-auth/providers/apple";
+import { env } from "@/config/env";
+import { ROUTES } from "@/config/routes";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   providers: [
-    ...(process.env.AUTH_GOOGLE_ID && process.env.AUTH_GOOGLE_SECRET
+    ...(env.AUTH_GOOGLE_ID && env.AUTH_GOOGLE_SECRET
       ? [
           Google({
-            clientId: process.env.AUTH_GOOGLE_ID,
-            clientSecret: process.env.AUTH_GOOGLE_SECRET,
+            clientId: env.AUTH_GOOGLE_ID,
+            clientSecret: env.AUTH_GOOGLE_SECRET,
             authorization: {
               params: {
                 prompt: "consent",
@@ -19,23 +21,25 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           }),
         ]
       : []),
-    ...(process.env.AUTH_APPLE_ID && process.env.AUTH_APPLE_SECRET
+    ...(env.AUTH_APPLE_ID && env.AUTH_APPLE_SECRET
       ? [
           Apple({
-            clientId: process.env.AUTH_APPLE_ID,
-            clientSecret: process.env.AUTH_APPLE_SECRET,
+            clientId: env.AUTH_APPLE_ID,
+            clientSecret: env.AUTH_APPLE_SECRET,
           }),
         ]
       : []),
   ],
+
+  secret: env.AUTH_SECRET,
 
   // ── Sesión JWT — sin base de datos ──────────────────────────────────────────
   session: { strategy: "jwt" },
 
   // ── Páginas personalizadas ───────────────────────────────────────────────────
   pages: {
-    signIn: "/login",
-    error: "/login",
+    signIn: ROUTES.login,
+    error: ROUTES.login,
   },
 
   // ── Callbacks ────────────────────────────────────────────────────────────────

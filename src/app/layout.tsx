@@ -1,12 +1,17 @@
 import type { Metadata, Viewport } from "next";
-import { AppProviders } from "./providers";
-import { createPageMetadata, websiteJsonLd } from "@/config/metadata";
+import { AppProviders } from "@/app/providers";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { env } from "@/config/env";
+import { SITE_CONFIG } from "@/config/site";
+import { websiteJsonLd } from "@/lib/seo/json-ld";
+import { createPageMetadata } from "@/lib/seo/metadata";
+import { getSiteUrl } from "@/lib/seo/url";
 import "@/styles/globals.css";
 
 export const metadata: Metadata = {
-  ...createPageMetadata("/"),
-  applicationName: "Explorando la Convención",
+  ...createPageMetadata("home"),
+  metadataBase: new URL(getSiteUrl()),
+  applicationName: SITE_CONFIG.name,
   icons: {
     icon: [
       {
@@ -18,10 +23,10 @@ export const metadata: Metadata = {
     shortcut: "/favicon.ico",
   },
   appleWebApp: {
-    title: "Explorando la Convención",
+    title: SITE_CONFIG.name,
   },
   verification: {
-    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+    google: env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
   },
   other: {
     "geo.region": "PE",
@@ -33,14 +38,12 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#25D366",
+  themeColor: SITE_CONFIG.themeColor,
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="es-PE">
+    <html lang={SITE_CONFIG.language}>
       {/* Preconnect to external APIs used by widgets — reduces TTFB */}
       <head>
         <link rel="preconnect" href="https://api.open-meteo.com" />

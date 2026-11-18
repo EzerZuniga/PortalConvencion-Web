@@ -1,13 +1,8 @@
 import { Suspense } from "react";
-import type { Metadata } from "next";
+import { createPageMetadata } from "@/lib/seo/metadata";
 import AuthPage from "@/views/Auth";
 
-export const metadata: Metadata = {
-  title: "Iniciar sesión | Explorando la Convención",
-  description:
-    "Accede a tu cuenta para guardar destinos favoritos, crear rutas personalizadas y explorar La Convención al máximo.",
-  robots: { index: false, follow: false },
-};
+export const metadata = createPageMetadata("login");
 
 /**
  * Suspense is required because AuthPage uses useSearchParams(),
@@ -17,8 +12,8 @@ export default function LoginPage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen flex items-center justify-center bg-white">
-          <div className="w-8 h-8 rounded-full border-2 border-gray-200 border-t-[#25D366] animate-spin" />
+        <div className="flex min-h-screen items-center justify-center bg-white">
+          <div className="h-8 w-8 animate-spin rounded-full border-2 border-gray-200 border-t-[#25D366]" />
         </div>
       }
     >

@@ -1,209 +1,136 @@
 # Explorando la Convención
 
-![Next.js](https://img.shields.io/badge/Next.js-15-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
+![Next.js](https://img.shields.io/badge/Next.js-16-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
 ![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=111111)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3-38B2AC?style=for-the-badge&logo=tailwindcss&logoColor=white)
-![Prisma](https://img.shields.io/badge/Prisma-6-2D3748?style=for-the-badge&logo=prisma&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-2ea44f?style=for-the-badge)
 
-Portal web informativo sobre turismo, cultura, gastronomía y experiencias de viaje en la provincia de La Convención, Cusco, Perú. El proyecto está construido con Next.js App Router, componentes React tipados, Tailwind CSS, autenticación con Better Auth y persistencia mediante Prisma/PostgreSQL.
+Portal web informativo sobre turismo, cultura y gastronomía de la provincia de
+La Convención (Cusco, Perú), dirigido a una audiencia internacional.
 
-La aplicación prioriza rendimiento, SEO, accesibilidad, diseño responsive y una arquitectura mantenible para seguir ampliando secciones públicas, contenido editorial y funcionalidades de usuario.
-
----
-
-## Tabla de contenidos
-
-1. [Características clave](#características-clave)
-2. [Arquitectura y stack](#arquitectura-y-stack)
-3. [Comenzar](#comenzar)
-4. [Variables de entorno](#variables-de-entorno)
-5. [Scripts disponibles](#scripts-disponibles)
-6. [Estructura del proyecto](#estructura-del-proyecto)
-7. [Base de datos y autenticación](#base-de-datos-y-autenticación)
-8. [Calidad y buenas prácticas](#calidad-y-buenas-prácticas)
-9. [Despliegue](#despliegue)
-10. [Licencia](#licencia)
+> **Estado:** el proyecto está en plena evolución arquitectónica por fases.
+> Consulta [`docs/ROADMAP.md`](docs/ROADMAP.md) para ver qué está hecho y qué viene.
 
 ---
 
-## Características clave
+## Contenido
 
-- **Portal turístico editorial**: páginas para inicio, destinos, gastronomía, blog, galería, tips, contacto, perfil y equipo.
-- **SEO con App Router**: metadata, canonical URLs, Open Graph, Twitter cards, sitemap, robots y JSON-LD del sitio.
-- **Internacionalización**: contenido centralizado en `src/features/i18n` con selector de idioma reutilizable.
-- **Autenticación moderna**: integración con Better Auth, Google OAuth y persistencia de sesión.
-- **Experiencia de usuario responsive**: navbar adaptable, newsletter global, footer institucional, FAQ, mapa embebido y componentes optimizados para lectura.
-- **Diseño consistente en modo claro**: Tailwind CSS con tokens de marca, layout mobile-first y estados de foco visibles.
-- **Datos persistentes**: modelos Prisma para usuarios, sesiones, cuentas, favoritos, eventos guardados y preferencias.
+1. [Stack](#stack)
+2. [Requisitos](#requisitos)
+3. [Puesta en marcha](#puesta-en-marcha)
+4. [Scripts](#scripts)
+5. [Estructura del proyecto](#estructura-del-proyecto)
+6. [Calidad y flujo de trabajo](#calidad-y-flujo-de-trabajo)
+7. [Despliegue](#despliegue)
+8. [Documentación](#documentación)
 
-## Arquitectura y stack
+## Stack
 
-| Capa | Tecnologías | Descripción |
-| --- | --- | --- |
-| Framework | Next.js 15, App Router | Rutas públicas, API routes, metadata, renderizado estático y dinámico. |
-| UI | React 19, TypeScript | Componentes tipados, hooks y estado local para interacciones. |
-| Estilos | Tailwind CSS, CSS global | Sistema visual utilitario, responsive y orientado a modo claro. |
-| Autenticación | Better Auth, Google OAuth | Sesiones, cuentas externas y usuario autenticado. |
-| Datos | Prisma, PostgreSQL | Esquema relacional para usuarios y funcionalidades guardadas. |
-| SEO | Metadata API, JSON-LD, sitemap, robots | Mejor indexación y tarjetas sociales. |
-| Calidad | ESLint, TypeScript, Prettier | Validación estática y formato consistente. |
+| Capa          | Tecnología                                 |
+| ------------- | ------------------------------------------ |
+| Framework     | Next.js 16 (App Router, Proxy)             |
+| UI            | React 19, Tailwind CSS 3, Framer Motion    |
+| Lenguaje      | TypeScript 5 (`strict`)                    |
+| Autenticación | Auth.js v5 (Google) — se migrará en Fase 4 |
+| Validación    | zod (variables de entorno)                 |
+| Calidad       | ESLint 9, Prettier, Knip, Vitest           |
+| Flujo de git  | Husky, lint-staged, commitlint             |
+| CI / Hosting  | GitHub Actions, Vercel (plan Hobby)        |
 
-## Comenzar
+## Requisitos
 
-### Requisitos previos
-
-- Node.js 20 LTS o superior recomendado.
+- Node.js **24** (ver `.nvmrc`; mínimo 22.12).
 - npm 10 o superior.
-- PostgreSQL disponible si vas a usar autenticación y persistencia.
-- Credenciales de Google OAuth si vas a habilitar login con Google.
 
-### Instalación
+## Puesta en marcha
 
 ```bash
-# 1. Clona el repositorio
-git clone https://github.com/EzerZuniga/explorando-la-convencion-web.git
-cd explorando-la-convencion-web
-
-# 2. Instala dependencias
-npm install
-
-# 3. Configura variables de entorno
-cp .env.example .env
-
-# 4. Genera el cliente de Prisma
-npx prisma generate
-
-# 5. Levanta el servidor de desarrollo
-npm run dev
+git clone https://github.com/EzerZuniga/PortalConvencion-Web.git
+cd PortalConvencion-Web
+npm install          # instala dependencias y activa los git hooks
+cp .env.example .env.local
+npm run dev          # http://localhost:3000
 ```
 
-La aplicación queda disponible por defecto en `http://localhost:3000`.
+Las variables de entorno se validan con zod en `src/config/env.ts`. Si falta una
+obligatoria, `next dev` y `next build` fallan con un mensaje claro.
+Para saltarte la validación puntualmente: `SKIP_ENV_VALIDATION=1`.
 
-## Variables de entorno
+## Scripts
 
-El archivo `.env.example` documenta las variables necesarias:
-
-| Variable | Uso |
-| --- | --- |
-| `NEXT_PUBLIC_SITE_URL` | URL pública usada en metadata, canonical URLs y redirecciones. |
-| `BETTER_AUTH_SECRET` | Secreto de Better Auth. Debe ser seguro y privado. |
-| `BETTER_AUTH_URL` | URL base local o productiva de autenticación. |
-| `GOOGLE_CLIENT_ID` | Client ID para login con Google. |
-| `GOOGLE_CLIENT_SECRET` | Client secret para login con Google. |
-| `DATABASE_URL` | Cadena de conexión PostgreSQL usada por Prisma. |
-
-Nunca subas valores reales de secretos al repositorio. En producción, configura estas variables en el proveedor de hosting.
-
-## Scripts disponibles
-
-| Script | Descripción |
-| --- | --- |
-| `npm run dev` | Inicia Next.js en modo desarrollo. |
-| `npm run build` | Genera la build optimizada de producción. |
-| `npm run start` | Sirve la build generada por Next.js. |
-| `npm run lint` | Ejecuta ESLint en archivos JS, JSX, TS y TSX. |
-| `npm run typecheck` | Ejecuta TypeScript sin emitir archivos. |
-| `npm run postinstall` | Genera Prisma Client después de instalar dependencias. |
+| Script              | Descripción                                               |
+| ------------------- | --------------------------------------------------------- |
+| `npm run dev`       | Servidor de desarrollo (Turbopack).                       |
+| `npm run build`     | Build de producción.                                      |
+| `npm run start`     | Sirve el build de producción.                             |
+| `npm run lint`      | ESLint (`lint:fix` para corregir).                        |
+| `npm run format`    | Formatea con Prettier (`format:check` solo verifica).     |
+| `npm run typecheck` | Comprobación de tipos con `tsc`.                          |
+| `npm run knip`      | Detecta archivos, exports y dependencias sin uso.         |
+| `npm run test`      | Tests unitarios con Vitest (`test:watch` en modo watch).  |
+| `npm run check`     | Todo lo anterior salvo el build: lo mismo que ejecuta CI. |
 
 ## Estructura del proyecto
 
-```text
-PortalConvencion-Web/
-├── prisma/
-│   └── schema.prisma              # Modelos de datos Prisma
-├── public/
-│   ├── images/                    # Logos, imágenes y recursos visuales
-│   ├── video/                     # Video del hero
-│   ├── favicon.ico
-│   └── raya.png                   # Patrón decorativo del footer
-├── src/
-│   ├── app/                       # App Router, layouts, páginas y API routes
-│   ├── components/                # Componentes UI y layout reutilizables
-│   ├── config/                    # Metadata, JSON-LD y configuración SEO
-│   ├── constants/                 # Constantes de sitio y validación
-│   ├── data/                      # Datos estáticos del portal
-│   ├── features/                  # Dominios funcionales: auth, i18n, SEO, widgets
-│   ├── hooks/                     # Hooks reutilizables
-│   ├── lib/                       # Integraciones de auth, Prisma y utilidades
-│   ├── providers/                 # Providers globales de la aplicación
-│   ├── styles/                    # Estilos globales
-│   ├── types/                     # Tipos compartidos
-│   ├── utils/                     # Utilidades generales
-│   └── views/                     # Vistas principales de las rutas públicas
-├── middleware.ts
-├── next.config.ts
-├── tailwind.config.ts
-└── package.json
+```
+src/
+├── app/                 # Rutas (App Router). Solo composición: sin lógica.
+│   ├── (public)/        # Páginas públicas con layout principal
+│   ├── (auth)/          # Login
+│   ├── api/             # Route Handlers
+│   ├── sitemap.ts, robots.ts
+│   └── layout.tsx, providers.tsx, error.tsx, not-found.tsx
+├── components/          # Componentes compartidos sin conocimiento de dominio
+│   ├── layout/          # Navbar, Footer, newsletter
+│   ├── seo/             # <JsonLd />
+│   └── ui/              # Primitivas reutilizables
+├── config/              # Valores declarativos: env, sitio, rutas
+├── features/            # Módulos por funcionalidad (auth, i18n, widgets)
+├── hooks/               # Hooks genéricos
+├── lib/                 # Lógica de infraestructura
+│   ├── auth/            # Única frontera con la librería de auth
+│   ├── http/            # Cliente HTTP y servicios externos
+│   ├── seo/             # Metadata, JSON-LD, URLs canónicas
+│   └── utils.ts
+├── views/               # Vistas de página (se migrarán a features/ en Fase 2)
+├── styles/
+├── types/
+└── proxy.ts             # Proxy de Next 16 (antes middleware)
 ```
 
-## Base de datos y autenticación
+Las reglas de dependencias entre carpetas están en
+[`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
 
-El esquema Prisma define las entidades base para autenticación y personalización:
+## Calidad y flujo de trabajo
 
-- `User`, `Session`, `Account` y `Verification` para Better Auth.
-- `Favorite` para guardar destinos, publicaciones, imágenes, platos, restaurantes o eventos.
-- `SavedEvent` para eventos guardados por el usuario.
-- `UserPreference` para preferencias configurables por clave.
-
-Comandos útiles durante desarrollo:
-
-```bash
-# Regenerar Prisma Client
-npx prisma generate
-
-# Crear/aplicar migraciones en desarrollo
-npx prisma migrate dev
-
-# Abrir Prisma Studio
-npx prisma studio
-```
-
-## Calidad y buenas prácticas
-
-Antes de enviar cambios ejecuta:
-
-```bash
-npm run lint
-npm run typecheck
-npm run build
-```
-
-Recomendaciones del proyecto:
-
-- Mantén componentes visuales pequeños y reutilizables.
-- Centraliza textos editables en `src/features/i18n/translations.ts`.
-- Usa `next/image` para imágenes del sitio cuando sea posible.
-- Conserva foco visible, labels accesibles y estados `aria-*` en formularios.
-- Evita mezclar contenido, estilos y lógica de negocio en un mismo componente si el flujo empieza a crecer.
-- Mantén secrets fuera del repositorio y usa `.env.example` como contrato público.
+- **Commits** con [Conventional Commits](https://www.conventionalcommits.org)
+  (`feat:`, `fix:`, `refactor:`, `docs:`, `build:`, `chore:`…), validados por commitlint.
+- **Pre-commit:** lint-staged ejecuta ESLint y Prettier sobre los archivos modificados.
+- **CI:** cada push a `main` y cada PR ejecutan format → lint → typecheck → knip →
+  test → build. Un PR no se integra con CI en rojo.
+- **Ramas:** una rama por fase o funcionalidad (`chore/…`, `feat/…`, `fix/…`).
 
 ## Despliegue
 
-El proyecto está preparado para Vercel o cualquier plataforma compatible con Next.js.
+Vercel (plan Hobby). Configuración:
 
-Configuración recomendada:
+- **Install:** `npm ci` · **Build:** `npm run build` (ver `vercel.json`).
+- **Variables de entorno:** las de `.env.example`. `AUTH_SECRET` es obligatoria
+  en producción. `NEXT_PUBLIC_SITE_URL` es opcional: si no existe se usa el
+  dominio de producción de Vercel.
 
-- **Framework**: Next.js.
-- **Build command**: `npm run build`.
-- **Install command**: `npm install`.
-- **Output**: gestionado por Next.js, no usar `dist/`.
-- **Variables de entorno**: configurar las mismas de `.env.example`.
+> El plan Hobby de Vercel es solo para uso **no comercial**.
 
-Después del despliegue, revisa:
+## Documentación
 
-- Metadata y favicon.
-- Sitemap y robots.
-- Login con Google.
-- Conexión a PostgreSQL.
-- Formularios y newsletter.
-- Navegación responsive.
+- [`docs/ROADMAP.md`](docs/ROADMAP.md) — plan por fases.
+- [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) — principios y reglas de la arquitectura.
+- [`docs/adr/`](docs/adr) — decisiones de arquitectura (ADR).
 
 ## Licencia
 
-Distribuido bajo licencia MIT. Revisa el archivo `LICENSE` para más detalles.
+MIT. Ver [`LICENSE`](LICENSE).
 
-## Créditos
-
-Desarrollado por **Ezer B. Zuniga Chura** para promover el turismo, la cultura y la identidad de La Convención.
+Desarrollado por **Ezer B. Zuniga Chura** para promover el turismo, la cultura y
+la identidad de La Convención.

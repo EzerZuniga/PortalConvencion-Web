@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from "react";
 
 export function useCounterAnimation(end: number, duration: number = 2000, start: number = 0) {
   const [count, setCount] = useState(start);
@@ -15,7 +15,7 @@ export function useCounterAnimation(end: number, duration: number = 2000, start:
           setIsVisible(true);
         }
       },
-      { threshold: 0.3 }
+      { threshold: 0.3 },
     );
 
     observer.observe(node);

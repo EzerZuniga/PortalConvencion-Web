@@ -1,6 +1,6 @@
 "use client";
 
-import { useSession, signOut as authSignOut, signIn as authSignIn } from "next-auth/react";
+import { signIn as authSignIn, signOut as authSignOut, useSession } from "@/lib/auth/client";
 import type { User } from "@/types";
 
 export interface UseAuthReturn {
