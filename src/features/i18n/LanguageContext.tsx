@@ -1,8 +1,13 @@
-import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
-import { LANGUAGES, translations, type LanguageCode, type TranslationContent } from './translations';
+import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
+import {
+  LANGUAGES,
+  translations,
+  type LanguageCode,
+  type TranslationContent,
+} from "./translations";
 
-const LANGUAGE_STORAGE_KEY = 'portal-language';
-const DEFAULT_LANGUAGE: LanguageCode = 'es';
+const LANGUAGE_STORAGE_KEY = "portal-language";
+const DEFAULT_LANGUAGE: LanguageCode = "es";
 
 type LanguageContextValue = {
   language: LanguageCode;
@@ -13,12 +18,12 @@ type LanguageContextValue = {
 
 const LanguageContext = createContext<LanguageContextValue | null>(null);
 
-export function isLanguageCode(value: string | null | undefined): value is LanguageCode {
+function isLanguageCode(value: string | null | undefined): value is LanguageCode {
   return LANGUAGES.some((language) => language.code === value);
 }
 
 function getInitialLanguage(): LanguageCode {
-  if (typeof window === 'undefined') return DEFAULT_LANGUAGE;
+  if (typeof window === "undefined") return DEFAULT_LANGUAGE;
 
   const savedLanguage = window.localStorage.getItem(LANGUAGE_STORAGE_KEY);
   if (isLanguageCode(savedLanguage)) return savedLanguage;
@@ -31,7 +36,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
 
   const setLanguage = (nextLanguage: LanguageCode) => {
     setLanguageState(nextLanguage);
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
       window.localStorage.setItem(LANGUAGE_STORAGE_KEY, nextLanguage);
     }
   };
@@ -58,7 +63,7 @@ export function useLanguage() {
   const context = useContext(LanguageContext);
 
   if (!context) {
-    throw new Error('useLanguage debe usarse dentro de LanguageProvider.');
+    throw new Error("useLanguage debe usarse dentro de LanguageProvider.");
   }
 
   return context;

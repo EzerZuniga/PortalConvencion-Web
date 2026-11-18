@@ -8,9 +8,10 @@ import { User, Menu, X, MapPin, Info, Mail, LogOut, UserCircle } from "lucide-re
 import { FaFacebookF, FaInstagram, FaYoutube } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { useAuth } from "@/features/auth/hooks/useAuth";
-import { SITE_CONFIG } from "@/constants";
+import { SITE_CONFIG } from "@/config/site";
 import { LanguageSelector, useLanguage } from "@/features/i18n";
 import { useScrollPosition, useClickOutside } from "@/hooks";
+import { ROUTES } from "@/config/routes";
 
 interface UserAvatarContentProps {
   name: string;
@@ -26,28 +27,36 @@ const UserAvatarContent: React.FC<UserAvatarContentProps> = ({ name, picture, si
         alt={name}
         width={size}
         height={size}
-        className="w-full h-full object-cover"
+        className="h-full w-full object-cover"
         referrerPolicy="no-referrer"
         unoptimized
       />
     );
   }
   return (
-    <div className="w-full h-full bg-brand-text flex items-center justify-center">
-      <span className="text-white font-bold text-sm">{name.split(" ")[0].charAt(0)}</span>
+    <div className="flex h-full w-full items-center justify-center bg-brand-text">
+      <span className="text-sm font-bold text-white">{name.split(" ")[0].charAt(0)}</span>
     </div>
   );
 };
 
 const Navbar: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
   const { user, signOut } = useAuth();
   const pathname = usePathname();
   const router = useRouter();
 
+  // El menú móvil queda "anclado" a la ruta en la que se abrió: al navegar,
+  // `pathname` cambia y el menú se cierra solo, sin efectos ni renders extra.
+  const [menuOpenedAt, setMenuOpenedAt] = useState<string | null>(null);
+  const isOpen = menuOpenedAt === pathname;
+  const setIsOpen = useCallback(
+    (open: boolean) => setMenuOpenedAt(open ? pathname : null),
+    [pathname],
+  );
+
   const openLogin = useCallback(() => {
-    router.push(`/login?callbackUrl=${encodeURIComponent(pathname)}`);
+    router.push(`${ROUTES.login}?callbackUrl=${encodeURIComponent(pathname)}`);
   }, [router, pathname]);
   const scrolled = useScrollPosition(50);
   const userMenuRef = useRef<HTMLDivElement>(null);
@@ -61,10 +70,6 @@ const Navbar: React.FC = () => {
 
   const closeUserMenu = useCallback(() => setShowUserMenu(false), []);
   useClickOutside(userMenuRef, closeUserMenu);
-
-  useEffect(() => {
-    setIsOpen(false);
-  }, [pathname]);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -83,13 +88,13 @@ const Navbar: React.FC = () => {
   }, [signOut]);
 
   return (
-    <header className="w-full fixed top-0 z-50">
+    <header className="fixed top-0 z-50 w-full">
       {/* Top bar */}
       <div
-        className={`hidden lg:block w-full overflow-hidden bg-brand-dark transition-[max-height,opacity] duration-500 ease-smooth-out ${
+        className={`hidden w-full overflow-hidden bg-brand-dark transition-[max-height,opacity] duration-500 ease-smooth-out lg:block ${
           scrolled
-            ? "max-h-0 opacity-0 pointer-events-none"
-            : "max-h-12 opacity-100 animate-topbar-in"
+            ? "pointer-events-none max-h-0 opacity-0"
+            : "max-h-12 animate-topbar-in opacity-100"
         }`}
         aria-hidden={scrolled ? "true" : "false"}
       >
@@ -98,20 +103,20 @@ const Navbar: React.FC = () => {
             scrolled ? "-translate-y-2" : "translate-y-0"
           }`}
         >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-4">
-            <div className="flex items-center gap-4 sm:gap-6 text-xs sm:text-sm">
-              <div className="flex items-center gap-2 text-slate-300 hover:text-white transition-colors">
+          <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-4 py-2.5 sm:flex-row sm:gap-4 sm:px-6 lg:px-8">
+            <div className="flex items-center gap-4 text-xs sm:gap-6 sm:text-sm">
+              <div className="flex items-center gap-2 text-slate-300 transition-colors hover:text-white">
                 <MapPin size={14} className="flex-shrink-0 text-brand-primary" />
                 <span className="hidden sm:inline">{SITE_CONFIG.contact.location}</span>
                 <span className="sm:hidden">{navbar.locationShort}</span>
               </div>
-              <div className="hidden md:flex items-center gap-2 text-slate-300 hover:text-white transition-colors">
+              <div className="hidden items-center gap-2 text-slate-300 transition-colors hover:text-white md:flex">
                 <Info size={14} className="flex-shrink-0 text-brand-primary" />
                 <span>{navbar.purpose}</span>
               </div>
               <a
                 href={`mailto:${SITE_CONFIG.social.email}`}
-                className="hidden lg:flex items-center gap-2 text-slate-300 hover:text-brand-primary transition-colors font-medium"
+                className="hidden items-center gap-2 font-medium text-slate-300 transition-colors hover:text-brand-primary lg:flex"
               >
                 <Mail size={14} className="flex-shrink-0 text-brand-primary" />
                 <span>{SITE_CONFIG.social.email}</span>
@@ -119,7 +124,7 @@ const Navbar: React.FC = () => {
             </div>
 
             <div className="flex items-center gap-4">
-              <span className="hidden sm:inline text-sm font-medium text-slate-400">
+              <span className="hidden text-sm font-medium text-slate-400 sm:inline">
                 {navbar.followUs}
               </span>
               <div className="flex items-center gap-3">
@@ -127,7 +132,7 @@ const Navbar: React.FC = () => {
                   href={SITE_CONFIG.social.facebook}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-slate-300 hover:text-brand-primary transition-all duration-300 hover:scale-110 hover:drop-shadow-[0_0_8px_rgba(37,211,102,0.6)]"
+                  className="text-slate-300 transition-all duration-300 hover:scale-110 hover:text-brand-primary hover:drop-shadow-[0_0_8px_rgba(37,211,102,0.6)]"
                   aria-label="Facebook"
                   title={navbar.socialLabels.facebook}
                 >
@@ -137,7 +142,7 @@ const Navbar: React.FC = () => {
                   href={SITE_CONFIG.social.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-slate-300 hover:text-brand-primary transition-all duration-300 hover:scale-110 hover:drop-shadow-[0_0_8px_rgba(37,211,102,0.6)]"
+                  className="text-slate-300 transition-all duration-300 hover:scale-110 hover:text-brand-primary hover:drop-shadow-[0_0_8px_rgba(37,211,102,0.6)]"
                   aria-label="Instagram"
                   title={navbar.socialLabels.instagram}
                 >
@@ -147,7 +152,7 @@ const Navbar: React.FC = () => {
                   href={SITE_CONFIG.social.youtube}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-slate-300 hover:text-brand-primary transition-all duration-300 hover:scale-110 hover:drop-shadow-[0_0_8px_rgba(37,211,102,0.6)]"
+                  className="text-slate-300 transition-all duration-300 hover:scale-110 hover:text-brand-primary hover:drop-shadow-[0_0_8px_rgba(37,211,102,0.6)]"
                   aria-label="YouTube"
                   title={navbar.socialLabels.youtube}
                 >
@@ -157,7 +162,7 @@ const Navbar: React.FC = () => {
                   href={SITE_CONFIG.social.twitter}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-slate-300 hover:text-brand-primary transition-all duration-300 hover:scale-110 hover:drop-shadow-[0_0_8px_rgba(37,211,102,0.6)]"
+                  className="text-slate-300 transition-all duration-300 hover:scale-110 hover:text-brand-primary hover:drop-shadow-[0_0_8px_rgba(37,211,102,0.6)]"
                   aria-label="Twitter"
                   title="Twitter"
                 >
@@ -172,18 +177,16 @@ const Navbar: React.FC = () => {
       {/* Main nav */}
       <nav
         className={`${
-          isTransparent
-            ? "bg-transparent"
-            : "bg-white shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)]"
+          isTransparent ? "bg-transparent" : "bg-white shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)]"
         } transition-all duration-500 ease-smooth-out`}
         aria-label={navbar.mainNavLabel}
       >
-        <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
-          <div className="flex justify-between h-14 sm:h-16 items-center gap-1.5 sm:gap-4">
+        <div className="mx-auto max-w-7xl px-3 sm:px-4 lg:px-8">
+          <div className="flex h-14 items-center justify-between gap-1.5 sm:h-16 sm:gap-4">
             {/* Logo */}
             <Link
               href="/"
-              className="flex min-w-0 items-center flex-shrink relative z-10"
+              className="relative z-10 flex min-w-0 flex-shrink items-center"
               aria-label="Ir al inicio - Explorando La Convención"
             >
               <Image
@@ -192,12 +195,12 @@ const Navbar: React.FC = () => {
                 width={1486}
                 height={515}
                 priority
-                className="h-9 sm:h-12 lg:h-12 w-auto max-w-[8.5rem] sm:max-w-[12rem] lg:max-w-none object-contain brightness-110 contrast-125 saturate-125 drop-shadow-[0_2px_4px_rgba(255,255,255,0.35)]"
+                className="saturate-125 h-9 w-auto max-w-[8.5rem] object-contain brightness-110 contrast-125 drop-shadow-[0_2px_4px_rgba(255,255,255,0.35)] sm:h-12 sm:max-w-[12rem] lg:h-12 lg:max-w-none"
               />
             </Link>
 
             {/* Desktop Menu */}
-            <div className="hidden lg:flex items-center space-x-4">
+            <div className="hidden items-center space-x-4 lg:flex">
               {content.navigation.main.map((item) => (
                 <Link
                   key={item.name}
@@ -215,14 +218,14 @@ const Navbar: React.FC = () => {
                 </Link>
               ))}
 
-              <div className="flex items-center gap-3 ml-4">
+              <div className="ml-4 flex items-center gap-3">
                 <LanguageSelector scrolled={!isTransparent} />
                 {user ? (
                   <div className="relative" ref={userMenuRef}>
                     <button
                       type="button"
                       onClick={() => setShowUserMenu(!showUserMenu)}
-                      className="w-10 h-10 rounded-full overflow-hidden border-2 border-brand-primary/25 hover:border-brand-primary transition-colors"
+                      className="border-brand-primary/25 h-10 w-10 overflow-hidden rounded-full border-2 transition-colors hover:border-brand-primary"
                       aria-label={navbar.profile}
                       aria-expanded={showUserMenu ? "true" : "false"}
                     >
@@ -230,25 +233,25 @@ const Navbar: React.FC = () => {
                     </button>
 
                     {showUserMenu && (
-                      <div className="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-2xl border border-brand-primary/20 py-2 z-50">
+                      <div className="border-brand-primary/20 absolute right-0 z-50 mt-2 w-64 rounded-lg border bg-white py-2 shadow-2xl">
                         <Link
-                          href="/profile"
+                          href={ROUTES.profile}
                           onClick={() => setShowUserMenu(false)}
-                          className="w-full px-4 py-3 flex items-center gap-3 hover:bg-brand-background transition-colors"
+                          className="flex w-full items-center gap-3 px-4 py-3 transition-colors hover:bg-brand-background"
                         >
-                          <UserCircle className="w-5 h-5 text-brand-text/75" />
-                          <span className="text-sm text-brand-text font-medium">
+                          <UserCircle className="text-brand-text/75 h-5 w-5" />
+                          <span className="text-sm font-medium text-brand-text">
                             {navbar.profile}
                           </span>
                         </Link>
-                        <div className="border-t border-brand-primary/20 my-2" />
+                        <div className="border-brand-primary/20 my-2 border-t" />
                         <button
                           type="button"
                           onClick={handleLogout}
-                          className="w-full px-4 py-3 flex items-center gap-3 hover:bg-red-50 transition-colors"
+                          className="flex w-full items-center gap-3 px-4 py-3 transition-colors hover:bg-red-50"
                         >
-                          <LogOut className="w-5 h-5 text-red-600" />
-                          <span className="text-sm text-red-600 font-medium">{navbar.logout}</span>
+                          <LogOut className="h-5 w-5 text-red-600" />
+                          <span className="text-sm font-medium text-red-600">{navbar.logout}</span>
                         </button>
                       </div>
                     )}
@@ -257,26 +260,26 @@ const Navbar: React.FC = () => {
                   <button
                     type="button"
                     onClick={openLogin}
-                    className={`p-2 rounded-full transition-colors duration-200 focus:outline-none ${
+                    className={`rounded-full p-2 transition-colors duration-200 focus:outline-none ${
                       !isTransparent ? "text-brand-text" : "text-white"
                     }`}
                     aria-label={navbar.login}
                     title={navbar.login}
                   >
-                    <User className="w-5 h-5" />
+                    <User className="h-5 w-5" />
                   </button>
                 )}
               </div>
             </div>
 
             {/* Mobile controls */}
-            <div className="lg:hidden flex flex-shrink-0 items-center gap-1 sm:gap-2">
+            <div className="flex flex-shrink-0 items-center gap-1 sm:gap-2 lg:hidden">
               <LanguageSelector scrolled={!isTransparent} compact />
               {user ? (
                 <button
                   type="button"
                   onClick={() => setShowUserMenu(!showUserMenu)}
-                  className="w-8 h-8 rounded-full overflow-hidden transition-colors duration-200"
+                  className="h-8 w-8 overflow-hidden rounded-full transition-colors duration-200"
                   aria-label={navbar.profile}
                   aria-expanded={showUserMenu ? "true" : "false"}
                 >
@@ -286,28 +289,28 @@ const Navbar: React.FC = () => {
                 <button
                   type="button"
                   onClick={openLogin}
-                  className={`p-2 rounded-full transition-colors duration-200 focus:outline-none ${
+                  className={`rounded-full p-2 transition-colors duration-200 focus:outline-none ${
                     !isTransparent ? "text-brand-text" : "text-white"
                   }`}
                   aria-label={navbar.login}
                   title={navbar.login}
                 >
-                  <User className="w-5 h-5" />
+                  <User className="h-5 w-5" />
                 </button>
               )}
               <button
                 type="button"
                 onClick={() => setIsOpen(!isOpen)}
-                className={`inline-flex items-center justify-center p-2 rounded-lg focus:outline-none transition-all duration-200 ${
+                className={`inline-flex items-center justify-center rounded-lg p-2 transition-all duration-200 focus:outline-none ${
                   !isTransparent ? "text-brand-text" : "text-white"
                 }`}
                 aria-label={isOpen ? navbar.closeMenu : navbar.openMenu}
                 aria-expanded={isOpen ? "true" : "false"}
               >
                 {isOpen ? (
-                  <X className="w-6 h-6" strokeWidth={2.5} />
+                  <X className="h-6 w-6" strokeWidth={2.5} />
                 ) : (
-                  <Menu className="w-6 h-6" strokeWidth={2.5} />
+                  <Menu className="h-6 w-6" strokeWidth={2.5} />
                 )}
               </button>
             </div>
@@ -330,15 +333,15 @@ const Navbar: React.FC = () => {
             onClick={() => setIsOpen(false)}
           />
 
-          <aside className="absolute right-0 top-0 h-full w-[min(20rem,86vw)] bg-white shadow-2xl border-l border-brand-primary/20">
-            <div className="flex h-16 items-center justify-between border-b border-brand-primary/20 px-5">
+          <aside className="border-brand-primary/20 absolute right-0 top-0 h-full w-[min(20rem,86vw)] border-l bg-white shadow-2xl">
+            <div className="border-brand-primary/20 flex h-16 items-center justify-between border-b px-5">
               <span className="text-sm font-bold uppercase tracking-wide text-brand-text">
                 {navbar.menuTitle}
               </span>
               <button
                 type="button"
                 onClick={() => setIsOpen(false)}
-                className="inline-flex h-10 w-10 items-center justify-center rounded-lg text-brand-text/90 transition-colors hover:bg-brand-background focus:outline-none focus:ring-2 focus:ring-brand-primary/70"
+                className="text-brand-text/90 focus:ring-brand-primary/70 inline-flex h-10 w-10 items-center justify-center rounded-lg transition-colors hover:bg-brand-background focus:outline-none focus:ring-2"
                 aria-label={navbar.closeMenu}
               >
                 <X className="h-6 w-6" strokeWidth={2.5} />
@@ -376,22 +379,22 @@ const Navbar: React.FC = () => {
             className="absolute inset-0 bg-black/50 backdrop-blur-sm"
             onClick={() => setShowUserMenu(false)}
           />
-          <div className="absolute top-20 right-4 left-4 sm:left-auto sm:w-80 bg-white rounded-lg shadow-2xl border border-brand-primary/20 p-2">
+          <div className="border-brand-primary/20 absolute left-4 right-4 top-20 rounded-lg border bg-white p-2 shadow-2xl sm:left-auto sm:w-80">
             <Link
-              href="/profile"
+              href={ROUTES.profile}
               onClick={() => setShowUserMenu(false)}
-              className="w-full flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-brand-background text-brand-text/90 transition-colors duration-200"
+              className="text-brand-text/90 flex w-full items-center gap-3 rounded-lg px-4 py-3 transition-colors duration-200 hover:bg-brand-background"
             >
-              <UserCircle className="w-5 h-5" />
+              <UserCircle className="h-5 w-5" />
               <span className="text-sm font-medium">{navbar.profile}</span>
             </Link>
-            <div className="border-t border-brand-primary/20 my-2" />
+            <div className="border-brand-primary/20 my-2 border-t" />
             <button
               type="button"
               onClick={handleLogout}
-              className="w-full flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-red-50 text-red-600 transition-colors duration-200"
+              className="flex w-full items-center gap-3 rounded-lg px-4 py-3 text-red-600 transition-colors duration-200 hover:bg-red-50"
             >
-              <LogOut className="w-5 h-5" />
+              <LogOut className="h-5 w-5" />
               <span className="text-sm font-medium">{navbar.logout}</span>
             </button>
           </div>

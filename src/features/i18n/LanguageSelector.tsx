@@ -17,8 +17,7 @@ export default function LanguageSelector({
   const { language, content, setLanguage } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
-  const currentLanguage =
-    LANGUAGES.find((item) => item.code === language) ?? LANGUAGES[0];
+  const currentLanguage = LANGUAGES.find((item) => item.code === language) ?? LANGUAGES[0];
 
   useClickOutside(menuRef, () => setIsOpen(false));
 
@@ -29,7 +28,7 @@ export default function LanguageSelector({
       <button
         type="button"
         onClick={() => setIsOpen((value) => !value)}
-        className={`inline-flex h-9 min-w-0 items-center justify-center gap-1.5 rounded-full px-2.5 text-xs font-bold uppercase tracking-wide transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-brand-primary/70 ${buttonTextColor}`}
+        className={`focus:ring-brand-primary/70 inline-flex h-9 min-w-0 items-center justify-center gap-1.5 rounded-full px-2.5 text-xs font-bold uppercase tracking-wide transition-colors duration-200 focus:outline-none focus:ring-2 ${buttonTextColor}`}
         aria-label={`${content.languageSelector.ariaLabel}: ${currentLanguage.nativeName}`}
         aria-expanded={isOpen}
         aria-haspopup="menu"
@@ -46,7 +45,7 @@ export default function LanguageSelector({
 
       {isOpen && (
         <div
-          className="absolute right-0 z-[70] mt-2 w-28 overflow-hidden rounded-lg border border-brand-primary/20 bg-white py-1.5 shadow-2xl  "
+          className="border-brand-primary/20 absolute right-0 z-[70] mt-2 w-28 overflow-hidden rounded-lg border bg-white py-1.5 shadow-2xl"
           role="menu"
         >
           {LANGUAGES.map((item) => {
@@ -64,8 +63,8 @@ export default function LanguageSelector({
                 }}
                 className={`flex w-full items-center justify-between gap-2 px-3 py-2 text-left text-sm transition-colors ${
                   selected
-                    ? "bg-brand-primary/10 text-brand-text  "
-                    : "text-brand-text/85 hover:bg-brand-background  "
+                    ? "bg-brand-primary/10 text-brand-text"
+                    : "text-brand-text/85 hover:bg-brand-background"
                 }`}
                 title={`${content.languageSelector.changeTo} ${item.nativeName}`}
               >
@@ -76,10 +75,7 @@ export default function LanguageSelector({
                   </span>
                 </span>
                 {selected && (
-                  <Check
-                    className="h-4 w-4 flex-shrink-0 text-brand-primary"
-                    strokeWidth={2.2}
-                  />
+                  <Check className="h-4 w-4 flex-shrink-0 text-brand-primary" strokeWidth={2.2} />
                 )}
               </button>
             );

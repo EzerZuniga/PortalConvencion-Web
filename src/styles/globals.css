@@ -134,7 +134,7 @@
   }
 
   .wp-section {
-    @apply py-12 px-4 sm:px-6 lg:px-8;
+    @apply px-4 py-12 sm:px-6 lg:px-8;
   }
 
   .wp-card {
@@ -148,7 +148,7 @@
   }
 
   .wp-title {
-    @apply font-heading text-3xl md:text-4xl font-bold;
+    @apply font-heading text-3xl font-bold md:text-4xl;
     color: var(--color-heading);
   }
 
@@ -172,7 +172,7 @@
   }
 
   .wp-btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold text-white transition-all duration-200 shadow-md hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2;
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold text-white shadow-md transition-all duration-200 hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2;
     background-color: var(--color-dark);
   }
 
@@ -181,7 +181,7 @@
   }
 
   .wp-btn-secondary {
-    @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition-all duration-200 border text-brand-text focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2;
+    @apply inline-flex items-center justify-center gap-2 rounded-full border px-5 py-2.5 text-sm font-semibold text-brand-text transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2;
     background-color: var(--color-surface);
     border-color: var(--color-border);
   }
@@ -191,7 +191,7 @@
   }
 
   .wp-btn-light {
-    @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 border border-white/60 bg-white/15 text-white backdrop-blur-sm;
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-white/60 bg-white/15 px-5 py-2.5 text-sm font-semibold text-white backdrop-blur-sm transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2;
   }
 
   .wp-btn-light:hover {

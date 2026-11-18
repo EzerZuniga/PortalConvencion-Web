@@ -1,14 +1,14 @@
-import Gallery from "@/views/Gallery";
-import { createPageMetadata, createPageJsonLd } from "@/config/metadata";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { createPageJsonLd } from "@/lib/seo/json-ld";
+import { createPageMetadata } from "@/lib/seo/metadata";
+import Gallery from "@/views/Gallery";
 
-export const metadata = createPageMetadata("/gallery");
+export const metadata = createPageMetadata("gallery");
 
 export default function GalleryPage() {
-  const jsonLd = createPageJsonLd("/gallery");
   return (
     <>
-      <JsonLd data={jsonLd} />
+      <JsonLd data={createPageJsonLd("gallery")} />
       <Gallery />
     </>
   );

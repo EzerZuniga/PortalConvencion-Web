@@ -1,1 +1,1 @@
-export { default } from './components/WeatherWidget';
+export { default } from "./components/WeatherWidget";

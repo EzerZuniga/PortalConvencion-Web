@@ -8,9 +8,7 @@ const EXCHANGE_TTL = 60 * 60 * 1000;
 // ExchangeRate API — Free tier, no key needed
 const BASE_URL = "https://open.er-api.com/v6/latest";
 
-export function getExchangeRates(
-  base: string = "USD",
-): Promise<ExchangeRateData> {
+export function getExchangeRates(base: string = "USD"): Promise<ExchangeRateData> {
   return withCache(
     `exchange:${base}`,
     async () => {

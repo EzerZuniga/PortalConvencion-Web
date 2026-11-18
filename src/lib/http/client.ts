@@ -58,8 +58,7 @@ async function request<T>(url: string, config: RequestConfig = {}): Promise<T> {
 }
 
 export const apiClient = {
-  get: <T>(url: string, config?: RequestConfig) =>
-    request<T>(url, { ...config, method: "GET" }),
+  get: <T>(url: string, config?: RequestConfig) => request<T>(url, { ...config, method: "GET" }),
 
   post: <T>(url: string, body: unknown, config?: RequestConfig) =>
     request<T>(url, {
@@ -69,5 +68,3 @@ export const apiClient = {
       headers: { "Content-Type": "application/json", ...config?.headers },
     }),
 };
-
-export { ApiError };

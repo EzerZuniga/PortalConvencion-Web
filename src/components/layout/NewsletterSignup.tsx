@@ -1,8 +1,8 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { type FormEvent, useState } from "react";
 import { MailPlus, Send } from "lucide-react";
-import { EMAIL_REGEX } from "@/constants";
+import { EMAIL_REGEX } from "@/lib/validation";
 import { useLanguage } from "@/features/i18n";
 
 export default function NewsletterSignup() {
@@ -41,7 +41,7 @@ export default function NewsletterSignup() {
       aria-labelledby="newsletter-signup-title"
     >
       <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
-        <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-white/12 text-white ring-1 ring-white/20">
+        <div className="bg-white/12 mb-3 flex h-10 w-10 items-center justify-center rounded-full text-white ring-1 ring-white/20">
           <MailPlus className="h-5 w-5" aria-hidden="true" />
         </div>
 
@@ -77,16 +77,16 @@ export default function NewsletterSignup() {
               autoComplete="email"
               aria-describedby={status ? "newsletter-status" : undefined}
               aria-invalid={status?.type === "error"}
-              className="w-full h-11 rounded-full border-2 border-white/20 bg-white/10 px-5 text-sm font-medium text-white placeholder:text-white/60 shadow-inner outline-none backdrop-blur-sm transition-all focus:border-white focus:bg-white/20 focus:ring-4 focus:ring-white/10"
+              className="h-11 w-full rounded-full border-2 border-white/20 bg-white/10 px-5 text-sm font-medium text-white shadow-inner outline-none backdrop-blur-sm transition-all placeholder:text-white/60 focus:border-white focus:bg-white/20 focus:ring-4 focus:ring-white/10"
             />
           </div>
           <button
             type="submit"
             disabled={isSubmitting}
             aria-busy={isSubmitting}
-            className="group relative inline-flex h-11 w-full sm:w-auto items-center justify-center overflow-hidden rounded-full border-2 border-white px-6 text-xs font-bold uppercase tracking-wider text-white shadow-lg transition-all duration-500 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-white/30 disabled:cursor-not-allowed disabled:opacity-70"
+            className="group relative inline-flex h-11 w-full items-center justify-center overflow-hidden rounded-full border-2 border-white px-6 text-xs font-bold uppercase tracking-wider text-white shadow-lg transition-all duration-500 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-white/30 disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto"
           >
-            <span className="absolute left-1/2 top-full -translate-x-1/2 -translate-y-1/2 w-[150%] aspect-square bg-white rounded-[50%] scale-0 group-hover:scale-100 transition-transform duration-1000 ease-ripple origin-center transform-gpu"></span>
+            <span className="absolute left-1/2 top-full aspect-square w-[150%] origin-center -translate-x-1/2 -translate-y-1/2 scale-0 transform-gpu rounded-[50%] bg-white transition-transform duration-1000 ease-ripple group-hover:scale-100" />
             <span className="relative z-10 flex items-center justify-center gap-3 transition-colors duration-500 group-hover:text-brand-primary">
               <Send className="h-4 w-4" aria-hidden="true" />
               {isSubmitting ? page.subscribing : page.subscribe}
@@ -94,16 +94,10 @@ export default function NewsletterSignup() {
           </button>
         </form>
 
-        <div
-          id="newsletter-status"
-          className="mt-3 min-h-6 text-sm font-medium"
-          aria-live="polite"
-        >
+        <div id="newsletter-status" className="mt-3 min-h-6 text-sm font-medium" aria-live="polite">
           {status && (
             <p
-              className={
-                status.type === "success" ? "text-white" : "text-red-100"
-              }
+              className={status.type === "success" ? "text-white" : "text-red-100"}
               role={status.type === "error" ? "alert" : undefined}
             >
               {status.text}

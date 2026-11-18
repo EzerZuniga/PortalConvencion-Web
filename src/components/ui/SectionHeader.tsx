@@ -1,5 +1,5 @@
 import React from "react";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 export interface SectionHeaderProps {
   title: string;
@@ -7,21 +7,12 @@ export interface SectionHeaderProps {
   className?: string;
 }
 
-const SectionHeader: React.FC<SectionHeaderProps> = ({
-  title,
-  subtitle,
-  className = "",
-}) => {
+const SectionHeader: React.FC<SectionHeaderProps> = ({ title, subtitle, className = "" }) => {
   return (
-    <div
-      className={cn(
-        "text-center max-w-4xl mx-auto mb-12 animate-reveal-up",
-        className,
-      )}
-    >
-      <h2 className="wp-title text-brand-text  mb-4">{title}</h2>
-      <div className="w-20 h-[2px] mx-auto mb-4 rounded-full bg-brand-primary" />
-      {subtitle && <p className="wp-lead max-w-3xl mx-auto">{subtitle}</p>}
+    <div className={cn("mx-auto mb-12 max-w-4xl animate-reveal-up text-center", className)}>
+      <h2 className="wp-title mb-4 text-brand-text">{title}</h2>
+      <div className="mx-auto mb-4 h-[2px] w-20 rounded-full bg-brand-primary" />
+      {subtitle && <p className="wp-lead mx-auto max-w-3xl">{subtitle}</p>}
     </div>
   );
 };

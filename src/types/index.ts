@@ -50,3 +50,25 @@ export interface Restaurant {
   rating: number;
   specialty: string;
 }
+
+export interface TeamMember {
+  name: string;
+  role: string;
+  description: string;
+  initials: string;
+  color: string;
+  image: string;
+  skills: string[];
+}
+
+export interface ValueItem {
+  icon: string;
+  title: string;
+  description: string;
+}
+
+export interface StatItem {
+  value: number;
+  suffix: string;
+  label: string;
+}

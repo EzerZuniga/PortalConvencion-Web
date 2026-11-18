@@ -1,14 +1,14 @@
-import Blog from "@/views/Blog";
-import { createPageMetadata, createPageJsonLd } from "@/config/metadata";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { createPageJsonLd } from "@/lib/seo/json-ld";
+import { createPageMetadata } from "@/lib/seo/metadata";
+import Blog from "@/views/Blog";
 
-export const metadata = createPageMetadata("/blog");
+export const metadata = createPageMetadata("blog");
 
 export default function BlogPage() {
-  const jsonLd = createPageJsonLd("/blog");
   return (
     <>
-      <JsonLd data={jsonLd} />
+      <JsonLd data={createPageJsonLd("blog")} />
       <Blog />
     </>
   );

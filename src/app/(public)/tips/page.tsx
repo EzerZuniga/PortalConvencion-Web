@@ -1,14 +1,14 @@
-import Tips from "@/views/Tips";
-import { createPageMetadata, createPageJsonLd } from "@/config/metadata";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { createPageJsonLd } from "@/lib/seo/json-ld";
+import { createPageMetadata } from "@/lib/seo/metadata";
+import Tips from "@/views/Tips";
 
-export const metadata = createPageMetadata("/tips");
+export const metadata = createPageMetadata("tips");
 
 export default function TipsPage() {
-  const jsonLd = createPageJsonLd("/tips");
   return (
     <>
-      <JsonLd data={jsonLd} />
+      <JsonLd data={createPageJsonLd("tips")} />
       <Tips />
     </>
   );

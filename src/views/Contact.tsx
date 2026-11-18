@@ -2,8 +2,9 @@
 
 import React, { useState } from "react";
 import { Mail, MapPin, Globe } from "lucide-react";
-import { EMAIL_REGEX, SITE_CONFIG } from "@/constants";
-import { SectionHeader } from "@/components";
+import { SITE_CONFIG } from "@/config/site";
+import { EMAIL_REGEX } from "@/lib/validation";
+import { SectionHeader } from "@/components/ui";
 import { useLanguage } from "@/features/i18n";
 
 type ContactFormData = {
@@ -64,9 +65,7 @@ const Contact: React.FC = () => {
   } | null>(null);
 
   const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >,
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
   ) => {
     const { name, value } = e.target;
 
@@ -135,50 +134,42 @@ const Contact: React.FC = () => {
           {/* Header */}
           <SectionHeader title={page.title} subtitle={page.subtitle} />
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+          <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
             {/* Contact Information */}
             <div className="lg:col-span-1">
-              <div className="wp-card p-8 border-l-4 border-brand-primary">
-                <h2 className="font-heading text-3xl font-bold text-brand-text  mb-6 tracking-tight">
+              <div className="wp-card border-l-4 border-brand-primary p-8">
+                <h2 className="mb-6 font-heading text-3xl font-bold tracking-tight text-brand-text">
                   {page.infoTitle}
                 </h2>
 
                 <div className="space-y-6">
                   <div className="flex items-start">
-                    <div className="w-10 h-10 bg-brand-primary/10  rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
-                      <Mail className="w-5 h-5 text-brand-primary " />
+                    <div className="bg-brand-primary/10 mr-4 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg">
+                      <Mail className="h-5 w-5 text-brand-primary" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-brand-text ">Email</h3>
-                      <p className="text-brand-text/75 ">
-                        {SITE_CONFIG.contact.email}
-                      </p>
+                      <h3 className="font-semibold text-brand-text">Email</h3>
+                      <p className="text-brand-text/75">{SITE_CONFIG.contact.email}</p>
                     </div>
                   </div>
 
                   <div className="flex items-start">
-                    <div className="w-10 h-10 bg-brand-primary/10  rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
-                      <MapPin className="w-5 h-5 text-brand-primary " />
+                    <div className="bg-brand-primary/10 mr-4 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg">
+                      <MapPin className="h-5 w-5 text-brand-primary" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-brand-text ">
-                        {page.labels.office}
-                      </h3>
-                      <p className="text-brand-text/75 ">
-                        {SITE_CONFIG.contact.address}
-                      </p>
+                      <h3 className="font-semibold text-brand-text">{page.labels.office}</h3>
+                      <p className="text-brand-text/75">{SITE_CONFIG.contact.address}</p>
                     </div>
                   </div>
 
                   <div className="flex items-start">
-                    <div className="w-10 h-10 bg-brand-primary/10  rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
-                      <Globe className="w-5 h-5 text-brand-primary " />
+                    <div className="bg-brand-primary/10 mr-4 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg">
+                      <Globe className="h-5 w-5 text-brand-primary" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-brand-text ">
-                        {page.labels.social}
-                      </h3>
-                      <div className="flex space-x-4 mt-2">
+                      <h3 className="font-semibold text-brand-text">{page.labels.social}</h3>
+                      <div className="mt-2 flex space-x-4">
                         <a
                           href={SITE_CONFIG.social.facebook}
                           target="_blank"
@@ -215,13 +206,13 @@ const Contact: React.FC = () => {
 
             {/* Contact Form */}
             <div className="lg:col-span-2">
-              <div className="wp-card p-8 border-t-4 border-brand-primary">
-                <h2 className="font-heading text-3xl font-bold text-brand-text  mb-6">
+              <div className="wp-card border-t-4 border-brand-primary p-8">
+                <h2 className="mb-6 font-heading text-3xl font-bold text-brand-text">
                   {page.formTitle}
                 </h2>
 
                 <form onSubmit={handleSubmit} className="space-y-6" noValidate>
-                  <p className="text-sm text-brand-text/75 ">
+                  <p className="text-brand-text/75 text-sm">
                     {page.requiredNote.split("*")[0]}
                     <span className="text-brand-primary">*</span>
                     {page.requiredNote.split("*").slice(1).join("*")}
@@ -231,24 +222,20 @@ const Contact: React.FC = () => {
                     {submitMessage && (
                       <p
                         className={`text-sm font-medium ${
-                          submitMessage.type === "success"
-                            ? "text-brand-primary "
-                            : "text-red-700 "
+                          submitMessage.type === "success" ? "text-brand-primary" : "text-red-700"
                         }`}
-                        role={
-                          submitMessage.type === "error" ? "alert" : undefined
-                        }
+                        role={submitMessage.type === "error" ? "alert" : undefined}
                       >
                         {submitMessage.text}
                       </p>
                     )}
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                     <div>
                       <label
                         htmlFor="name"
-                        className="block text-sm font-medium text-brand-text  mb-2"
+                        className="mb-2 block text-sm font-medium text-brand-text"
                       >
                         {page.labels.name}
                       </label>
@@ -264,15 +251,10 @@ const Contact: React.FC = () => {
                         placeholder={page.placeholders.name}
                         maxLength={80}
                         aria-invalid={Boolean(errors.name)}
-                        aria-describedby={
-                          errors.name ? "name-error" : undefined
-                        }
+                        aria-describedby={errors.name ? "name-error" : undefined}
                       />
                       {errors.name && (
-                        <p
-                          id="name-error"
-                          className="mt-2 text-sm text-red-700 "
-                        >
+                        <p id="name-error" className="mt-2 text-sm text-red-700">
                           {errors.name}
                         </p>
                       )}
@@ -281,7 +263,7 @@ const Contact: React.FC = () => {
                     <div>
                       <label
                         htmlFor="email"
-                        className="block text-sm font-medium text-brand-text  mb-2"
+                        className="mb-2 block text-sm font-medium text-brand-text"
                       >
                         {page.labels.email}
                       </label>
@@ -297,15 +279,10 @@ const Contact: React.FC = () => {
                         placeholder={page.placeholders.email}
                         maxLength={120}
                         aria-invalid={Boolean(errors.email)}
-                        aria-describedby={
-                          errors.email ? "email-error" : undefined
-                        }
+                        aria-describedby={errors.email ? "email-error" : undefined}
                       />
                       {errors.email && (
-                        <p
-                          id="email-error"
-                          className="mt-2 text-sm text-red-700 "
-                        >
+                        <p id="email-error" className="mt-2 text-sm text-red-700">
                           {errors.email}
                         </p>
                       )}
@@ -315,7 +292,7 @@ const Contact: React.FC = () => {
                   <div>
                     <label
                       htmlFor="subject"
-                      className="block text-sm font-medium text-brand-text  mb-2"
+                      className="mb-2 block text-sm font-medium text-brand-text"
                     >
                       {page.labels.subject}
                     </label>
@@ -327,9 +304,7 @@ const Contact: React.FC = () => {
                       required
                       className={`wp-select ${errors.subject ? "border-red-400 focus:border-red-500 focus:ring-red-300" : ""}`}
                       aria-invalid={Boolean(errors.subject)}
-                      aria-describedby={
-                        errors.subject ? "subject-error" : undefined
-                      }
+                      aria-describedby={errors.subject ? "subject-error" : undefined}
                     >
                       <option value="">{page.placeholders.subject}</option>
                       {page.subjects.map((subject) => (
@@ -339,10 +314,7 @@ const Contact: React.FC = () => {
                       ))}
                     </select>
                     {errors.subject && (
-                      <p
-                        id="subject-error"
-                        className="mt-2 text-sm text-red-700 "
-                      >
+                      <p id="subject-error" className="mt-2 text-sm text-red-700">
                         {errors.subject}
                       </p>
                     )}
@@ -351,7 +323,7 @@ const Contact: React.FC = () => {
                   <div>
                     <label
                       htmlFor="message"
-                      className="block text-sm font-medium text-brand-text  mb-2"
+                      className="mb-2 block text-sm font-medium text-brand-text"
                     >
                       {page.labels.message}
                     </label>
@@ -366,26 +338,19 @@ const Contact: React.FC = () => {
                       placeholder={page.placeholders.message}
                       maxLength={1200}
                       aria-invalid={Boolean(errors.message)}
-                      aria-describedby={
-                        errors.message ? "message-error" : "message-help"
-                      }
+                      aria-describedby={errors.message ? "message-error" : "message-help"}
                     />
                     <div className="mt-2 flex items-center justify-between gap-3">
                       {errors.message ? (
-                        <p id="message-error" className="text-sm text-red-700 ">
+                        <p id="message-error" className="text-sm text-red-700">
                           {errors.message}
                         </p>
                       ) : (
-                        <p
-                          id="message-help"
-                          className="text-xs text-brand-text/60 "
-                        >
+                        <p id="message-help" className="text-brand-text/60 text-xs">
                           {page.helper}
                         </p>
                       )}
-                      <p className="text-xs text-brand-text/60 ">
-                        {formData.message.length}/1200
-                      </p>
+                      <p className="text-brand-text/60 text-xs">{formData.message.length}/1200</p>
                     </div>
                   </div>
 

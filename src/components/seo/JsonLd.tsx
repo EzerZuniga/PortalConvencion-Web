@@ -1,4 +1,4 @@
-import { safeJsonLd } from "@/utils/json-ld";
+import { safeJsonLd } from "@/lib/seo/json-ld";
 
 interface JsonLdProps {
   data: object | null | undefined;

@@ -1,24 +1,14 @@
 import type { MetadataRoute } from "next";
-import { absoluteUrl, publicRoutes, routeLastModified } from "@/config/metadata";
-
-const priorities: Record<string, number> = {
-  "/": 1,
-  "/blog": 0.9,
-  "/destinations": 0.9,
-  "/gastronomia": 0.8,
-  "/tips": 0.8,
-  "/gallery": 0.7,
-  "/about": 0.6,
-  "/contact": 0.5,
-};
+import { ROUTES, ROUTE_INDEXING, indexableRouteKeys } from "@/config/routes";
+import { absoluteUrl } from "@/lib/seo/url";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return publicRoutes
-    .filter((route) => route !== "/profile")
-    .map((route) => ({
-      url: absoluteUrl(route),
-      lastModified: routeLastModified(),
-      changeFrequency: route === "/" ? "daily" : route === "/gallery" ? "monthly" : "weekly",
-      priority: priorities[route] ?? 0.5,
-    }));
+  const lastModified = new Date();
+
+  return indexableRouteKeys.map((key) => ({
+    url: absoluteUrl(ROUTES[key]),
+    lastModified,
+    changeFrequency: ROUTE_INDEXING[key].changeFrequency,
+    priority: ROUTE_INDEXING[key].priority,
+  }));
 }

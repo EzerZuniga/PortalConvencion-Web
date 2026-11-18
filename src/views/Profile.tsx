@@ -23,8 +23,8 @@ export default function Profile() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-brand-background">
-        <div className="w-12 h-12 rounded-full border-4 border-gray-200 border-t-brand-primary animate-spin" />
+      <div className="flex min-h-screen items-center justify-center bg-brand-background">
+        <div className="h-12 w-12 animate-spin rounded-full border-4 border-gray-200 border-t-brand-primary" />
       </div>
     );
   }
@@ -32,24 +32,21 @@ export default function Profile() {
   if (!user) return null;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-brand-background via-white to-brand-secondary/10 py-8 sm:py-12">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6">
+    <div className="to-brand-secondary/10 min-h-screen bg-gradient-to-br from-brand-background via-white py-8 sm:py-12">
+      <div className="mx-auto max-w-3xl px-4 sm:px-6">
         {/* Back button */}
         <button
           onClick={() => router.push("/")}
-          className="group flex items-center gap-2 text-brand-primary hover:text-brand-text mb-8 transition-all duration-200"
+          className="group mb-8 flex items-center gap-2 text-brand-primary transition-all duration-200 hover:text-brand-text"
         >
-          <ArrowLeft
-            size={18}
-            className="transition-transform group-hover:-translate-x-1"
-          />
-          <span className="font-semibold text-sm">Volver al inicio</span>
+          <ArrowLeft size={18} className="transition-transform group-hover:-translate-x-1" />
+          <span className="text-sm font-semibold">Volver al inicio</span>
         </button>
 
         {/* Profile card */}
-        <div className="bg-white rounded-3xl shadow-lg border border-gray-100 overflow-hidden">
+        <div className="overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-lg">
           {/* Header */}
-          <div className="bg-gradient-to-r from-[#111B21] to-[#1a2c36] px-8 py-10 flex flex-col sm:flex-row items-center sm:items-end gap-6">
+          <div className="flex flex-col items-center gap-6 bg-gradient-to-r from-[#111B21] to-[#1a2c36] px-8 py-10 sm:flex-row sm:items-end">
             <div className="relative">
               {user.picture ? (
                 <Image
@@ -57,24 +54,24 @@ export default function Profile() {
                   alt={user.name}
                   width={96}
                   height={96}
-                  className="w-24 h-24 rounded-full object-cover border-4 border-white shadow-lg"
+                  className="h-24 w-24 rounded-full border-4 border-white object-cover shadow-lg"
                 />
               ) : (
-                <div className="w-24 h-24 rounded-full bg-white/20 border-4 border-white flex items-center justify-center">
-                  <UserIcon className="w-10 h-10 text-white" />
+                <div className="flex h-24 w-24 items-center justify-center rounded-full border-4 border-white bg-white/20">
+                  <UserIcon className="h-10 w-10 text-white" />
                 </div>
               )}
             </div>
-            <div className="text-center sm:text-left pb-1">
-              <h1 className="text-2xl font-heading font-bold text-white leading-tight">
+            <div className="pb-1 text-center sm:text-left">
+              <h1 className="font-heading text-2xl font-bold leading-tight text-white">
                 {user.name}
               </h1>
-              <p className="text-white/80 text-sm mt-1">{user.email}</p>
+              <p className="mt-1 text-sm text-white/80">{user.email}</p>
             </div>
           </div>
 
           {/* Info fields */}
-          <div className="px-8 py-8 space-y-4">
+          <div className="space-y-4 px-8 py-8">
             <InfoRow icon={UserIcon} label="Nombre" value={user.name} />
             <InfoRow icon={Mail} label="Correo electrónico" value={user.email} />
             <InfoRow
@@ -85,10 +82,10 @@ export default function Profile() {
           </div>
 
           {/* Footer */}
-          <div className="px-8 py-6 border-t border-gray-100 flex justify-end">
+          <div className="flex justify-end border-t border-gray-100 px-8 py-6">
             <button
               onClick={handleLogout}
-              className="px-6 py-2.5 rounded-xl text-sm font-semibold text-red-600 border border-red-200 hover:bg-red-50 transition-colors"
+              className="rounded-xl border border-red-200 px-6 py-2.5 text-sm font-semibold text-red-600 transition-colors hover:bg-red-50"
             >
               Cerrar sesión
             </button>
@@ -110,13 +107,13 @@ function InfoRow({
   value: string;
 }) {
   return (
-    <div className="flex items-center gap-4 p-4 rounded-xl bg-gray-50">
-      <div className="flex-shrink-0 w-10 h-10 rounded-full bg-brand-primary/10 flex items-center justify-center">
-        <Icon className="w-5 h-5 text-brand-primary" />
+    <div className="flex items-center gap-4 rounded-xl bg-gray-50 p-4">
+      <div className="bg-brand-primary/10 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full">
+        <Icon className="h-5 w-5 text-brand-primary" />
       </div>
       <div>
-        <p className="text-xs font-medium text-gray-400 uppercase tracking-wide">{label}</p>
-        <p className="text-sm font-semibold text-brand-text mt-0.5">{value}</p>
+        <p className="text-xs font-medium uppercase tracking-wide text-gray-400">{label}</p>
+        <p className="mt-0.5 text-sm font-semibold text-brand-text">{value}</p>
       </div>
     </div>
   );

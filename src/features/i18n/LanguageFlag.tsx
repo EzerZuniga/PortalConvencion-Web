@@ -53,13 +53,7 @@ export function LanguageFlag({ language, className }: LanguageFlagProps) {
       <FlagFrame label={label} className={className}>
         <rect width="24" height="16" fill="#b22234" />
         {Array.from({ length: 6 }).map((_, index) => (
-          <rect
-            key={index}
-            y={2 + index * 2.5}
-            width="24"
-            height="1.25"
-            fill="#fff"
-          />
+          <rect key={index} y={2 + index * 2.5} width="24" height="1.25" fill="#fff" />
         ))}
         <rect width="10.5" height="8.6" fill="#3c3b6e" />
         {Array.from({ length: 4 }).map((_, row) =>
