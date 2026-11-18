@@ -1,12 +1,15 @@
 import type { NextConfig } from "next";
 
-const STATIC_ASSET_CACHE =
-  "public, max-age=31536000, stale-while-revalidate=86400, immutable";
+// Valida las variables de entorno en `next dev` y `next build`: si falta una
+// obligatoria, el build falla antes de llegar a producción.
+import "./src/config/env";
+
+const STATIC_ASSET_CACHE = "public, max-age=31536000, stale-while-revalidate=86400, immutable";
 
 // ── Content-Security-Policy ───────────────────────────────────────────────────
 // 'unsafe-inline' en script-src es necesario para los inline scripts que
 // genera Next.js (JSON-LD, hydration). Para eliminarlo en el futuro, usar
-// nonces con middleware.
+// nonces desde src/proxy.ts.
 const isDev = process.env.NODE_ENV === "development";
 
 const CSP = [

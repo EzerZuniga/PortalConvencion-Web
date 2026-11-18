@@ -140,3 +140,9 @@ vite.config.ts.timestamp-*
 
 # Vercel local project metadata
 .vercel
+
+# Next.js (generado automáticamente en dev/build)
+next-env.d.ts
+
+# Vitest
+coverage

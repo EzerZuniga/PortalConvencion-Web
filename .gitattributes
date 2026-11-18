@@ -1,0 +1,12 @@
+# Normaliza finales de línea a LF en el repositorio (coherente con .editorconfig y Prettier).
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.avif binary
+*.gif binary
+*.ico binary
+*.mp4 binary
+*.woff2 binary
