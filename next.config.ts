@@ -1,5 +1,7 @@
 import type { NextConfig } from "next";
 import { PHASE_DEVELOPMENT_SERVER, PHASE_PRODUCTION_BUILD } from "next/constants";
+import createNextIntlPlugin from "next-intl/plugin";
+import { LEGACY_REDIRECTS } from "./src/config/routes";
 
 // Valida las variables de entorno en `next dev` y `next build`: si falta una
 // obligatoria, el build falla antes de llegar a producción.
@@ -87,6 +89,11 @@ const nextConfig: NextConfig = {
     ],
   },
 
+  /** URLs antiguas (sin idioma) → nuevas. 308 permanente: conserva el SEO ganado. */
+  async redirects() {
+    return LEGACY_REDIRECTS.map((redirect) => ({ ...redirect, permanent: true }));
+  },
+
   async headers() {
     return [
       // Cache static assets for 1 year (content-addressed by filename)
@@ -127,7 +134,9 @@ async function buildContent(phase: string) {
   await build({ watch: isDev, clean: !isDev });
 }
 
+const withNextIntl = createNextIntlPlugin("./src/lib/i18n/request.ts");
+
 export default async function config(phase: string): Promise<NextConfig> {
   await buildContent(phase);
-  return nextConfig;
+  return withNextIntl(nextConfig);
 }

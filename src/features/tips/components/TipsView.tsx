@@ -1,16 +1,13 @@
-"use client";
-
-import React from "react";
 import { ScrollReveal, SectionHeader } from "@/components/ui";
-import { useLanguage } from "@/features/i18n";
+import { getMessages } from "next-intl/server";
 import type { TipGroupCard } from "@/features/tips/queries";
 
 interface TipsViewProps {
   groups: TipGroupCard[];
 }
 
-export const TipsView: React.FC<TipsViewProps> = ({ groups }) => {
-  const { content } = useLanguage();
+export async function TipsView({ groups }: TipsViewProps) {
+  const content = await getMessages();
   const page = content.pages.tips;
 
   return (
@@ -59,4 +56,4 @@ export const TipsView: React.FC<TipsViewProps> = ({ groups }) => {
       </div>
     </div>
   );
-};
+}

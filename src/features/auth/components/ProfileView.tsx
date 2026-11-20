@@ -2,7 +2,8 @@
 
 import React from "react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { ROUTES } from "@/config/routes";
+import { useRouter } from "@/lib/i18n/navigation";
 import { ArrowLeft, Mail, User as UserIcon, Shield } from "lucide-react";
 import { useAuth } from "@/features/auth";
 
@@ -36,7 +37,7 @@ export function ProfileView() {
       <div className="mx-auto max-w-3xl px-4 sm:px-6">
         {/* Back button */}
         <button
-          onClick={() => router.push("/")}
+          onClick={() => router.push(ROUTES.home)}
           className="group mb-8 flex items-center gap-2 text-brand-primary transition-all duration-200 hover:text-brand-text"
         >
           <ArrowLeft size={18} className="transition-transform group-hover:-translate-x-1" />

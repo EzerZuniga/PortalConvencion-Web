@@ -2,16 +2,16 @@
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
-import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
 import { User, Menu, X, MapPin, Info, Mail, LogOut, UserCircle } from "lucide-react";
 import { FaFacebookF, FaInstagram, FaYoutube } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { SITE_CONFIG } from "@/config/site";
-import { LanguageSelector, useLanguage } from "@/features/i18n";
+import { useMessages } from "next-intl";
+import { LanguageSelector } from "@/components/i18n/LanguageSelector";
+import { Link, usePathname, useRouter } from "@/lib/i18n/navigation";
 import { useScrollPosition, useClickOutside } from "@/hooks";
-import { ROUTES } from "@/config/routes";
+import { ROUTES, routeHref } from "@/config/routes";
 
 interface UserAvatarContentProps {
   name: string;
@@ -56,11 +56,11 @@ const Navbar: React.FC = () => {
   );
 
   const openLogin = useCallback(() => {
-    router.push(`${ROUTES.login}?callbackUrl=${encodeURIComponent(pathname)}`);
-  }, [router, pathname]);
+    router.push({ pathname: ROUTES.login, query: { callbackUrl: window.location.pathname } });
+  }, [router]);
   const scrolled = useScrollPosition(50);
   const userMenuRef = useRef<HTMLDivElement>(null);
-  const { content } = useLanguage();
+  const content = useMessages();
   const { navbar } = content;
 
   const isHome = pathname === "/";
@@ -204,15 +204,15 @@ const Navbar: React.FC = () => {
               {content.navigation.main.map((item) => (
                 <Link
                   key={item.name}
-                  href={item.href}
+                  href={routeHref(item.route)}
                   className={`px-4 py-2 text-base font-medium transition-colors duration-200 ${
-                    isActive(item.href)
+                    isActive(routeHref(item.route))
                       ? "text-brand-primary drop-shadow-sm"
                       : !isTransparent
                         ? "text-brand-text hover:text-brand-primary"
                         : "text-white hover:text-brand-primary"
                   }`}
-                  aria-current={isActive(item.href) ? "page" : undefined}
+                  aria-current={isActive(routeHref(item.route)) ? "page" : undefined}
                 >
                   {item.name}
                 </Link>
@@ -353,14 +353,14 @@ const Navbar: React.FC = () => {
                 {content.navigation.main.map((item) => (
                   <li key={item.name}>
                     <Link
-                      href={item.href}
+                      href={routeHref(item.route)}
                       className={`block rounded-lg px-4 py-3 text-base font-medium transition-colors duration-200 ${
-                        isActive(item.href)
+                        isActive(routeHref(item.route))
                           ? "bg-brand-primary/10 text-brand-primary"
                           : "text-brand-text/90 hover:bg-brand-background hover:text-brand-primary"
                       }`}
                       onClick={() => setIsOpen(false)}
-                      aria-current={isActive(item.href) ? "page" : undefined}
+                      aria-current={isActive(routeHref(item.route)) ? "page" : undefined}
                     >
                       {item.name}
                     </Link>

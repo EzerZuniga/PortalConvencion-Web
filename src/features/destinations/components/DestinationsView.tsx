@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/lib/i18n/navigation";
 import {
   Home,
   ChevronRight,
@@ -16,7 +16,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { ScrollReveal } from "@/components/ui";
-import { useLanguage } from "@/features/i18n";
+import { useMessages } from "next-intl";
 import { motion } from "framer-motion";
 import type { ArticleCard } from "@/lib/content/types";
 import { ROUTES } from "@/config/routes";
@@ -35,12 +35,13 @@ const HERO_STATS = [
 
 // ── Portal-style destination card (no blog metadata) ─────────────────
 function DestinationCard({ post, categoryLabel }: { post: ArticleCard; categoryLabel: string }) {
-  const { content } = useLanguage();
+  const content = useMessages();
   return (
     <article className="wp-card flex h-full flex-col overflow-hidden" aria-label={post.title}>
       {/* Image with gradient overlay + category badge */}
       <Link
         href={post.href}
+        locale={post.locale}
         tabIndex={-1}
         aria-hidden="true"
         className="bg-brand-primary/10 relative block h-48 overflow-hidden"
@@ -60,7 +61,7 @@ function DestinationCard({ post, categoryLabel }: { post: ArticleCard; categoryL
 
       {/* Content */}
       <div className="flex flex-1 flex-col gap-3 p-5">
-        <Link href={post.href} className="group/title">
+        <Link href={post.href} locale={post.locale} className="group/title">
           <h3 className="line-clamp-2 font-heading text-[1.05rem] font-bold leading-snug text-brand-text transition-colors duration-200 group-hover/title:text-brand-primary">
             {post.title}
           </h3>
@@ -70,6 +71,7 @@ function DestinationCard({ post, categoryLabel }: { post: ArticleCard; categoryL
         </p>
         <Link
           href={post.href}
+          locale={post.locale}
           className="group/link mt-auto inline-flex items-center gap-1.5 text-sm font-semibold text-brand-primary transition-colors duration-200 hover:text-brand-accent"
           aria-label={`${content.common.viewMore}: ${post.title}`}
         >
@@ -90,7 +92,7 @@ interface DestinationsViewProps {
 }
 
 export const DestinationsView: React.FC<DestinationsViewProps> = ({ destinations }) => {
-  const { content } = useLanguage();
+  const content = useMessages();
   const page = content.pages.destinations;
   const [selectedCategory, setSelectedCategory] = useState("all");
 
@@ -278,6 +280,7 @@ export const DestinationsView: React.FC<DestinationsViewProps> = ({ destinations
                   {/* Image */}
                   <Link
                     href={spotlightPost.href}
+                    locale={spotlightPost.locale}
                     tabIndex={-1}
                     aria-hidden="true"
                     className="bg-brand-primary/10 relative block h-60 overflow-hidden md:col-span-2 md:h-auto"
@@ -301,7 +304,11 @@ export const DestinationsView: React.FC<DestinationsViewProps> = ({ destinations
                     <span className="text-brand-primary/80 text-[10px] font-bold uppercase tracking-widest">
                       {categoryLabel(spotlightPost.category)}
                     </span>
-                    <Link href={spotlightPost.href} className="group/title">
+                    <Link
+                      href={spotlightPost.href}
+                      locale={spotlightPost.locale}
+                      className="group/title"
+                    >
                       <h2 className="line-clamp-3 font-heading text-[clamp(1.2rem,2.5vw,1.7rem)] font-bold leading-snug text-brand-text transition-colors duration-200 group-hover/title:text-brand-primary">
                         {spotlightPost.title}
                       </h2>
@@ -311,6 +318,7 @@ export const DestinationsView: React.FC<DestinationsViewProps> = ({ destinations
                     </p>
                     <Link
                       href={spotlightPost.href}
+                      locale={spotlightPost.locale}
                       className="group/link mt-1 inline-flex w-fit items-center gap-1.5 text-sm font-semibold text-brand-primary transition-colors duration-200 hover:text-brand-accent"
                     >
                       {content.common.viewMore}

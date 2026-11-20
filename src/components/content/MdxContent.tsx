@@ -1,3 +1,5 @@
+// Los enlaces escritos en el MDX son URLs públicas ya localizadas (p. ej. /es/consejos).
+// eslint-disable-next-line no-restricted-imports
 import Link from "next/link";
 import type { ComponentPropsWithoutRef, ComponentType, ReactNode } from "react";
 import * as runtime from "react/jsx-runtime";

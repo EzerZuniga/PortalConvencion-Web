@@ -1,7 +1,8 @@
 /**
  * Tipos compartidos que no pertenecen a un dominio concreto.
- * Los tipos del contenido editorial se generan desde el esquema de Velite
- * (`#content`) y se exponen como modelos de vista en `@/lib/content/types`.
+ * - Contenido editorial: generado por Velite (`#content`), expuesto como
+ *   modelos de vista en `@/lib/content/types`.
+ * - Textos de interfaz: inferidos de `messages/es.json` (ver next-intl.d.ts).
  */
 
 export interface User {
@@ -9,16 +10,4 @@ export interface User {
   name: string;
   picture?: string;
   provider?: string;
-}
-
-export interface ValueItem {
-  icon: string;
-  title: string;
-  description: string;
-}
-
-export interface StatItem {
-  value: number;
-  suffix: string;
-  label: string;
 }

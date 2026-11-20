@@ -1,19 +1,16 @@
-"use client";
-
-import React from "react";
 import Image from "next/image";
 import { MapPin } from "lucide-react";
 import { SITE_CONFIG } from "@/config/site";
 import { SectionHeader } from "@/components/ui";
-import { useLanguage } from "@/features/i18n";
+import { getMessages } from "next-intl/server";
 import type { GalleryItem } from "@/features/gallery/queries";
 
 interface GalleryViewProps {
   images: GalleryItem[];
 }
 
-export const GalleryView: React.FC<GalleryViewProps> = ({ images }) => {
-  const { content } = useLanguage();
+export async function GalleryView({ images }: GalleryViewProps) {
+  const content = await getMessages();
   const page = content.pages.gallery;
 
   return (
@@ -73,4 +70,4 @@ export const GalleryView: React.FC<GalleryViewProps> = ({ images }) => {
       </div>
     </div>
   );
-};
+}

@@ -13,8 +13,8 @@ import {
   Target,
   Users,
 } from "lucide-react";
-import Link from "next/link";
-import { useLanguage } from "@/features/i18n";
+import { Link } from "@/lib/i18n/navigation";
+import { useMessages } from "next-intl";
 import type { TeamMemberCard } from "@/features/about/queries";
 import { useCounterAnimation } from "@/hooks";
 import { ScrollReveal } from "@/components/ui";
@@ -97,7 +97,7 @@ interface AboutViewProps {
 }
 
 export const AboutView: React.FC<AboutViewProps> = ({ team }) => {
-  const { content } = useLanguage();
+  const content = useMessages();
   const page = content.pages.about;
   const c0 = useCounterAnimation(page.stats[0]?.value ?? 0, 1500);
   const c1 = useCounterAnimation(page.stats[1]?.value ?? 0, 2000);

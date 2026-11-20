@@ -1,0 +1,634 @@
+{
+  "languageSelector": {
+    "ariaLabel": "Cambiar idioma",
+    "currentLanguage": "Idioma actual",
+    "changeTo": "Cambiar a"
+  },
+  "navigation": {
+    "main": [
+      {
+        "name": "Inicio",
+        "route": "home"
+      },
+      {
+        "name": "Nuestro Equipo",
+        "route": "about"
+      },
+      {
+        "name": "Destinos",
+        "route": "destinations"
+      },
+      {
+        "name": "Gastronomía",
+        "route": "gastronomy"
+      },
+      {
+        "name": "Blog",
+        "route": "blog"
+      },
+      {
+        "name": "Galería",
+        "route": "gallery"
+      },
+      {
+        "name": "Tips",
+        "route": "tips"
+      },
+      {
+        "name": "Contacto",
+        "route": "contact"
+      }
+    ],
+    "footerMain": [
+      {
+        "name": "Inicio",
+        "route": "home"
+      },
+      {
+        "name": "Destinos",
+        "route": "destinations"
+      },
+      {
+        "name": "Galería",
+        "route": "gallery"
+      },
+      {
+        "name": "Consejos de viaje",
+        "route": "tips"
+      },
+      {
+        "name": "Contacto",
+        "route": "contact"
+      }
+    ],
+    "footerInfo": [
+      {
+        "name": "Nuestro Equipo",
+        "route": "about"
+      },
+      {
+        "name": "Política de privacidad",
+        "route": "privacy"
+      },
+      {
+        "name": "Términos y condiciones",
+        "route": "terms"
+      }
+    ]
+  },
+  "navbar": {
+    "locationShort": "Quillabamba",
+    "purpose": "Portal turístico y cultural de La Convención",
+    "followUs": "Síguenos:",
+    "mainNavLabel": "Navegación principal",
+    "mobileMenuLabel": "Menú de navegación móvil",
+    "menuTitle": "Menú",
+    "openMenu": "Abrir menú",
+    "closeMenu": "Cerrar menú",
+    "login": "Iniciar sesión",
+    "profile": "Mi perfil",
+    "notifications": "Mis notificaciones",
+    "logout": "Cerrar sesión",
+    "socialLabels": {
+      "facebook": "Síguenos en Facebook",
+      "instagram": "Síguenos en Instagram",
+      "youtube": "Síguenos en YouTube"
+    }
+  },
+  "footer": {
+    "logoAlt": "Logo Explorando La Convención",
+    "description": "Portal informativo dedicado a mostrar la riqueza natural, cultural y turística de la provincia de La Convención, Cusco. Explora destinos, consejos y experiencias únicas para viajeros y curiosos.",
+    "navigationTitle": "Navegación",
+    "infoTitle": "Información",
+    "followTitle": "Síguenos",
+    "rights": "Todos los derechos reservados.",
+    "developedBy": "Desarrollado por"
+  },
+  "common": {
+    "all": "Todos",
+    "viewMore": "Ver más",
+    "readArticle": "Leer artículo",
+    "article": "Artículo",
+    "noCategoryArticles": "No hay artículos en esta categoría.",
+    "noSearchResults": "No se encontraron artículos que coincidan con tu búsqueda.",
+    "searchArticles": "Buscar artículos...",
+    "posts": "Publicaciones",
+    "role": "Rol:",
+    "writtenBy": "Por",
+    "publishedOn": "Publicado el",
+    "relatedArticles": "Sigue explorando",
+    "backToList": "Volver al listado",
+    "readingTime": "Tiempo de lectura",
+    "skipToContent": "Saltar al contenido principal"
+  },
+  "pages": {
+    "home": {
+      "seo": {
+        "title": "Explorando la Convención - Blog de Viajes y Turismo en Perú | Guías Completas",
+        "description": "Descubre los mejores destinos turísticos de La Convención, Cusco y Perú. Guías de viaje, consejos prácticos, gastronomía y experiencias únicas de aventura.",
+        "keywords": "La Convención, turismo Cusco, viajes Perú, destinos turísticos, blog de viajes, guías de viaje, aventuras, gastronomía peruana"
+      },
+      "hero": {
+        "titlePrefix": "Descubre la magia de",
+        "titleHighlight": "La Convención",
+        "description": "Información clara para descubrir naturaleza, cultura y sabores locales en el corazón cálido de Cusco.",
+        "primaryCta": "Explorar",
+        "secondaryCta": "Ver Galería"
+      },
+      "sections": {
+        "portal": {
+          "title": "Explora el portal",
+          "description": "Encuentra rápido las secciones principales para conocer, planificar y consultar información útil de La Convención."
+        },
+        "planningInfo": {
+          "title": "Información para planificar",
+          "description": "Datos de apoyo para revisar clima, referencia de cambio y mensajes útiles antes de organizar tu visita."
+        },
+        "highlights": {
+          "title": "Destacados de La Convención",
+          "description": "Un resumen visual con temas clave para empezar a recorrer el portal con mejor contexto."
+        },
+        "stats": {
+          "title": "La provincia en breve",
+          "description": "Cifras referenciales presentadas como guía inicial para entender la escala natural y cultural del territorio."
+        },
+        "posts": {
+          "title": "Últimas publicaciones",
+          "description": "Guías y artículos seleccionados para ampliar la información antes de tu visita.",
+          "action": "Ver blog"
+        },
+        "visit": {
+          "title": "Prepara tu visita",
+          "description": "Tres pasos simples para pasar de la inspiración a una ruta bien organizada."
+        },
+        "faq": {
+          "title": "Preguntas frecuentes",
+          "description": "Respuestas rápidas para resolver dudas comunes antes de explorar las secciones del portal."
+        },
+        "location": {
+          "title": "Encuéntranos",
+          "description": "Referencia principal para ubicar Quillabamba y planificar el acceso a la provincia."
+        }
+      },
+      "portalLinks": [
+        {
+          "route": "destinations",
+          "title": "Destinos",
+          "description": "Rutas naturales, miradores, cascadas, caminos escénicos y puntos de interés para organizar tu próxima visita."
+        },
+        {
+          "route": "gastronomy",
+          "title": "Gastronomía",
+          "description": "Café, cacao, productos locales y sabores de selva alta para descubrir la identidad culinaria de la provincia."
+        },
+        {
+          "route": "tips",
+          "title": "Consejos",
+          "description": "Clima, transporte, seguridad, presupuesto y recomendaciones prácticas para viajar con más confianza."
+        },
+        {
+          "route": "blog",
+          "title": "Blog",
+          "description": "Guías, historias, novedades y experiencias locales para planificar mejor cada recorrido por La Convención."
+        },
+        {
+          "route": "gallery",
+          "title": "Galería",
+          "description": "Imágenes de paisajes, cultura, rutas y experiencias para inspirar tu próxima visita con más contexto."
+        },
+        {
+          "route": "about",
+          "title": "Cultura",
+          "description": "Historia, identidad, festividades, memoria local y valores que dan forma a la vida de la provincia."
+        }
+      ],
+      "highlights": [
+        {
+          "title": "Quillabamba como punto de partida",
+          "description": "Una base ideal para organizar recorridos por la provincia, conectar con servicios locales y acercarse a rutas naturales.",
+          "image": "/images/destinations/pueblo-magico.jpg",
+          "route": "destinations",
+          "label": "Ver destinos",
+          "meta": "Rutas y orientación"
+        },
+        {
+          "title": "Café, cacao y sabores locales",
+          "description": "Productos emblemáticos que ayudan a entender la identidad agrícola y gastronómica de La Convención.",
+          "image": "/images/gallery/comida-asiatica.jpg",
+          "route": "gastronomy",
+          "label": "Explorar gastronomía",
+          "meta": "Sabores regionales"
+        },
+        {
+          "title": "Naturaleza para visitar con calma",
+          "description": "Bosques, miradores y espacios verdes que conviene recorrer con información previa y respeto por el entorno.",
+          "image": "/images/gallery/fotografia.jpg",
+          "route": "gallery",
+          "label": "Ver galería",
+          "meta": "Paisajes y cultura"
+        }
+      ],
+      "stats": [
+        {
+          "value": "30+",
+          "label": "distritos y sectores",
+          "description": "Territorios con identidad propia y rutas por descubrir."
+        },
+        {
+          "value": "50+",
+          "label": "atractivos referenciales",
+          "description": "Cascadas, miradores, espacios culturales y rutas verdes."
+        },
+        {
+          "value": "365",
+          "label": "días para planificar",
+          "description": "Clima cálido durante buena parte del año."
+        }
+      ],
+      "planningSteps": [
+        {
+          "route": "tips",
+          "title": "Antes de viajar",
+          "description": "Revisa clima, tiempos de traslado, presupuesto y servicios disponibles."
+        },
+        {
+          "route": "destinations",
+          "title": "Durante el recorrido",
+          "description": "Prioriza rutas señalizadas, consulta orientación local y cuida los espacios naturales."
+        },
+        {
+          "route": "contact",
+          "title": "Necesitas ayuda",
+          "description": "Encuentra referencias de ubicación y canales para seguir explorando el portal."
+        }
+      ],
+      "portalPillars": [
+        {
+          "route": "home",
+          "title": "Información organizada",
+          "description": "Secciones pensadas para consultar rápido sin perder contexto."
+        },
+        {
+          "route": "home",
+          "title": "Turismo responsable",
+          "description": "Recomendaciones para cuidar rutas, comunidades y espacios naturales."
+        },
+        {
+          "route": "home",
+          "title": "Planificación clara",
+          "description": "Datos prácticos para revisar antes de decidir una ruta o actividad."
+        }
+      ],
+      "identity": {
+        "eyebrow": "Portal informativo",
+        "title": "Información clara para recorrer La Convención con más contexto.",
+        "description": "Reunimos rutas, consejos, cultura, publicaciones y datos útiles en una experiencia ordenada para visitantes, vecinos y personas que quieren conocer mejor la provincia."
+      },
+      "faqs": [
+        {
+          "question": "¿Cuál es la mejor época para visitar La Convención?",
+          "answer": "La Convención se puede visitar durante gran parte del año gracias a su clima cálido y a la variedad de actividades disponibles. Para caminatas, miradores, cataratas y rutas de naturaleza, conviene revisar el pronóstico antes de salir y planificar con mayor cuidado entre los meses de lluvia. Si buscas recorridos más tranquilos, prioriza días secos, salidas temprano y siempre confirma el estado de las vías locales."
+        },
+        {
+          "question": "¿Desde dónde se suele iniciar el recorrido?",
+          "answer": "Quillabamba suele funcionar como punto principal de referencia porque concentra servicios, transporte, hospedajes, alimentación y conexión hacia distintos atractivos de la provincia. Desde allí es más sencillo organizar visitas cercanas, consultar rutas locales y ajustar tiempos según el clima, el presupuesto y el tipo de experiencia que quieras realizar."
+        },
+        {
+          "question": "¿Qué información debería revisar antes de salir?",
+          "answer": "Antes de salir revisa clima, distancias reales, horarios de transporte, presupuesto disponible, estado de rutas y recomendaciones básicas de seguridad. También es útil confirmar si el destino requiere guía, entrada, reserva previa o movilidad especial. Llevar agua, efectivo, batería suficiente y datos de contacto locales mejora mucho la experiencia, especialmente en recorridos fuera de la zona urbana."
+        },
+        {
+          "question": "¿El portal solo muestra destinos turísticos?",
+          "answer": "No. El portal también reúne gastronomía, cultura, consejos prácticos, publicaciones, referencias de ubicación y datos útiles para entender mejor la provincia. La idea es que no solo encuentres lugares para visitar, sino también contexto para valorar la identidad local, planificar con criterio y descubrir experiencias vinculadas a la vida cotidiana de La Convención."
+        }
+      ],
+      "locationCards": [
+        {
+          "route": "destinations",
+          "title": "Ubicación",
+          "description": "Quillabamba, capital de la provincia de La Convención, región Cusco, Perú."
+        },
+        {
+          "route": "tips",
+          "title": "Acceso",
+          "description": "Aproximadamente 4 a 5 horas por vía terrestre desde la ciudad del Cusco, según ruta y clima."
+        },
+        {
+          "route": "contact",
+          "title": "Referencia útil",
+          "description": "Usa el mapa como punto inicial para organizar rutas, tiempos y servicios."
+        }
+      ],
+      "ui": {
+        "explore": "Explorar",
+        "step": "Paso",
+        "viewDetail": "Ver detalle",
+        "previous": "Elemento anterior",
+        "next": "Elemento siguiente",
+        "viewHighlight": "Ver destacado",
+        "readPosts": "Leer publicaciones",
+        "featuredPosts": "Publicaciones destacadas",
+        "mapTitle": "Ubicación Quillabamba"
+      }
+    },
+    "destinations": {
+      "seoTitle": "Destinos Turísticos de La Convención - Guía Completa",
+      "seoDescription": "Explora todos los destinos turísticos de La Convención: naturaleza, aventura, cultura y gastronomía en el corazón de Cusco.",
+      "seoKeywords": "destinos La Convención, turismo Cusco, lugares turísticos Perú, qué visitar Quillabamba",
+      "title": "Todos los Destinos",
+      "subtitle": "Explora nuestra colección completa de artículos sobre viajes, destinos y experiencias en La Convención.",
+      "categories": [
+        {
+          "id": "all",
+          "label": "Todos"
+        },
+        {
+          "id": "destinations",
+          "label": "Destinos"
+        },
+        {
+          "id": "tips",
+          "label": "Consejos"
+        },
+        {
+          "id": "gastronomy",
+          "label": "Gastronomía"
+        },
+        {
+          "id": "adventure",
+          "label": "Aventura"
+        },
+        {
+          "id": "photography",
+          "label": "Fotografía"
+        }
+      ]
+    },
+    "gallery": {
+      "seoTitle": "Galería de Fotos - La Convención en Imágenes",
+      "seoDescription": "Explora nuestra galería fotográfica con los paisajes más impresionantes de La Convención, Cusco y Perú.",
+      "seoKeywords": "galería fotos La Convención, fotografía paisajes Perú, imágenes Cusco, fotos viaje",
+      "title": "Galería de Fotos",
+      "subtitle": "Un vistazo visual a los destinos más increíbles de La Convención.",
+      "ctaText": "¿Quieres ver más fotos de nuestros viajes?",
+      "ctaAction": "Síguenos en Instagram"
+    },
+    "tips": {
+      "seoTitle": "Consejos de Viaje - Guía Práctica para Viajeros",
+      "seoDescription": "Consejos prácticos de viaje: presupuesto, equipaje, cultura, seguridad, fotografía y gastronomía para tu próxima aventura en La Convención.",
+      "seoKeywords": "consejos de viaje, tips viajeros, presupuesto viaje, equipaje viaje, seguridad viaje, fotografía viaje",
+      "title": "Consejos de Viaje",
+      "subtitle": "Aprende de nuestras experiencias y evita errores comunes con estos consejos prácticos para viajeros.",
+      "moreHelpTitle": "¿Necesitas más ayuda?",
+      "moreHelpDescription": "Suscríbete a nuestro newsletter semanal y recibe consejos exclusivos, ofertas de viaje y guías detalladas directamente en tu correo.",
+      "emailPlaceholder": "Tu correo electrónico",
+      "subscribe": "Suscribirse"
+    },
+    "contact": {
+      "seoTitle": "Contáctanos - Explorando la Convención",
+      "seoDescription": "¿Tienes preguntas o quieres colaborar? Contáctanos por email, teléfono o visítanos en Quillabamba, La Convención.",
+      "seoKeywords": "contacto explorando la convención, contactar, email, teléfono, Quillabamba",
+      "title": "Contáctanos",
+      "subtitle": "¿Tienes preguntas, sugerencias o quieres colaborar con nosotros? Estamos aquí para ayudarte.",
+      "infoTitle": "Información de Contacto",
+      "formTitle": "Envíanos un Mensaje",
+      "requiredNote": "Los campos marcados con * son obligatorios.",
+      "labels": {
+        "name": "Nombre Completo *",
+        "email": "Email *",
+        "phone": "Teléfono",
+        "office": "Oficina",
+        "social": "Redes Sociales",
+        "subject": "Asunto *",
+        "message": "Mensaje *"
+      },
+      "placeholders": {
+        "name": "Tu nombre",
+        "email": "tu@email.com",
+        "subject": "Selecciona un asunto",
+        "message": "Escribe tu mensaje aquí..."
+      },
+      "subjects": [
+        {
+          "id": "colaboracion",
+          "label": "Colaboración"
+        },
+        {
+          "id": "pregunta",
+          "label": "Pregunta General"
+        },
+        {
+          "id": "sugerencia",
+          "label": "Sugerencia"
+        },
+        {
+          "id": "publicidad",
+          "label": "Publicidad"
+        },
+        {
+          "id": "otro",
+          "label": "Otro"
+        }
+      ],
+      "validation": {
+        "name": "Ingresa un nombre válido (mínimo 2 caracteres).",
+        "email": "Ingresa un correo electrónico válido.",
+        "subject": "Selecciona un asunto.",
+        "message": "El mensaje debe tener al menos 20 caracteres.",
+        "review": "Revisa los campos marcados antes de enviar.",
+        "success": "¡Mensaje enviado! Gracias por contactarnos. Te responderemos pronto.",
+        "failure": "No pudimos enviar tu mensaje en este momento. Inténtalo nuevamente."
+      },
+      "helper": "Cuéntanos el contexto para ayudarte mejor.",
+      "submit": "Enviar Mensaje",
+      "submitting": "Enviando...",
+      "socialLabels": {
+        "facebook": "Visitar Facebook de Explorando la Convención",
+        "instagram": "Visitar Instagram de Explorando la Convención",
+        "youtube": "Visitar YouTube de Explorando la Convención"
+      }
+    },
+    "blog": {
+      "seoTitle": "Blog de Viajes - Explorando la Convención | Artículos y Consejos de Turismo",
+      "seoDescription": "Lee nuestros últimos artículos sobre viajes, destinos turísticos de La Convención y Cusco, consejos prácticos y experiencias de viaje en Perú.",
+      "seoKeywords": "blog de viajes, artículos de turismo, consejos de viaje, destinos Perú, La Convención, blog turismo",
+      "title": "Blog",
+      "subtitle": "Historias, consejos y descubrimientos de La Convención",
+      "heroTitle": "Blog",
+      "heroSubtitle": "Historias, consejos y descubrimientos de La Convención",
+      "categories": [
+        {
+          "id": "all",
+          "label": "Todos"
+        },
+        {
+          "id": "destinations",
+          "label": "Destinos"
+        },
+        {
+          "id": "adventure",
+          "label": "Aventura"
+        },
+        {
+          "id": "culture",
+          "label": "Cultura"
+        },
+        {
+          "id": "gastronomy",
+          "label": "Gastronomía"
+        },
+        {
+          "id": "tips",
+          "label": "Tips"
+        }
+      ],
+      "postsTitle": "Publicaciones",
+      "postsSubtitle": "Artículos recientes sobre cultura, viajes y experiencias auténticas en La Convención.",
+      "newsletterTitle": "Suscríbete a Nuestro Newsletter",
+      "newsletterDescription": "Recibe las últimas noticias, consejos y artículos directamente en tu correo",
+      "emailPlaceholder": "Tu correo electrónico",
+      "subscribe": "Suscribirme",
+      "subscribing": "Suscribiendo...",
+      "invalidEmail": "Ingresa un correo válido para suscribirte.",
+      "success": "¡Listo! Te suscribiste al newsletter."
+    },
+    "gastronomy": {
+      "seoTitle": "Gastronomía de La Convención - Sabores Auténticos del Perú",
+      "seoDescription": "Descubre la gastronomía de La Convención: café de altura, cacao premium, platos típicos y los mejores restaurantes de Quillabamba.",
+      "seoKeywords": "gastronomía La Convención, café Quillabamba, cacao perú, comida típica cusco, restaurantes Quillabamba",
+      "title": "Gastronomía",
+      "subtitle": "Sabores auténticos de La Convención",
+      "heroTitle": "Gastronomía",
+      "heroSubtitle": "Sabores auténticos de La Convención",
+      "introTitle": "Un Viaje de Sabores",
+      "introParagraphs": [
+        "La gastronomía de La Convención nace de la confluencia de dos mundos: los Andes y la Amazonía. En esta tierra privilegiada el café de altura comparte protagonismo con el cacao Chuncho, las truchas del río Urubamba con el juane selvático, y la pachamanca andina con las humitas de choclo recién cocidas.",
+        "Cada plato es el resultado de generaciones de saberes transmitidos en familia. Aquí no existe la cocina inventada: existe la cocina verdadera, la que sabe a leña, a hojas de bijao y a fruta recién cosechada de las chacras locales."
+      ],
+      "dishesTitle": "Platos Típicos",
+      "dishesSubtitle": "Descubre los sabores que hacen única a nuestra región.",
+      "coffeeTitle": "Café y Cacao de Altura",
+      "coffeeParagraphs": [
+        "La Convención produce uno de los cafés más premiados del Perú. Sus granos se cultivan en las laderas andinas entre 1,200 y 2,000 metros sobre el nivel del mar, en suelos volánicos y bajo una temperatura de neblina permanente que desarrolla notas florales y frutales de excepción.",
+        "El cacao Chuncho —variedad nativa de sabor fino y aroma complejo— completa el dúo de productos estrella de la región. Visita las haciendas de Echarati o Maranura, aprende el proceso de fermentación y secado, y descubre por qué el mundo mira a La Convención cuando busca cacao de calidad suprema."
+      ],
+      "coffeeAction": "Tour de Café y Cacao",
+      "restaurantsTitle": "Restaurantes Recomendados",
+      "restaurantsSubtitle": "Los mejores lugares para disfrutar de la gastronomía local.",
+      "ctaTitle": "¿Listo para probar nuestros sabores?",
+      "ctaDescription": "Reserva un tour gastronómico y descubre los secretos culinarios de La Convención",
+      "ctaAction": "Reservar Tour Gastronómico"
+    },
+    "about": {
+      "seoTitle": "Nuestro Equipo - Explorando la Convención",
+      "seoDescription": "Conoce al equipo detrás de Explorando la Convención: cinco quillabambinos apasionados por su tierra, su cultura y el turismo responsable.",
+      "seoKeywords": "equipo explorando la convención, Quillabamba, turismo La Convención, misión, visión, sobre nosotros",
+      "title": "Nuestro Equipo",
+      "subtitle": "Somos locales que aman su tierra y trabajan cada día para que el mundo descubra la esencia natural y cultural de La Convención.",
+      "heroEyebrow": "Quiénes somos",
+      "heroTitle": "Nuestro Equipo",
+      "heroDescription": "Somos locales que aman su tierra y trabajan cada día para que el mundo descubra la esencia natural y cultural de La Convención.",
+      "stats": [
+        {
+          "value": 3,
+          "suffix": "+",
+          "label": "Años compartiendo nuestra cultura"
+        },
+        {
+          "value": 50,
+          "suffix": "+",
+          "label": "Destinos documentados"
+        },
+        {
+          "value": 30,
+          "suffix": "K+",
+          "label": "Visitantes al año"
+        },
+        {
+          "value": 5,
+          "suffix": "",
+          "label": "Personas en el equipo"
+        }
+      ],
+      "missionVisionTitle": "Lo que nos mueve cada día",
+      "missionTitle": "Nuestra Misión",
+      "missionDescription": "Impulsar el turismo sostenible y la difusión cultural en la provincia de La Convención, brindando información auténtica, actualizada y de calidad para que cada viajero descubra la riqueza natural, histórica y gastronómica de nuestra región.",
+      "visionTitle": "Nuestra Visión",
+      "visionDescription": "Ser el referente principal de turismo y cultura en La Convención, reconocidos por nuestro contenido auténtico, nuestro compromiso con la comunidad local y la promoción responsable del patrimonio natural y cultural de Quillabamba y sus alrededores.",
+      "historyTitle": "Nuestra Historia",
+      "historyParagraphs": [
+        "Explorando la Convención nació de una pregunta simple: ¿por qué tan pocas personas conocen la maravilla que es Quillabamba? Nuestra provincia tiene selva, montañas, ríos cristalinos, una gastronomía única y una historia rica, pero muy poca presencia digital.",
+        "En 2022, un grupo de jóvenes quillabambinos decidió cambiar eso. Armados de cámaras, libretas y mucho amor por su tierra, comenzaron a documentar cada rincón de La Convención: sus sabores, sus paisajes, sus festividades y su gente.",
+        "Hoy somos cinco personas comprometidas con mostrarle al mundo que La Convención no es solo un destino más en el mapa, sino un lugar donde la naturaleza y la cultura se funden en una experiencia verdaderamente inolvidable."
+      ],
+      "valuesTitle": "Nuestros Valores",
+      "valuesSubtitle": "Los principios que guían cada decisión, cada publicación y cada experiencia que compartimos.",
+      "values": [
+        {
+          "icon": "Leaf",
+          "title": "Sostenibilidad",
+          "description": "Promovemos un turismo responsable que respeta y preserva el ecosistema único de la selva alta de La Convención."
+        },
+        {
+          "icon": "Users",
+          "title": "Comunidad",
+          "description": "Trabajamos junto a la comunidad local para que el desarrollo turístico beneficie directamente a las familias quillabambinas."
+        },
+        {
+          "icon": "Heart",
+          "title": "Pasión",
+          "description": "Cada artículo, fotografía y guía refleja el profundo amor que sentimos por nuestra tierra, cultura y tradiciones."
+        },
+        {
+          "icon": "MapPin",
+          "title": "Autenticidad",
+          "description": "Todo nuestro contenido es generado por locales, garantizando información real, verificada y de primera mano."
+        },
+        {
+          "icon": "Star",
+          "title": "Identidad Cultural",
+          "description": "Somos guardianes del patrimonio histórico, gastronómico y cultural de La Convención para las generaciones futuras."
+        },
+        {
+          "icon": "Lightbulb",
+          "title": "Innovación",
+          "description": "Usamos tecnología moderna para hacer que la experiencia de descubrir La Convención sea accesible y enriquecedora."
+        }
+      ],
+      "teamTitle": "Las personas detrás del portal",
+      "teamSubtitle": "Cinco quillabambinos con distintas habilidades y un solo objetivo: poner a La Convención en el mapa.",
+      "ctaTitle": "¿Quieres ser parte del equipo?",
+      "ctaDescription": "Si amas La Convención y tienes algo que aportar, ya sea redactando, fotografiando, guiando o difundiendo, siempre estamos buscando personas apasionadas por nuestra región.",
+      "ctaAction": "Contáctanos"
+    }
+  },
+  "notFound": {
+    "heading": "Página no encontrada",
+    "description": "Lo sentimos, la página que buscas no existe o fue movida a otra ubicación.",
+    "home": "Ir al inicio",
+    "back": "Volver atrás"
+  },
+  "errorPage": {
+    "title": "Algo salió mal",
+    "description": "Ha ocurrido un error inesperado. Por favor, intenta nuevamente.",
+    "retry": "Reintentar"
+  },
+  "seo": {
+    "privacy": {
+      "title": "Política de Privacidad",
+      "description": "Política de privacidad y protección de datos personales de Explorando La Convención."
+    },
+    "terms": {
+      "title": "Términos y Condiciones",
+      "description": "Términos y condiciones de uso del portal Explorando La Convención."
+    },
+    "login": {
+      "title": "Iniciar sesión",
+      "description": "Accede a tu cuenta para guardar destinos favoritos, crear rutas personalizadas y explorar La Convención al máximo."
+    },
+    "profile": {
+      "title": "Mi Perfil",
+      "description": "Gestiona tu perfil y configuración de cuenta en Explorando la Convención."
+    }
+  }
+}

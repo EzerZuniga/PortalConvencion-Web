@@ -24,15 +24,15 @@ import {
   ShieldCheck,
   Sparkles,
 } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/lib/i18n/navigation";
 import { motion } from "framer-motion";
-import { useLanguage } from "@/features/i18n";
+import { useMessages } from "next-intl";
 import WeatherWidget from "@/features/weather";
 import ExchangeWidget from "@/features/exchange";
 import QuoteWidget from "@/features/quotes";
 import type { ArticleCard } from "@/lib/content/types";
 import { InstitutionalCarousel, ScrollReveal } from "@/components/ui";
-import { ROUTES } from "@/config/routes";
+import { ROUTES, type RoutePath, routeHref } from "@/config/routes";
 const SECTION_CLASS = "py-14 sm:py-16 lg:py-20";
 const CONTAINER_CLASS = "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8";
 const CARD_SURFACE_CLASS =
@@ -56,7 +56,7 @@ const portalPillarIcons = [BookOpen, Leaf, ShieldCheck] as const;
 const locationCardIcons = [MapPin, Compass, CheckCircle] as const;
 
 type PortalLink = {
-  to: string;
+  to: RoutePath;
   title: string;
   description: string;
   Icon: LucideIcon;
@@ -66,7 +66,7 @@ type Highlight = {
   title: string;
   description: string;
   image: string;
-  to: string;
+  to: RoutePath;
   label: string;
   meta: string;
 };
@@ -159,7 +159,7 @@ function SectionHeader({
   );
 }
 
-function TextLinkButton({ to, children }: { to: string; children: ReactNode }) {
+function TextLinkButton({ to, children }: { to: RoutePath; children: ReactNode }) {
   return (
     <Link
       href={to}
@@ -172,7 +172,7 @@ function TextLinkButton({ to, children }: { to: string; children: ReactNode }) {
 }
 
 function PortalLinkCard({ to, title, description, Icon }: PortalLink) {
-  const { content } = useLanguage();
+  const content = useMessages();
 
   return (
     <article className={`relative h-full min-h-[16rem] overflow-hidden ${PORTAL_CARD_CLASS}`}>
@@ -209,7 +209,7 @@ function PlanningStepCard({
   description,
   Icon,
 }: PortalLink & { stepNumber: number }) {
-  const { content } = useLanguage();
+  const content = useMessages();
 
   return (
     <Link
@@ -258,7 +258,7 @@ function CarouselControls({
   onPrevious: () => void;
   onNext: () => void;
 }) {
-  const { content } = useLanguage();
+  const content = useMessages();
 
   return (
     <div className="flex items-center gap-3">
@@ -286,7 +286,7 @@ function CarouselControls({
 }
 
 function HighlightsCarousel({ highlights }: { highlights: Highlight[] }) {
-  const { content } = useLanguage();
+  const content = useMessages();
   const [activeIndex, setActiveIndex] = useState(0);
   const active = highlights[activeIndex];
 
@@ -484,7 +484,7 @@ function IdentityBand({
 }
 
 function PostsCarousel({ featuredPosts }: { featuredPosts: ArticleCard[] }) {
-  const { content } = useLanguage();
+  const content = useMessages();
   const categoryLabel = (id: string) =>
     content.pages.destinations.categories.find((c) => c.id === id)?.label ?? id;
   const [activeIndex, setActiveIndex] = useState(0);
@@ -613,7 +613,7 @@ function LocationInfoCard({ to, title, description, Icon }: PortalLink) {
 }
 
 function LocationCard({ locationCards }: { locationCards: PortalLink[] }) {
-  const { content } = useLanguage();
+  const content = useMessages();
 
   return (
     <div className="grid grid-cols-1 gap-8 sm:gap-10 lg:grid-cols-2">
@@ -647,19 +647,21 @@ interface HomeViewProps {
 }
 
 export function HomeView({ featuredDestinations }: HomeViewProps) {
-  const { content } = useLanguage();
+  const content = useMessages();
   const home = content.pages.home;
   const portalLinks = home.portalLinks.map((item, index) => ({
     ...item,
+    to: routeHref(item.route),
     Icon: portalLinkIcons[index] ?? MapPin,
   }));
-  const highlights = home.highlights;
+  const highlights = home.highlights.map((item) => ({ ...item, to: routeHref(item.route) }));
   const stats = home.stats.map((item, index) => ({
     ...item,
     Icon: statIcons[index] ?? MapPin,
   }));
   const planningSteps = home.planningSteps.map((item, index) => ({
     ...item,
+    to: routeHref(item.route),
     Icon: planningStepIcons[index] ?? CheckCircle,
   }));
   const portalPillars = home.portalPillars.map((item, index) => ({
@@ -668,6 +670,7 @@ export function HomeView({ featuredDestinations }: HomeViewProps) {
   }));
   const locationCards = home.locationCards.map((item, index) => ({
     ...item,
+    to: routeHref(item.route),
     Icon: locationCardIcons[index] ?? MapPin,
   }));
 

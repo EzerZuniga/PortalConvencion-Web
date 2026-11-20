@@ -24,9 +24,25 @@ export function forLocale<T extends { locale: Locale }>(docs: readonly T[], loca
 }
 
 /**
+ * Artículos de un idioma completados, por `id`, con los del idioma por defecto
+ * que aún no tienen traducción. Para LISTADOS: así /en/destinations no queda
+ * vacío. Cada documento conserva su `locale`, de modo que su enlace apunta a
+ * la página que sí existe (la página de detalle no se genera sin traducción).
+ */
+export function forLocaleWithArticleFallback<T extends { id: string; locale: Locale }>(
+  docs: readonly T[],
+  locale: Locale,
+): T[] {
+  const localized = forLocale(docs, locale);
+  if (locale === DEFAULT_LOCALE) return localized;
+  const translatedIds = new Set(localized.map((doc) => doc.id));
+  const fallback = forLocale(docs, DEFAULT_LOCALE).filter((doc) => !translatedIds.has(doc.id));
+  return [...localized, ...fallback];
+}
+
+/**
  * Para listas sin página propia (platos, galería…): si el idioma aún no tiene
  * traducción se usa el idioma por defecto en lugar de mostrar una lista vacía.
- * Los artículos NO usan respaldo: sin traducción no hay página (ADR 0002).
  */
 export function forLocaleWithFallback<T extends { locale: Locale }>(
   docs: readonly T[],

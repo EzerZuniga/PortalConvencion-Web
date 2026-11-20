@@ -3,10 +3,10 @@
 import { type FormEvent, useState } from "react";
 import { MailPlus, Send } from "lucide-react";
 import { EMAIL_REGEX } from "@/lib/validation";
-import { useLanguage } from "@/features/i18n";
+import { useMessages } from "next-intl";
 
 export default function NewsletterSignup() {
-  const { content } = useLanguage();
+  const content = useMessages();
   const page = content.pages.blog;
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<{

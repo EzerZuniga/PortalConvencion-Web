@@ -44,6 +44,19 @@ export default defineConfig([
       "no-restricted-imports": [
         "error",
         {
+          // Navegación siempre con idioma: `@/lib/i18n/navigation` traduce la
+          // ruta interna (/destinations) a la URL del idioma (/es/destinos).
+          paths: [
+            {
+              name: "next/link",
+              message: "Usa `Link` de '@/lib/i18n/navigation' (añade el idioma a la URL).",
+            },
+            {
+              name: "next/navigation",
+              importNames: ["useRouter", "usePathname", "redirect", "permanentRedirect"],
+              message: "Usa la versión de '@/lib/i18n/navigation' (consciente del idioma).",
+            },
+          ],
           patterns: [
             {
               group: ["../*"],
@@ -63,6 +76,12 @@ export default defineConfig([
     name: "project/auth-boundary",
     files: ["src/lib/auth/**", "src/types/next-auth.d.ts"],
     rules: { "no-restricted-imports": "off" },
+  },
+
+  {
+    name: "project/scripts",
+    files: ["scripts/**"],
+    rules: { "no-console": "off" },
   },
 
   {

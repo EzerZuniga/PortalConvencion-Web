@@ -19,13 +19,19 @@ describe("safeJsonLd", () => {
 
 describe("createPageJsonLd", () => {
   it("no genera datos estructurados para páginas no indexables", () => {
-    expect(createPageJsonLd("profile")).toBeNull();
-    expect(createPageJsonLd("login")).toBeNull();
+    expect(createPageJsonLd("profile", "es")).toBeNull();
+    expect(createPageJsonLd("login", "es")).toBeNull();
   });
 
   it("genera el tipo schema.org correcto por página", () => {
-    expect(createPageJsonLd("blog")?.["@type"]).toBe("Blog");
-    expect(createPageJsonLd("contact")?.["@type"]).toBe("ContactPage");
-    expect(createPageJsonLd("gallery")?.["@type"]).toBe("ImageGallery");
+    expect(createPageJsonLd("blog", "es")?.["@type"]).toBe("Blog");
+    expect(createPageJsonLd("contact", "es")?.["@type"]).toBe("ContactPage");
+    expect(createPageJsonLd("gallery", "es")?.["@type"]).toBe("ImageGallery");
+  });
+
+  it("declara el idioma y la URL traducida de la página", () => {
+    const jsonLd = createPageJsonLd("contact", "en");
+    expect(jsonLd?.inLanguage).toBe("en-US");
+    expect(String(jsonLd?.url).endsWith("/en/contact")).toBe(true);
   });
 });

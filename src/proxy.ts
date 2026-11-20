@@ -1,18 +1,45 @@
 /**
  * Proxy (antes "middleware") — Next.js 16.
  *
- * Responsabilidad actual: comprobación optimista de sesión en rutas privadas.
- * El callback `authorized` de `src/lib/auth/config.ts` redirige a /login si no
- * hay sesión.
+ * 1. Rutas privadas sin sesión → redirige al login del mismo idioma.
+ *    Es una comprobación optimista: la autorización real se repite junto a los
+ *    datos (página, Server Action o capa de datos).
+ * 2. Todo lo demás → enrutado por idioma de next-intl (detección del idioma en
+ *    la primera visita, prefijo `/es`, URLs traducidas).
  *
- * IMPORTANTE: esto es solo una primera barrera. La autorización real debe
- * hacerse también junto a los datos (página, Server Action o capa de datos),
- * porque el proxy no es un mecanismo de seguridad completo.
+ * La sesión se consulta SOLO en rutas privadas, y next-intl recibe siempre la
+ * petición original: el envoltorio `auth()` reescribe el origen de la URL con
+ * `AUTH_URL`, y las reescrituras de next-intl (`/es/destinos` → `/es/destinations`)
+ * acabarían apuntando a otro host.
  */
-export { auth as proxy } from "@/lib/auth/config";
+import { type NextFetchEvent, type NextRequest, NextResponse } from "next/server";
+import createIntlMiddleware from "next-intl/middleware";
+import { ROUTES } from "@/config/routes";
+import { checkSession } from "@/lib/auth/session-check";
+import { getPathname } from "@/lib/i18n/navigation";
+import { isProtectedPathname, localeFromPathname } from "@/lib/i18n/paths";
+import { routing } from "@/lib/i18n/routing";
+
+const intlMiddleware = createIntlMiddleware(routing);
+
+function redirectToLogin(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+  const locale = localeFromPathname(pathname);
+  const loginUrl = new URL(getPathname({ locale, href: ROUTES.login }), request.url);
+  loginUrl.searchParams.set("callbackUrl", pathname);
+  return NextResponse.redirect(loginUrl);
+}
+
+export async function proxy(request: NextRequest, event: NextFetchEvent) {
+  if (isProtectedPathname(request.nextUrl.pathname)) {
+    const response = await checkSession(request, event);
+    if (response?.status === 401) return redirectToLogin(request);
+  }
+
+  return intlMiddleware(request);
+}
 
 export const config = {
-  // Debe ser un literal estático (Next lo analiza en build).
-  // Se mantiene sincronizado con PROTECTED_ROUTES mediante un test unitario.
-  matcher: ["/profile/:path*"],
+  // Todo excepto API, internos de Next/Vercel, assets procesados y archivos con extensión.
+  matcher: ["/((?!api|_next|_vercel|static|.*[.].*).*)"],
 };

@@ -18,5 +18,8 @@ export default defineConfig({
     include: ["src/**/*.test.{ts,tsx}"],
     clearMocks: true,
     env: { SKIP_ENV_VALIDATION: "1" },
+    // next-intl importa `next/navigation` sin extensión, algo que Node (ESM) no
+    // resuelve por sí solo; procesarlo con Vite lo soluciona.
+    server: { deps: { inline: ["next-intl"] } },
   },
 });

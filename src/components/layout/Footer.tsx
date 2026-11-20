@@ -1,13 +1,13 @@
-"use client";
-
 import { Facebook, Instagram, Youtube, Github } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/lib/i18n/navigation";
 import { SITE_CONFIG } from "@/config/site";
-import { useLanguage } from "@/features/i18n";
+import { getMessages } from "next-intl/server";
+import { routeHref } from "@/config/routes";
 
-export default function Footer() {
-  const { content } = useLanguage();
+/** Pie de página (Server Component: no envía JS al navegador). */
+export default async function Footer() {
+  const content = await getMessages();
   const { footer } = content;
 
   return (
@@ -40,9 +40,9 @@ export default function Footer() {
           </h3>
           <ul className="flex flex-col gap-2.5 text-sm">
             {content.navigation.footerMain.map((item) => (
-              <li key={item.href}>
+              <li key={item.route}>
                 <Link
-                  href={item.href}
+                  href={routeHref(item.route)}
                   className="group flex items-center gap-3 py-1 text-sm font-medium text-white/80 transition-colors hover:text-brand-primary sm:text-[15px]"
                 >
                   <span className="text-brand-primary transition-transform duration-300 group-hover:translate-x-1">
@@ -64,7 +64,7 @@ export default function Footer() {
             {content.navigation.footerInfo.map((item) => (
               <li key={item.name}>
                 <Link
-                  href={item.href}
+                  href={routeHref(item.route)}
                   className="group flex items-center gap-3 py-1 text-sm font-medium text-white/80 transition-colors hover:text-brand-primary sm:text-[15px]"
                 >
                   <span className="text-brand-primary transition-transform duration-300 group-hover:translate-x-1">

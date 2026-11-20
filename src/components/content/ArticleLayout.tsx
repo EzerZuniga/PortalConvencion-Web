@@ -1,8 +1,8 @@
 import { ArrowLeft, ArrowRight, CalendarDays, ChevronRight, Clock, Home, User } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 import type { ReactNode } from "react";
-import { ROUTES } from "@/config/routes";
+import { ROUTES, type RoutePath } from "@/config/routes";
+import { Link } from "@/lib/i18n/navigation";
 import type { ArticleCard, ArticleHeader } from "@/lib/content/types";
 
 export interface ArticleLayoutLabels {
@@ -20,12 +20,13 @@ export interface ArticleLayoutLabels {
 interface ArticleLayoutProps {
   header: ArticleHeader;
   related: ArticleCard[];
-  sectionHref: string;
+  /** Ruta interna de la sección (se localiza automáticamente). */
+  sectionHref: RoutePath;
   labels: ArticleLayoutLabels;
   /** Fecha ya formateada en el idioma del lector. */
   formattedDate: string;
-  /** Etiqueta traducida de la categoría de cada artículo relacionado. */
-  relatedCategoryLabel: (category: string) => string;
+  /** Etiqueta traducida de la categoría de cada relacionado, por `id`. */
+  relatedCategoryLabels: Record<string, string>;
   children: ReactNode;
 }
 
@@ -39,7 +40,7 @@ export function ArticleLayout({
   sectionHref,
   labels,
   formattedDate,
-  relatedCategoryLabel,
+  relatedCategoryLabels,
   children,
 }: ArticleLayoutProps) {
   return (
@@ -141,6 +142,7 @@ export function ArticleLayout({
                 <li key={item.id}>
                   <Link
                     href={item.href}
+                    locale={item.locale}
                     className="wp-card group flex h-full flex-col overflow-hidden"
                   >
                     <div className="relative h-44 overflow-hidden">
@@ -154,7 +156,7 @@ export function ArticleLayout({
                     </div>
                     <div className="flex flex-1 flex-col gap-2 p-5">
                       <span className="text-xs font-bold uppercase tracking-wide text-brand-primary">
-                        {relatedCategoryLabel(item.category)}
+                        {relatedCategoryLabels[item.id]}
                       </span>
                       <h3 className="line-clamp-2 font-heading text-lg font-bold text-brand-text">
                         {item.title}

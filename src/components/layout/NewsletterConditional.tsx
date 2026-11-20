@@ -1,13 +1,17 @@
 "use client";
 
-import { usePathname } from "next/navigation";
+import { ROUTES } from "@/config/routes";
+import { usePathname } from "@/lib/i18n/navigation";
 import NewsletterSignup from "./NewsletterSignup";
 
-/**
- * Rutas donde el newsletter es relevante para la audiencia.
- * Set para lookup O(1).
- */
-const NEWSLETTER_ROUTES = new Set(["/", "/destinations", "/blog", "/tips", "/gastronomia"]);
+/** Rutas internas donde el newsletter es relevante (válidas en todos los idiomas). */
+const NEWSLETTER_ROUTES = new Set<string>([
+  ROUTES.home,
+  ROUTES.destinations,
+  ROUTES.blog,
+  ROUTES.tips,
+  ROUTES.gastronomy,
+]);
 
 export default function NewsletterConditional() {
   const pathname = usePathname();

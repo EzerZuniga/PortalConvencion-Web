@@ -5,7 +5,7 @@ import { Mail, MapPin, Globe } from "lucide-react";
 import { SITE_CONFIG } from "@/config/site";
 import { EMAIL_REGEX } from "@/lib/validation";
 import { SectionHeader } from "@/components/ui";
-import { useLanguage } from "@/features/i18n";
+import { useMessages } from "next-intl";
 
 type ContactFormData = {
   name: string;
@@ -54,7 +54,7 @@ const validateForm = (
 };
 
 export const ContactView: React.FC = () => {
-  const { content } = useLanguage();
+  const content = useMessages();
   const page = content.pages.contact;
   const [formData, setFormData] = useState<ContactFormData>(INITIAL_FORM);
   const [errors, setErrors] = useState<ContactFormErrors>({});

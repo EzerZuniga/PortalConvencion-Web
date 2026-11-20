@@ -2,7 +2,7 @@ import { posts } from "#content";
 import { describe, expect, it } from "vitest";
 import { ROUTES } from "@/config/routes";
 import { getPost, getPostCards, getPostSlugs, getRelatedPostCards } from "@/features/blog/queries";
-import { translations } from "@/features/i18n/translations";
+import es from "#messages/es.json";
 
 describe("blog", () => {
   const cards = getPostCards();
@@ -10,12 +10,15 @@ describe("blog", () => {
   it("cada tarjeta enlaza a su página de detalle", () => {
     expect(cards.length).toBeGreaterThan(0);
     for (const card of cards) {
-      expect(card.href).toMatch(new RegExp(`^${ROUTES.blog}/[a-z0-9-]+$`));
+      expect(card.href).toEqual({
+        pathname: `${ROUTES.blog}/[slug]`,
+        params: { slug: expect.stringMatching(/^[a-z0-9-]+$/) },
+      });
     }
   });
 
   it("toda categoría del contenido tiene etiqueta en la interfaz", () => {
-    const uiCategories = translations.es.pages.blog.categories.map((c) => c.id);
+    const uiCategories = es.pages.blog.categories.map((c) => c.id);
     for (const doc of posts) {
       expect(uiCategories).toContain(doc.category);
     }

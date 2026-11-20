@@ -1,3 +1,6 @@
+import type { Locale } from "@/config/i18n";
+import type { DetailHref } from "@/config/routes";
+
 /**
  * Modelos de vista del contenido.
  *
@@ -8,7 +11,10 @@
 /** Tarjeta de artículo (destinos, blog, destacados de la home). */
 export interface ArticleCard {
   id: string;
-  href: string;
+  /** Enlace tipado a la página de detalle (se localiza con `<Link locale>`). */
+  href: DetailHref;
+  /** Idioma del documento: puede ser el idioma por defecto si falta traducción. */
+  locale: Locale;
   title: string;
   excerpt: string;
   /** Clave de categoría (no la etiqueta traducida). */

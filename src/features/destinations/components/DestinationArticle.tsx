@@ -1,25 +1,19 @@
-"use client";
-
+import { getFormatter, getMessages } from "next-intl/server";
 import type { ReactNode } from "react";
 import { ArticleLayout } from "@/components/content/ArticleLayout";
 import { ROUTES } from "@/config/routes";
-import { useLanguage } from "@/features/i18n";
 import type { ArticleCard, ArticleHeader } from "@/lib/content/types";
-import { formatDate } from "@/lib/utils";
 
 interface DestinationArticleProps {
   header: ArticleHeader;
   related: ArticleCard[];
-  /** Cuerpo MDX ya renderizado en el servidor. */
+  /** Cuerpo MDX ya renderizado. */
   children: ReactNode;
 }
 
-/**
- * Página de detalle de un destino. Resuelve los textos de interfaz en el idioma
- * activo; el contenido (cuerpo MDX) llega renderizado desde el servidor.
- */
-export function DestinationArticle({ header, related, children }: DestinationArticleProps) {
-  const { content, locale } = useLanguage();
+/** Página de detalle de un destino (Server Component: no envía JS al navegador). */
+export async function DestinationArticle({ header, related, children }: DestinationArticleProps) {
+  const [content, format] = await Promise.all([getMessages(), getFormatter()]);
   const page = content.pages.destinations;
   const categoryLabel = (id: string) => page.categories.find((c) => c.id === id)?.label ?? id;
 
@@ -28,10 +22,12 @@ export function DestinationArticle({ header, related, children }: DestinationArt
       header={header}
       related={related}
       sectionHref={ROUTES.destinations}
-      formattedDate={formatDate(header.date, locale)}
-      relatedCategoryLabel={categoryLabel}
+      formattedDate={format.dateTime(new Date(header.date), { dateStyle: "long", timeZone: "UTC" })}
+      relatedCategoryLabels={Object.fromEntries(
+        related.map((r) => [r.id, categoryLabel(r.category)]),
+      )}
       labels={{
-        home: content.navigation.main[0]?.name ?? "Inicio",
+        home: content.navigation.main[0]?.name ?? "",
         section: page.title,
         category: categoryLabel(header.category),
         writtenBy: content.common.writtenBy,

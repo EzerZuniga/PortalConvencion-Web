@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/lib/i18n/navigation";
 import {
   Home,
   ChevronRight,
@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { ScrollReveal } from "@/components/ui";
-import { useLanguage } from "@/features/i18n";
+import { useMessages } from "next-intl";
 import type { DishCard, RestaurantCard } from "@/features/gastronomy/queries";
 
 const GASTRO_STAT_DELAYS = [
@@ -37,7 +37,7 @@ interface GastronomyViewProps {
 }
 
 export const GastronomyView: React.FC<GastronomyViewProps> = ({ dishes, restaurants }) => {
-  const { content } = useLanguage();
+  const content = useMessages();
   const page = content.pages.gastronomy;
 
   return (

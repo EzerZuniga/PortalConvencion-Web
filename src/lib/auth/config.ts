@@ -32,6 +32,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   ],
 
   secret: env.AUTH_SECRET,
+  // Confía en la cabecera Host (Vercel lo hace por defecto). Necesario fuera de
+  // Vercel cuando el puerto o dominio no coincide con AUTH_URL.
+  trustHost: true,
 
   // ── Sesión JWT — sin base de datos ──────────────────────────────────────────
   session: { strategy: "jwt" },
@@ -44,12 +47,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
   // ── Callbacks ────────────────────────────────────────────────────────────────
   callbacks: {
-    // Controla el acceso a rutas en el matcher del middleware.
-    // `true` → permite. `false` → redirige a pages.signIn con callbackUrl.
-    authorized({ auth: session }) {
-      return !!session?.user;
-    },
-
     // Persiste el proveedor OAuth en el JWT al momento del login inicial.
     jwt({ token, account }) {
       if (account?.provider) {

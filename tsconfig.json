@@ -20,7 +20,8 @@
     "forceConsistentCasingInFileNames": true,
     "paths": {
       "@/*": ["./src/*"],
-      "#content": ["./.velite"]
+      "#content": ["./.velite"],
+      "#messages/*": ["./messages/*"]
     },
     "plugins": [
       {

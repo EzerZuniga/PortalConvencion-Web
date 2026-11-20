@@ -11,8 +11,6 @@ export const SITE_CONFIG = {
   description:
     "Descubre los mejores destinos turísticos, consejos de viaje, gastronomía peruana y guías completas. Blog de aventuras y experiencias únicas en Perú.",
   author: "Ezer B. Zuniga Chura",
-  locale: "es_PE",
-  language: "es-PE",
   ogImage: "/images/hero/hero-main.jpg",
   logo: { src: "/images/brand/logo.png", width: 1486, height: 515 },
   themeColor: "#25D366",

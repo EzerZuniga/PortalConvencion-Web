@@ -1,87 +1,51 @@
-import { ROUTES, type RouteKey } from "@/config/routes";
-import { translations } from "@/features/i18n/translations";
+import "server-only";
+import type { Locale } from "@/config/i18n";
+import { NON_INDEXABLE_ROUTES, ROUTES, type RouteKey } from "@/config/routes";
+import { type Messages, messagesFor } from "@/lib/i18n/messages";
 
 export interface PageSeo {
   title: string;
   description: string;
   keywords?: string;
-  noIndex?: boolean;
+  noIndex: boolean;
 }
 
-const es = translations.es.pages;
+type SeoSource = Pick<PageSeo, "title" | "description" | "keywords">;
+
+function fromPage(page: { seoTitle: string; seoDescription: string; seoKeywords: string }) {
+  return { title: page.seoTitle, description: page.seoDescription, keywords: page.seoKeywords };
+}
 
 /**
- * SEO por página. `satisfies Record<RouteKey, …>` obliga a declarar el SEO de
- * cada ruta nueva: si falta una, TypeScript falla.
- *
- * TODO(fase-3): resolver por locale cuando las rutas sean `[locale]/…`.
+ * De dónde sale el SEO de cada ruta en los mensajes del idioma.
+ * `satisfies Record<RouteKey, …>` obliga a declararlo para cada ruta nueva.
  */
-export const PAGE_SEO = {
-  home: {
-    title: es.home.seo.title,
-    description: es.home.seo.description,
-    keywords: es.home.seo.keywords,
-  },
-  about: {
-    title: es.about.seoTitle,
-    description: es.about.seoDescription,
-    keywords: es.about.seoKeywords,
-  },
-  destinations: {
-    title: es.destinations.seoTitle,
-    description: es.destinations.seoDescription,
-    keywords: es.destinations.seoKeywords,
-  },
-  gastronomy: {
-    title: es.gastronomy.seoTitle,
-    description: es.gastronomy.seoDescription,
-    keywords: es.gastronomy.seoKeywords,
-  },
-  blog: {
-    title: es.blog.seoTitle,
-    description: es.blog.seoDescription,
-    keywords: es.blog.seoKeywords,
-  },
-  gallery: {
-    title: es.gallery.seoTitle,
-    description: es.gallery.seoDescription,
-    keywords: es.gallery.seoKeywords,
-  },
-  tips: {
-    title: es.tips.seoTitle,
-    description: es.tips.seoDescription,
-    keywords: es.tips.seoKeywords,
-  },
-  contact: {
-    title: es.contact.seoTitle,
-    description: es.contact.seoDescription,
-    keywords: es.contact.seoKeywords,
-  },
-  privacy: {
-    title: "Política de Privacidad",
-    description:
-      "Política de privacidad y protección de datos personales de Explorando La Convención.",
-  },
-  terms: {
-    title: "Términos y Condiciones",
-    description: "Términos y condiciones de uso del portal Explorando La Convención.",
-  },
-  login: {
-    title: "Iniciar sesión",
-    description:
-      "Accede a tu cuenta para guardar destinos favoritos, crear rutas personalizadas y explorar La Convención al máximo.",
-    noIndex: true,
-  },
-  profile: {
-    title: "Mi Perfil",
-    description: "Gestiona tu perfil y configuración de cuenta en Explorando la Convención.",
-    noIndex: true,
-  },
-} as const satisfies Record<RouteKey, PageSeo>;
+const SEO_SOURCE = {
+  home: ({ pages }) => pages.home.seo,
+  about: ({ pages }) => fromPage(pages.about),
+  destinations: ({ pages }) => fromPage(pages.destinations),
+  gastronomy: ({ pages }) => fromPage(pages.gastronomy),
+  blog: ({ pages }) => fromPage(pages.blog),
+  gallery: ({ pages }) => fromPage(pages.gallery),
+  tips: ({ pages }) => fromPage(pages.tips),
+  contact: ({ pages }) => fromPage(pages.contact),
+  privacy: ({ seo }) => seo.privacy,
+  terms: ({ seo }) => seo.terms,
+  login: ({ seo }) => seo.login,
+  profile: ({ seo }) => seo.profile,
+} satisfies Record<RouteKey, (messages: Messages) => SeoSource>;
 
-/** Nombre corto de una ruta (el del menú), para migas de pan. */
-export function routeLabel(route: RouteKey): string {
-  const { main, footerInfo } = translations.es.navigation;
-  const item = [...main, ...footerInfo].find((nav) => nav.href === ROUTES[route]);
-  return item?.name ?? PAGE_SEO[route].title;
+const NO_INDEX = new Set<string>(NON_INDEXABLE_ROUTES);
+
+/** Título, descripción y palabras clave de una ruta en un idioma. */
+export function pageSeo(route: RouteKey, locale: Locale): PageSeo {
+  const source: SeoSource = SEO_SOURCE[route](messagesFor(locale));
+  return { ...source, noIndex: NO_INDEX.has(ROUTES[route]) };
+}
+
+/** Nombre corto de una ruta (el del menú) en un idioma, para migas de pan. */
+export function routeLabel(route: RouteKey, locale: Locale): string {
+  const { main, footerInfo } = messagesFor(locale).navigation;
+  const item = [...main, ...footerInfo].find((nav) => nav.route === route);
+  return item?.name ?? pageSeo(route, locale).title;
 }

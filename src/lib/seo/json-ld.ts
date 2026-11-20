@@ -1,6 +1,9 @@
+import "server-only";
+import { LOCALE_META, type Locale } from "@/config/i18n";
 import { ROUTES, type RouteKey } from "@/config/routes";
 import { SITE_CONFIG } from "@/config/site";
-import { PAGE_SEO, type PageSeo } from "@/lib/seo/pages";
+import { localizedUrl } from "@/lib/seo/localized";
+import { type PageSeo, pageSeo } from "@/lib/seo/pages";
 import { absoluteUrl, getSiteUrl } from "@/lib/seo/url";
 
 export type JsonLdObject = Record<string, unknown>;
@@ -52,14 +55,14 @@ function organizationRef(): JsonLdObject {
 }
 
 /** JSON-LD global del sitio (WebSite). Se renderiza una vez en el layout raíz. */
-export function websiteJsonLd(): JsonLdObject {
+export function websiteJsonLd(locale: Locale): JsonLdObject {
   const siteUrl = getSiteUrl();
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: SITE_CONFIG.name,
     alternateName: "Blog de Viajes La Convención",
-    url: siteUrl,
+    url: localizedUrl(locale, ROUTES.home),
     description:
       "Blog especializado en turismo, viajes y gastronomía de La Convención, Cusco, Perú. Guías completas para explorar destinos únicos.",
     publisher: {
@@ -79,7 +82,7 @@ export function websiteJsonLd(): JsonLdObject {
       name: "La Convención",
       containedInPlace: { "@type": "AdministrativeArea", name: "Cusco, Perú" },
     },
-    inLanguage: SITE_CONFIG.language,
+    inLanguage: LOCALE_META[locale].bcp47,
     copyrightYear: 2024,
     genre: ["Travel", "Tourism", "Food"],
     audience: { "@type": "Audience", audienceType: "travelers" },
@@ -165,17 +168,17 @@ const PAGE_JSON_LD: Partial<Record<RouteKey, PageJsonLdBuilder>> = {
 };
 
 /** JSON-LD de página para la ruta indicada, o `null` si no aplica. */
-export function createPageJsonLd(route: RouteKey): JsonLdObject | null {
-  const seo: PageSeo = PAGE_SEO[route];
+export function createPageJsonLd(route: RouteKey, locale: Locale): JsonLdObject | null {
+  const seo = pageSeo(route, locale);
   const build = PAGE_JSON_LD[route];
   if (seo.noIndex || !build) return null;
 
   const base: JsonLdObject = {
     "@context": "https://schema.org",
-    url: absoluteUrl(ROUTES[route]),
+    url: localizedUrl(locale, ROUTES[route]),
     name: seo.title,
     description: seo.description,
-    inLanguage: SITE_CONFIG.language,
+    inLanguage: LOCALE_META[locale].bcp47,
     publisher: organizationRef(),
   };
 
@@ -187,9 +190,11 @@ export function createPageJsonLd(route: RouteKey): JsonLdObject | null {
 export interface ArticleJsonLdInput {
   /** `TouristAttraction` para lugares; `Article`/`BlogPosting` para textos. */
   type: "TouristAttraction" | "Article" | "BlogPosting";
+  locale: Locale;
   title: string;
   description: string;
-  path: string;
+  /** URL absoluta de la página. */
+  url: string;
   image: string;
   author: string;
   publishedAt: string;
@@ -198,8 +203,9 @@ export interface ArticleJsonLdInput {
 
 /** JSON-LD de un artículo o atracción turística. */
 export function articleJsonLd(input: ArticleJsonLdInput): JsonLdObject {
-  const url = absoluteUrl(input.path);
+  const { url } = input;
   const image = absoluteUrl(input.image);
+  const inLanguage = LOCALE_META[input.locale].bcp47;
 
   if (input.type === "TouristAttraction") {
     return {
@@ -209,7 +215,7 @@ export function articleJsonLd(input: ArticleJsonLdInput): JsonLdObject {
       description: input.description,
       url,
       image,
-      inLanguage: SITE_CONFIG.language,
+      inLanguage,
       containedInPlace: {
         "@type": "AdministrativeArea",
         name: PLACE_NAME,
@@ -229,12 +235,12 @@ export function articleJsonLd(input: ArticleJsonLdInput): JsonLdObject {
     dateModified: input.updatedAt ?? input.publishedAt,
     author: { "@type": "Person", name: input.author },
     publisher: organizationRef(),
-    inLanguage: SITE_CONFIG.language,
+    inLanguage,
   };
 }
 
 /** Migas de pan (`BreadcrumbList`) a partir de pares nombre/ruta. */
-export function breadcrumbJsonLd(items: readonly { name: string; path: string }[]): JsonLdObject {
+export function breadcrumbJsonLd(items: readonly { name: string; url: string }[]): JsonLdObject {
   return {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -242,7 +248,7 @@ export function breadcrumbJsonLd(items: readonly { name: string; path: string }[
       "@type": "ListItem",
       position: index + 1,
       name: item.name,
-      item: absoluteUrl(item.path),
+      item: item.url,
     })),
   };
 }

@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/lib/i18n/navigation";
 import {
   Home,
   ChevronRight,
@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { ScrollReveal } from "@/components/ui";
-import { useLanguage } from "@/features/i18n";
+import { useMessages } from "next-intl";
 import type { ArticleCard } from "@/lib/content/types";
 
 const BLOG_STAT_DELAYS = [
@@ -29,7 +29,7 @@ interface BlogViewProps {
 }
 
 export const BlogView: React.FC<BlogViewProps> = ({ posts }) => {
-  const { content } = useLanguage();
+  const content = useMessages();
   const page = content.pages.blog;
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
@@ -307,6 +307,7 @@ export const BlogView: React.FC<BlogViewProps> = ({ posts }) => {
 
                     <Link
                       href={post.href}
+                      locale={post.locale}
                       className="group/link inline-flex items-center gap-1.5 text-sm font-semibold text-brand-primary transition-colors duration-200 hover:text-brand-accent"
                       aria-label={`${content.common.readArticle}: ${post.title}`}
                     >

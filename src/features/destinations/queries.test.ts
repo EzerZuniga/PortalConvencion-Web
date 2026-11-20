@@ -8,7 +8,7 @@ import {
   getFeaturedDestinationCards,
   getRelatedDestinationCards,
 } from "@/features/destinations/queries";
-import { translations } from "@/features/i18n/translations";
+import es from "#messages/es.json";
 
 describe("destinos", () => {
   const cards = getDestinationCards();
@@ -19,7 +19,10 @@ describe("destinos", () => {
 
   it("cada tarjeta enlaza a su página de detalle", () => {
     for (const card of cards) {
-      expect(card.href).toMatch(new RegExp(`^${ROUTES.destinations}/[a-z0-9-]+$`));
+      expect(card.href).toEqual({
+        pathname: `${ROUTES.destinations}/[slug]`,
+        params: { slug: expect.stringMatching(/^[a-z0-9-]+$/) },
+      });
     }
   });
 
@@ -40,7 +43,7 @@ describe("destinos", () => {
   });
 
   it("toda categoría del contenido tiene etiqueta en la interfaz", () => {
-    const uiCategories = translations.es.pages.destinations.categories.map((c) => c.id);
+    const uiCategories = es.pages.destinations.categories.map((c) => c.id);
     for (const doc of destinations) {
       expect(uiCategories).toContain(doc.category);
     }
@@ -58,6 +61,18 @@ describe("destinos", () => {
       expect(card.id).not.toBe(doc.id);
       expect(card.category).toBe(doc.category);
     }
+  });
+
+  it("en otros idiomas, el listado completa con el español los destinos sin traducir", () => {
+    const english = getDestinationCards("en");
+    expect(english.map((c) => c.id).sort()).toEqual(cards.map((c) => c.id).sort());
+    // Sin traducción, la tarjeta enlaza a la página que sí existe (en español).
+    expect(english.every((c) => c.locale === "es")).toBe(true);
+  });
+
+  it("no genera páginas de detalle en idiomas sin traducción", () => {
+    expect(getDestinationSlugs("en")).toEqual([]);
+    expect(getDestination(getDestinationSlugs("es")[0]!, "en")).toBeUndefined();
   });
 
   it("no expone el cuerpo MDX en las tarjetas (no llega al cliente)", () => {
