@@ -1,6 +1,6 @@
 # ADR 0003 — i18n con rutas por idioma y URLs traducidas
 
-- **Estado:** Aceptado (implementación en Fase 3)
+- **Estado:** Aceptado — implementado en la Fase 3
 - **Fecha:** 2026-11-17
 
 ## Contexto
@@ -26,3 +26,12 @@ internacional y es/en/pt deben posicionar.
 
 - **Mantener i18n en cliente:** incompatible con SEO por idioma.
 - **Subdominios por idioma:** requieren dominio propio.
+
+## Notas de implementación (Fase 3)
+
+- Rutas internas en inglés (carpetas) y URLs públicas traducidas (`PATHNAMES`).
+- `localePrefix: "always"`; las URLs antiguas sin idioma redirigen con 308.
+- `hreflang` generado por cada página (no por el proxy) para anunciar solo las
+  versiones que existen.
+- Idiomas incompletos: visibles con `noindex` hasta completar su traducción
+  (`LOCALE_META.indexable`), en lugar de bloquear su publicación.

@@ -27,17 +27,18 @@ La Convención (Cusco, Perú), dirigido a una audiencia internacional.
 
 ## Stack
 
-| Capa          | Tecnología                                 |
-| ------------- | ------------------------------------------ |
-| Framework     | Next.js 16 (App Router, Proxy)             |
-| UI            | React 19, Tailwind CSS 3, Framer Motion    |
-| Lenguaje      | TypeScript 5 (`strict`)                    |
-| Autenticación | Auth.js v5 (Google) — se migrará en Fase 4 |
-| Contenido     | Velite (MDX + YAML con esquemas tipados)   |
-| Validación    | zod (variables de entorno)                 |
-| Calidad       | ESLint 9, Prettier, Knip, Vitest           |
-| Flujo de git  | Husky, lint-staged, commitlint             |
-| CI / Hosting  | GitHub Actions, Vercel (plan Hobby)        |
+| Capa          | Tecnología                                  |
+| ------------- | ------------------------------------------- |
+| Framework     | Next.js 16 (App Router, Proxy)              |
+| UI            | React 19, Tailwind CSS 3, Framer Motion     |
+| Lenguaje      | TypeScript 5 (`strict`)                     |
+| Autenticación | Auth.js v5 (Google) — se migrará en Fase 4  |
+| Contenido     | Velite (MDX + YAML con esquemas tipados)    |
+| Idiomas       | next-intl (es, en, pt, fr; URLs traducidas) |
+| Validación    | zod (variables de entorno)                  |
+| Calidad       | ESLint 9, Prettier, Knip, Vitest            |
+| Flujo de git  | Husky, lint-staged, commitlint              |
+| CI / Hosting  | GitHub Actions, Vercel (plan Hobby)         |
 
 ## Requisitos
 
@@ -60,46 +61,52 @@ Para saltarte la validación puntualmente: `SKIP_ENV_VALIDATION=1`.
 
 ## Scripts
 
-| Script              | Descripción                                               |
-| ------------------- | --------------------------------------------------------- |
-| `npm run dev`       | Servidor de desarrollo (compila el contenido en watch).   |
-| `npm run content`   | Compila `content/` → `.velite/` (lo hacen dev y build).   |
-| `npm run build`     | Build de producción.                                      |
-| `npm run start`     | Sirve el build de producción.                             |
-| `npm run lint`      | ESLint (`lint:fix` para corregir).                        |
-| `npm run format`    | Formatea con Prettier (`format:check` solo verifica).     |
-| `npm run typecheck` | Comprobación de tipos con `tsc`.                          |
-| `npm run knip`      | Detecta archivos, exports y dependencias sin uso.         |
-| `npm run test`      | Tests unitarios con Vitest (`test:watch` en modo watch).  |
-| `npm run check`     | Todo lo anterior salvo el build: lo mismo que ejecuta CI. |
+| Script               | Descripción                                               |
+| -------------------- | --------------------------------------------------------- |
+| `npm run dev`        | Servidor de desarrollo (compila el contenido en watch).   |
+| `npm run content`    | Compila `content/` → `.velite/` (lo hacen dev y build).   |
+| `npm run i18n:check` | Lista los textos de interfaz sin traducir por idioma.     |
+| `npm run build`      | Build de producción.                                      |
+| `npm run start`      | Sirve el build de producción.                             |
+| `npm run lint`       | ESLint (`lint:fix` para corregir).                        |
+| `npm run format`     | Formatea con Prettier (`format:check` solo verifica).     |
+| `npm run typecheck`  | Comprobación de tipos con `tsc`.                          |
+| `npm run knip`       | Detecta archivos, exports y dependencias sin uso.         |
+| `npm run test`       | Tests unitarios con Vitest (`test:watch` en modo watch).  |
+| `npm run check`      | Todo lo anterior salvo el build: lo mismo que ejecuta CI. |
 
 ## Estructura del proyecto
 
 ```
 content/                 # Contenido editorial (MDX + YAML) — ver docs/CONTENT.md
+messages/                # Textos de interfaz por idioma (es, en, pt, fr)
+scripts/                 # Utilidades de desarrollo (i18n-check)
 src/
 ├── app/                 # Rutas (App Router). Solo composición: sin lógica.
-│   ├── (public)/        # Páginas públicas (incluye destinations/[slug], blog/[slug])
-│   ├── (auth)/          # Login
+│   ├── [locale]/        # Todo el sitio, por idioma (es/en/pt/fr)
+│   │   ├── (public)/    # Páginas públicas (incluye destinations/[slug], blog/[slug])
+│   │   ├── (auth)/      # Login
+│   │   └── layout.tsx   # <html lang>, proveedores, metadata del idioma
 │   ├── api/             # Route Handlers
-│   ├── sitemap.ts, robots.ts
-│   └── layout.tsx, providers.tsx, error.tsx, not-found.tsx
+│   └── sitemap.ts, robots.ts
 ├── components/          # Componentes compartidos sin conocimiento de dominio
 │   ├── content/         # <MdxContent />, <ArticleLayout />
 │   ├── feedback/        # Estados de error / no encontrado
+│   ├── i18n/            # Selector de idioma
 │   ├── layout/          # Navbar, Footer, newsletter
 │   ├── seo/             # <JsonLd />
 │   └── ui/              # Primitivas reutilizables
 ├── config/              # Valores declarativos: env, idiomas, sitio, rutas
 ├── features/            # Un módulo por dominio: components/ + queries.ts
 │   ├── destinations/    # (también blog, gastronomy, gallery, tips, about,
-│   └── …                #  home, contact, legal, auth, i18n, widgets)
+│   └── …                #  home, contact, legal, auth, widgets)
 ├── hooks/               # Hooks genéricos
 ├── lib/                 # Lógica de infraestructura
 │   ├── auth/            # Única frontera con la librería de auth
 │   ├── content/         # Utilidades y modelos de vista del contenido
 │   ├── http/            # Cliente HTTP y servicios externos
-│   ├── seo/             # Metadata, JSON-LD, URLs canónicas
+│   ├── i18n/            # Enrutado por idioma, navegación, mensajes
+│   ├── seo/             # Metadata, hreflang, JSON-LD, URLs canónicas
 │   └── utils.ts
 ├── styles/
 ├── types/

@@ -53,7 +53,7 @@ content/
 3. (Opcional) Copia la foto como `cover.jpg` en la misma carpeta. Se optimiza
    sola (tamaño, formato moderno y placeholder borroso). Sin foto se usa una
    imagen genérica del sitio.
-4. `npm run dev` y abre `http://localhost:3000/destinations/mi-destino`.
+4. `npm run dev` y abre `http://localhost:3000/es/destinos/mi-destino`.
 5. Commit y push: Vercel publica automáticamente.
 
 Un post del blog es igual, en `content/blog/<id>/es.mdx`, con las categorías
@@ -71,9 +71,26 @@ actualización (sitemap y datos estructurados).
 
 ## Traducir un artículo
 
-Copia `es.mdx` como `en.mdx` en la misma carpeta y traduce. El `slug` puede ser
-distinto por idioma (`slug: "seven-jars"`). Las rutas por idioma llegan en la
-Fase 3 del [roadmap](ROADMAP.md).
+Copia `es.mdx` como `en.mdx` (o `pt.mdx`, `fr.mdx`) en la misma carpeta y
+traduce. El `slug` puede ser distinto por idioma (`slug: "seven-jars"`).
+
+Al publicarlo, automáticamente:
+
+- se genera `/en/destinations/seven-jars`;
+- las versiones se enlazan entre sí con `hreflang` (Google muestra a cada
+  visitante la de su idioma);
+- el selector de idioma lleva de una versión a la otra;
+- el listado en inglés deja de mostrar la versión española.
+
+Mientras no exista la traducción, el listado en inglés muestra el artículo en
+español y enlaza a su URL española.
+
+## Traducir los textos de la interfaz
+
+Los menús, botones y textos de las páginas están en `messages/<idioma>.json`.
+`npm run i18n:check` lista los que siguen sin traducir. Cuando un idioma esté
+completo, cambia `indexable: true` en `src/config/i18n.ts` para que Google lo
+indexe.
 
 ## Validaciones automáticas
 

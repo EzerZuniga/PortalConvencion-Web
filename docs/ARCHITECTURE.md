@@ -31,8 +31,8 @@ config/ ──►  (nada del proyecto)
 - `app/` solo compone: lee parámetros, pide datos a las `queries` de cada
   dominio y renderiza la vista. Si una página necesita datos de dos dominios
   (la home muestra destinos), los combina `app/`, nunca una feature a otra.
-- Excepción temporal: `features/i18n` y `features/auth` son transversales y
-  cualquier feature puede usarlos. Pasarán a `lib/` en las Fases 3 y 4.
+- Excepción temporal: `features/auth` es transversal y cualquier feature puede
+  usarlo. Pasará a `lib/` en la Fase 4.
 - `config/` es declarativo y no importa nada del resto del proyecto.
 - `lib/auth` es el **único** lugar que importa `next-auth` (regla de ESLint).
 
@@ -64,24 +64,47 @@ Guía para editores: [`CONTENT.md`](CONTENT.md).
 
 ## Convenciones
 
-| Elemento             | Convención                                                       |
-| -------------------- | ---------------------------------------------------------------- |
-| Imports              | Siempre con alias `@/…`; prohibido `../` (regla de ESLint)       |
-| Componentes          | `PascalCase.tsx`                                                 |
-| Hooks                | `useAlgo.ts`                                                     |
-| Módulos/utilidades   | `kebab-case.ts`                                                  |
-| Tests                | `archivo.test.ts`, junto al módulo que prueban                   |
-| Barrels (`index.ts`) | Solo a nivel de carpeta pequeña; nunca barrels raíz agregadores  |
-| Rutas internas       | `ROUTES.clave`, nunca strings literales                          |
-| Variables de entorno | `env.X` desde `@/config/env` (salvo `process.env.NODE_ENV`)      |
-| Código de servidor   | `import "server-only"` en módulos que no deben llegar al cliente |
+| Elemento             | Convención                                                        |
+| -------------------- | ----------------------------------------------------------------- |
+| Imports              | Siempre con alias `@/…`; prohibido `../` (regla de ESLint)        |
+| Componentes          | `PascalCase.tsx`                                                  |
+| Hooks                | `useAlgo.ts`                                                      |
+| Módulos/utilidades   | `kebab-case.ts`                                                   |
+| Tests                | `archivo.test.ts`, junto al módulo que prueban                    |
+| Barrels (`index.ts`) | Solo a nivel de carpeta pequeña; nunca barrels raíz agregadores   |
+| Rutas internas       | `ROUTES.clave`, nunca strings literales                           |
+| Enlaces y navegación | `Link`/`useRouter`/`redirect` de `@/lib/i18n/navigation` (ESLint) |
+| Textos de interfaz   | `messages/<idioma>.json`; `useMessages()` / `getMessages()`       |
+| Variables de entorno | `env.X` desde `@/config/env` (salvo `process.env.NODE_ENV`)       |
+| Código de servidor   | `import "server-only"` en módulos que no deben llegar al cliente  |
+
+## Idiomas
+
+```
+/                    → proxy detecta el idioma (Accept-Language / cookie) → /es
+/es/destinos         → next-intl reescribe a la ruta interna /[locale]/destinations
+/destinations        → redirección 308 (URL antigua) → /es/destinos
+```
+
+- **Rutas internas** (`ROUTES`, nombres de carpeta) en inglés; **URLs públicas**
+  traducidas por idioma en `PATHNAMES` (`src/config/routes.ts`).
+- **Textos de interfaz**: `messages/<idioma>.json`, misma estructura en todos
+  (un test lo verifica). Las rutas dentro de los mensajes son claves (`"route": "tips"`).
+- **Contenido**: un archivo por idioma (`content/…/<idioma>.mdx`). Sin
+  traducción no hay página de detalle; los listados muestran la versión en español.
+- **SEO**: cada página declara `hreflang` solo hacia las versiones que existen.
+  Un idioma con `indexable: false` (`src/config/i18n.ts`) se publica con
+  `noindex` y queda fuera del sitemap hasta completar su traducción.
+- **Renderizado estático**: cada página y layout llama a `resolveLocale(params)`
+  (`@/lib/i18n/server`); sin ello next-intl leería cabeceras y la página sería dinámica.
 
 ## Añadir una página nueva
 
-1. Declara la ruta en `ROUTES` (`src/config/routes.ts`).
+1. Declara la ruta en `ROUTES` y su URL por idioma en `PATHNAMES` (`src/config/routes.ts`).
 2. Si es indexable, añádela a `ROUTE_INDEXING` (entra sola en el sitemap).
 3. Declara su SEO en `PAGE_SEO` (`src/lib/seo/pages.ts`). TypeScript fallará si falta.
-4. Crea `src/app/(public)/<ruta>/page.tsx` con `createPageMetadata("<clave>")`.
+4. Crea `src/app/[locale]/(public)/<ruta>/page.tsx` con
+   `createPageMetadata("<clave>", await resolveLocale(params))`.
 5. Si es privada, añádela a `PROTECTED_ROUTES` y al `matcher` de `src/proxy.ts`
    (un test verifica que ambos estén sincronizados).
 

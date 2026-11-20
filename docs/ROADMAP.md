@@ -69,15 +69,39 @@ Movido a la Fase 3:
 
 - Convertir las vistas en Server Components: depende de tener i18n en servidor.
 
-## Fase 3 — Internacionalización con SEO
+## Fase 3 — Internacionalización con SEO ✅ completada
 
-- [ ] `next-intl` con rutas `app/[locale]/...` y `pathnames` traducidos
-      (`/es/destinos`, `/en/destinations`, `/pt/destinos`, `/fr/destinations`).
-- [ ] `messages/{es,en,pt,fr}.json` solo para textos de UI.
-- [ ] Diccionarios cargados en servidor; `"use client"` solo en islas interactivas.
-- [ ] `hreflang` + `x-default`, sitemap multilenguaje, detección por
-      `Accept-Language` en la primera visita.
-- [ ] Sin traducción → sin página (evitar contenido duplicado).
+- [x] `next-intl` con rutas `app/[locale]/…` y URLs traducidas
+      (`/es/destinos`, `/en/destinations`, `/pt/dicas`, `/fr/galerie`…).
+- [x] `messages/{es,en,pt,fr}.json` solo para textos de UI; cada idioma recibe
+      únicamente sus textos (antes se enviaban los 4 al navegador).
+- [x] Footer, Tips, Galería, Legales y artículos como Server Components.
+- [x] `hreflang` + `x-default` por página (solo hacia versiones que existen),
+      `<html lang>` y `og:locale` por idioma, sitemap multilenguaje.
+- [x] Detección por `Accept-Language` en la primera visita; idioma recordado.
+- [x] Sin traducción → sin página de detalle; los listados completan con español.
+- [x] Redirecciones 308 de las URLs antiguas (`/destinations` → `/es/destinos`).
+- [x] Navegación con idioma obligatoria (regla de ESLint sobre `next/link`).
+- [x] Idiomas incompletos visibles pero `noindex` (`LOCALE_META.indexable`) y
+      `npm run i18n:check` para ver qué falta.
+
+Hallazgos corregidos durante la fase:
+
+- El envoltorio de Auth.js reescribía el host de las peticiones: con next-intl
+  provocaba errores 500 en las URLs traducidas. Ahora la sesión solo se consulta
+  en rutas privadas.
+- Un `loading.tsx` global convertía los 404 en "soft 404" (estado 200).
+- Bug de Next 16: si `generateStaticParams` devuelve una lista vacía para un
+  idioma, no se pregenera ninguna página de la ruta. Se devuelven todas las
+  combinaciones `{ locale, slug }` desde el contenido.
+- pt/fr heredaban del inglés ~160 textos (incluido el SEO): se publican con
+  `noindex` hasta traducirlos.
+
+Pendiente (traducción, no código):
+
+- [ ] en: 28 textos (sobre todo "Nosotros"); pt: ~165; fr: ~163 (`npm run i18n:check`).
+- [ ] Textos legales (privacidad, términos) solo en español.
+- [ ] Traducir los artículos (`content/**/<idioma>.mdx`).
 
 ## Fase 4 — Usuarios (auth + base de datos)
 
